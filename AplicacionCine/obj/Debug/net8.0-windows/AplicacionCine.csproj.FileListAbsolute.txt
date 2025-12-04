@@ -1,0 +1,16 @@
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\bin\Debug\net8.0-windows\AplicacionCine.exe
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\bin\Debug\net8.0-windows\AplicacionCine.deps.json
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\bin\Debug\net8.0-windows\AplicacionCine.runtimeconfig.json
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\bin\Debug\net8.0-windows\AplicacionCine.dll
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\bin\Debug\net8.0-windows\AplicacionCine.pdb
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.FrmLogin.resources
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.csproj.GenerateResource.cache
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.AssemblyInfoInputs.cache
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.AssemblyInfo.cs
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.dll
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\refint\AplicacionCine.dll
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.pdb
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.genruntimeconfig.cache
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\ref\AplicacionCine.dll
