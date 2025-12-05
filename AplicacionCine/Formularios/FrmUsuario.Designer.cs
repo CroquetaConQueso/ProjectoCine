@@ -86,7 +86,7 @@
             tbControl.Location = new Point(0, 0);
             tbControl.Name = "tbControl";
             tbControl.SelectedIndex = 0;
-            tbControl.Size = new Size(800, 450);
+            tbControl.Size = new Size(828, 517);
             tbControl.TabIndex = 1;
             // 
             // tbDatos
@@ -98,7 +98,7 @@
             tbDatos.Location = new Point(4, 24);
             tbDatos.Name = "tbDatos";
             tbDatos.Padding = new Padding(3);
-            tbDatos.Size = new Size(792, 422);
+            tbDatos.Size = new Size(820, 489);
             tbDatos.TabIndex = 0;
             tbDatos.Text = "Datos";
             tbDatos.UseVisualStyleBackColor = true;
@@ -108,9 +108,9 @@
             panel4.Controls.Add(btnCancelar);
             panel4.Controls.Add(btnAceptar);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(3, 369);
+            panel4.Location = new Point(3, 410);
             panel4.Name = "panel4";
-            panel4.Size = new Size(786, 57);
+            panel4.Size = new Size(814, 57);
             panel4.TabIndex = 3;
             // 
             // btnCancelar
@@ -135,9 +135,9 @@
             // 
             panel3.Controls.Add(groupBox1);
             panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(3, 208);
+            panel3.Location = new Point(3, 249);
             panel3.Name = "panel3";
-            panel3.Size = new Size(786, 161);
+            panel3.Size = new Size(814, 161);
             panel3.TabIndex = 2;
             // 
             // groupBox1
@@ -214,7 +214,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(3, 44);
             panel2.Name = "panel2";
-            panel2.Size = new Size(786, 164);
+            panel2.Size = new Size(814, 205);
             panel2.TabIndex = 1;
             // 
             // grb
@@ -240,7 +240,7 @@
             grb.Dock = DockStyle.Fill;
             grb.Location = new Point(0, 0);
             grb.Name = "grb";
-            grb.Size = new Size(786, 164);
+            grb.Size = new Size(814, 205);
             grb.TabIndex = 25;
             grb.TabStop = false;
             // 
@@ -250,7 +250,7 @@
             txtConfirmar.Location = new Point(432, 126);
             txtConfirmar.Name = "txtConfirmar";
             txtConfirmar.PasswordChar = '*';
-            txtConfirmar.Size = new Size(188, 23);
+            txtConfirmar.Size = new Size(216, 23);
             txtConfirmar.TabIndex = 33;
             txtConfirmar.UseSystemPasswordChar = true;
             // 
@@ -278,7 +278,7 @@
             txtContrasena.Location = new Point(432, 93);
             txtContrasena.Name = "txtContrasena";
             txtContrasena.PasswordChar = '*';
-            txtContrasena.Size = new Size(188, 23);
+            txtContrasena.Size = new Size(216, 23);
             txtContrasena.TabIndex = 29;
             txtContrasena.UseSystemPasswordChar = true;
             // 
@@ -408,7 +408,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(786, 41);
+            panel1.Size = new Size(814, 41);
             panel1.TabIndex = 0;
             // 
             // lbTitulo
@@ -417,7 +417,7 @@
             lbTitulo.Font = new Font("Segoe UI", 20F);
             lbTitulo.Location = new Point(0, 0);
             lbTitulo.Name = "lbTitulo";
-            lbTitulo.Size = new Size(786, 41);
+            lbTitulo.Size = new Size(814, 41);
             lbTitulo.TabIndex = 1;
             lbTitulo.Text = "Cuenta de..";
             lbTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -446,7 +446,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(828, 517);
             Controls.Add(tbControl);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmUsuario";
