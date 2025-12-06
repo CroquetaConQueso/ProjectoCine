@@ -50,13 +50,15 @@ namespace AplicacionCine.DAO
             cmd.Parameters.AddWithValue("Id", idEmpleado);
 
             using var reader = cmd.ExecuteReader();
-            if (!reader.Read())
-                return null;
+            if (reader.Read())
+            {
+                return Map(reader);
+            }
 
-            return Map(reader);
+            return null;
         }
 
-        public void Insert(Empleado emp)
+        public int Insert(Empleado empleado)
         {
             const string sql = @"
                 INSERT INTO empleados
@@ -77,25 +79,26 @@ namespace AplicacionCine.DAO
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
 
-            cmd.Parameters.AddWithValue("Nombre", emp.Nombre);
-            cmd.Parameters.AddWithValue("Apellidos", (object?)emp.Apellidos ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Dni", (object?)emp.Dni ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Telefono", (object?)emp.Telefono ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("EmailLaboral", (object?)emp.EmailLaboral ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("FechaNacimiento", (object?)emp.FechaNacimiento ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("TipoEmpleado", emp.TipoEmpleado);
-            cmd.Parameters.AddWithValue("Turno", (object?)emp.Turno ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("FechaAlta", emp.FechaAlta);
-            cmd.Parameters.AddWithValue("FechaBaja", (object?)emp.FechaBaja ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Activo", emp.Activo);
-            cmd.Parameters.AddWithValue("IdUsuario", (object?)emp.IdUsuario ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("IdSalaHabitual", (object?)emp.IdSalaHabitual ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("NotasRRHH", (object?)emp.NotasRRHH ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Nombre", empleado.Nombre);
+            cmd.Parameters.AddWithValue("Apellidos", (object?)empleado.Apellidos ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Dni", (object?)empleado.Dni ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Telefono", (object?)empleado.Telefono ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("EmailLaboral", (object?)empleado.EmailLaboral ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("FechaNacimiento", (object?)empleado.FechaNacimiento ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("TipoEmpleado", empleado.TipoEmpleado.ToString());
+            cmd.Parameters.AddWithValue("Turno", (object?)empleado.Turno ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("FechaAlta", empleado.FechaAlta);
+            cmd.Parameters.AddWithValue("FechaBaja", (object?)empleado.FechaBaja ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Activo", empleado.Activo);
+            cmd.Parameters.AddWithValue("IdUsuario", (object?)empleado.IdUsuario ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("IdSalaHabitual", (object?)empleado.IdSalaHabitual ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("NotasRRHH", (object?)empleado.NotasRRHH ?? DBNull.Value);
 
-            emp.IdEmpleado = Convert.ToInt32(cmd.ExecuteScalar());
+            empleado.IdEmpleado = Convert.ToInt32(cmd.ExecuteScalar());
+            return empleado.IdEmpleado;
         }
 
-        public void Update(Empleado emp)
+        public void Update(Empleado empleado)
         {
             const string sql = @"
                 UPDATE empleados
@@ -111,7 +114,7 @@ namespace AplicacionCine.DAO
                     fecha_baja      = @FechaBaja,
                     activo          = @Activo,
                     id_usuario      = @IdUsuario,
-                    id_sala_habitual= @IdSalaHabitual,
+                    id_sala_habitual = @IdSalaHabitual,
                     notas_rrhh      = @NotasRRHH
                 WHERE id_empleado   = @Id;
             ";
@@ -119,21 +122,21 @@ namespace AplicacionCine.DAO
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
 
-            cmd.Parameters.AddWithValue("Nombre", emp.Nombre);
-            cmd.Parameters.AddWithValue("Apellidos", (object?)emp.Apellidos ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Dni", (object?)emp.Dni ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Telefono", (object?)emp.Telefono ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("EmailLaboral", (object?)emp.EmailLaboral ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("FechaNacimiento", (object?)emp.FechaNacimiento ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("TipoEmpleado", emp.TipoEmpleado);
-            cmd.Parameters.AddWithValue("Turno", (object?)emp.Turno ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("FechaAlta", emp.FechaAlta);
-            cmd.Parameters.AddWithValue("FechaBaja", (object?)emp.FechaBaja ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Activo", emp.Activo);
-            cmd.Parameters.AddWithValue("IdUsuario", (object?)emp.IdUsuario ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("IdSalaHabitual", (object?)emp.IdSalaHabitual ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("NotasRRHH", (object?)emp.NotasRRHH ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Id", emp.IdEmpleado);
+            cmd.Parameters.AddWithValue("Nombre", empleado.Nombre);
+            cmd.Parameters.AddWithValue("Apellidos", (object?)empleado.Apellidos ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Dni", (object?)empleado.Dni ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Telefono", (object?)empleado.Telefono ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("EmailLaboral", (object?)empleado.EmailLaboral ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("FechaNacimiento", (object?)empleado.FechaNacimiento ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("TipoEmpleado", empleado.TipoEmpleado.ToString());
+            cmd.Parameters.AddWithValue("Turno", (object?)empleado.Turno ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("FechaAlta", empleado.FechaAlta);
+            cmd.Parameters.AddWithValue("FechaBaja", (object?)empleado.FechaBaja ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Activo", empleado.Activo);
+            cmd.Parameters.AddWithValue("IdUsuario", (object?)empleado.IdUsuario ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("IdSalaHabitual", (object?)empleado.IdSalaHabitual ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("NotasRRHH", (object?)empleado.NotasRRHH ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Id", empleado.IdEmpleado);
 
             cmd.ExecuteNonQuery();
         }
@@ -169,7 +172,10 @@ namespace AplicacionCine.DAO
                 FechaNacimiento = reader.IsDBNull(reader.GetOrdinal("fecha_nacimiento"))
                     ? null
                     : reader.GetDateTime(reader.GetOrdinal("fecha_nacimiento")),
-                TipoEmpleado = reader.GetString(reader.GetOrdinal("tipo_empleado")),
+                TipoEmpleado = (TipoEmpleado)Enum.Parse(
+                    typeof(TipoEmpleado),
+                    reader.GetString(reader.GetOrdinal("tipo_empleado"))
+                ),
                 Turno = reader.IsDBNull(reader.GetOrdinal("turno"))
                     ? null
                     : reader.GetString(reader.GetOrdinal("turno")),

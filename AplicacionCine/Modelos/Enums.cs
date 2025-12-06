@@ -2,19 +2,15 @@
 
 namespace AplicacionCine.Modelos
 {
-    /// <summary>
-    /// Estado lógico de una reserva.
-    /// </summary>
-    public enum EstadoReserva
+    // Estado lógico de una reserva
+    public enum EEstadoReserva
     {
         Pendiente = 0,
         Confirmada = 1,
         Cancelada = 2
     }
 
-    /// <summary>
-    /// Tipo de empleado según su función principal.
-    /// </summary>
+    // Tipo de empleado
     public enum TipoEmpleado
     {
         Taquilla = 0,
@@ -23,24 +19,19 @@ namespace AplicacionCine.Modelos
         Gerente = 3
     }
 
-    /// <summary>
-    /// Rol del usuario dentro del sistema.
-    /// (Puedes ajustarlos a los que uses realmente.)
-    /// </summary>
+    // Rol del usuario en la aplicación
     public enum RolUsuario
     {
         Admin = 0,
         Empleado = 1,
-        Gerente = 2
+        Cliente = 2
     }
 
-    /// <summary>
-    /// Tipo de asiento en sala.
-    /// </summary>
+    // Tipo de asiento en la sala
     public enum TipoAsiento
     {
         Normal = 0,
-        MovilidadReducida = 1,   // PMR / discapacidad
-        Bloqueado = 2            // por ejemplo roto/no vendible
+        MovilidadReducida = 1,
+        Bloqueado = 2
     }
 }

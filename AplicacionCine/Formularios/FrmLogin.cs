@@ -10,19 +10,23 @@ namespace AplicacionCine
         public FrmLogin()
         {
             InitializeComponent();
+
+            // Enganchamos los eventos necesarios
+            this.Load += FrmLogin_Load;
+            this.FormClosed += FrmLogin_FormClosed;
+            btnEntrar.Click += btnEntrar_Click;
         }
 
-        private void FrmLogin_Load(object sender, EventArgs e)
+        private void FrmLogin_Load(object? sender, EventArgs e)
         {
-            // Opcional: limpiar campos al cargar
             txtUsuario.Text = string.Empty;
             txtContrasena.Text = string.Empty;
         }
 
-        private void btnEntrar_Click(object sender, EventArgs e)
+        private void btnEntrar_Click(object? sender, EventArgs e)
         {
             var login = txtUsuario.Text.Trim();
-            var pass = txtContrasena.Text; // DE MOMENTO sin hash
+            var pass = txtContrasena.Text;
 
             if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(pass))
             {
@@ -41,8 +45,8 @@ namespace AplicacionCine
                 return;
             }
 
-            // De momento comparamos el texto plano con HashPassword (luego lo cambias a hash real)
-            if (!string.Equals(usuario.HashPassword, pass))
+            // Comparamos el texto con PasswordHash (de momento sin hash real)
+            if (!string.Equals(usuario.PasswordHash, pass))
             {
                 MessageBox.Show("Usuario no encontrado o credenciales incorrectas.",
                     "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -65,13 +69,7 @@ namespace AplicacionCine
             this.Hide();
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        // Opcional: si se cierra el form de login, cerrar la app
-        private void FrmLogin_FormClosed(object sender, FormClosedEventArgs e)
+        private void FrmLogin_FormClosed(object? sender, FormClosedEventArgs e)
         {
             if (Application.OpenForms.Count == 0)
             {

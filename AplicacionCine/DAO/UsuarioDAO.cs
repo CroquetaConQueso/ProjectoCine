@@ -14,18 +14,20 @@ namespace AplicacionCine.DAO
                        rol, activo, bloqueado, intentos_fallidos,
                        fecha_alta, fecha_ultimo_acceso, ultima_ip, notas_admin
                 FROM usuarios
-                WHERE login = @login;
+                WHERE login = @Login;
             ";
 
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("login", login);
+            cmd.Parameters.AddWithValue("Login", login);
 
             using var reader = cmd.ExecuteReader();
-            if (!reader.Read())
-                return null;
+            if (reader.Read())
+            {
+                return MapUsuario(reader);
+            }
 
-            return MapUsuario(reader);
+            return null;
         }
 
         public List<Usuario> GetAll()
@@ -52,16 +54,16 @@ namespace AplicacionCine.DAO
             return result;
         }
 
-        public void Insert(Usuario usuario)
+        public int Insert(Usuario usuario)
         {
             const string sql = @"
                 INSERT INTO usuarios
-                    (login, password_hash, email, telefono, rol,
-                     activo, bloqueado, intentos_fallidos,
+                    (login, password_hash, email, telefono,
+                     rol, activo, bloqueado, intentos_fallidos,
                      fecha_alta, fecha_ultimo_acceso, ultima_ip, notas_admin)
                 VALUES
-                    (@login, @password_hash, @Email, @Telefono, @Rol,
-                     @Activo, @Bloqueado, @IntentosFallidos,
+                    (@Login, @PasswordHash, @Email, @Telefono,
+                     @Rol, @Activo, @Bloqueado, @IntentosFallidos,
                      @FechaAlta, @FechaUltimoAcceso, @UltimaIp, @NotasAdmin)
                 RETURNING id_usuario;
             ";
@@ -69,11 +71,11 @@ namespace AplicacionCine.DAO
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
 
-            cmd.Parameters.AddWithValue("login", usuario.Login);
-            cmd.Parameters.AddWithValue("password_hash", usuario.PasswordHash);
+            cmd.Parameters.AddWithValue("Login", usuario.Login);
+            cmd.Parameters.AddWithValue("PasswordHash", usuario.PasswordHash);
             cmd.Parameters.AddWithValue("Email", (object?)usuario.Email ?? DBNull.Value);
             cmd.Parameters.AddWithValue("Telefono", (object?)usuario.Telefono ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Rol", usuario.Rol);
+            cmd.Parameters.AddWithValue("Rol", usuario.Rol.ToString().ToUpperInvariant());
             cmd.Parameters.AddWithValue("Activo", usuario.Activo);
             cmd.Parameters.AddWithValue("Bloqueado", usuario.Bloqueado);
             cmd.Parameters.AddWithValue("IntentosFallidos", usuario.IntentosFallidos);
@@ -83,33 +85,40 @@ namespace AplicacionCine.DAO
             cmd.Parameters.AddWithValue("NotasAdmin", (object?)usuario.NotasAdmin ?? DBNull.Value);
 
             usuario.IdUsuario = Convert.ToInt32(cmd.ExecuteScalar());
+            return usuario.IdUsuario;
         }
 
         public void Update(Usuario usuario)
         {
             const string sql = @"
                 UPDATE usuarios
-                SET email = @Email,
-                    telefono = @Telefono,
-                    rol = @Rol,
-                    activo = @Activo,
-                    bloqueado = @Bloqueado,
+                SET login             = @Login,
+                    password_hash     = @PasswordHash,
+                    email             = @Email,
+                    telefono          = @Telefono,
+                    rol               = @Rol,
+                    activo            = @Activo,
+                    bloqueado         = @Bloqueado,
                     intentos_fallidos = @IntentosFallidos,
+                    fecha_alta        = @FechaAlta,
                     fecha_ultimo_acceso = @FechaUltimoAcceso,
-                    ultima_ip = @UltimaIp,
-                    notas_admin = @NotasAdmin
-                WHERE id_usuario = @IdUsuario;
+                    ultima_ip         = @UltimaIp,
+                    notas_admin       = @NotasAdmin
+                WHERE id_usuario      = @IdUsuario;
             ";
 
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
 
+            cmd.Parameters.AddWithValue("Login", usuario.Login);
+            cmd.Parameters.AddWithValue("PasswordHash", usuario.PasswordHash);
             cmd.Parameters.AddWithValue("Email", (object?)usuario.Email ?? DBNull.Value);
             cmd.Parameters.AddWithValue("Telefono", (object?)usuario.Telefono ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Rol", usuario.Rol);
+            cmd.Parameters.AddWithValue("Rol", usuario.Rol.ToString().ToUpperInvariant());
             cmd.Parameters.AddWithValue("Activo", usuario.Activo);
             cmd.Parameters.AddWithValue("Bloqueado", usuario.Bloqueado);
             cmd.Parameters.AddWithValue("IntentosFallidos", usuario.IntentosFallidos);
+            cmd.Parameters.AddWithValue("FechaAlta", usuario.FechaAlta);
             cmd.Parameters.AddWithValue("FechaUltimoAcceso", (object?)usuario.FechaUltimoAcceso ?? DBNull.Value);
             cmd.Parameters.AddWithValue("UltimaIp", (object?)usuario.UltimaIp ?? DBNull.Value);
             cmd.Parameters.AddWithValue("NotasAdmin", (object?)usuario.NotasAdmin ?? DBNull.Value);
@@ -118,9 +127,14 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
-        public void Delete(int idUsuario)
+        public void ResetIntentosFallidos(int idUsuario)
         {
-            const string sql = @"DELETE FROM usuarios WHERE id_usuario = @IdUsuario;";
+            const string sql = @"
+                UPDATE usuarios
+                SET intentos_fallidos = 0,
+                    bloqueado         = FALSE
+                WHERE id_usuario      = @IdUsuario;
+            ";
 
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
@@ -141,7 +155,11 @@ namespace AplicacionCine.DAO
                 Telefono = reader.IsDBNull(reader.GetOrdinal("telefono"))
                     ? null
                     : reader.GetString(reader.GetOrdinal("telefono")),
-                Rol = reader.GetString(reader.GetOrdinal("rol")),
+                Rol = (RolUsuario)Enum.Parse(
+                    typeof(RolUsuario),
+                    reader.GetString(reader.GetOrdinal("rol")),
+                    ignoreCase: true
+                ),
                 Activo = reader.GetBoolean(reader.GetOrdinal("activo")),
                 Bloqueado = reader.GetBoolean(reader.GetOrdinal("bloqueado")),
                 IntentosFallidos = reader.GetInt32(reader.GetOrdinal("intentos_fallidos")),
