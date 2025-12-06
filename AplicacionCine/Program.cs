@@ -1,16 +1,22 @@
+using System;
+using System.Windows.Forms;
+
 namespace AplicacionCine
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+
+            // AJUSTA la cadena de conexión a tu entorno PostgreSQL
+            var connectionString =
+                "Host=localhost;Port=5432;Database=cine_dam;Username=postgres;Password=usuario";
+
+            DbConnectionFactory.Configure(connectionString);
+
+            // Lanzamos el formulario de login como entrada a la aplicación
             Application.Run(new FrmLogin());
         }
     }

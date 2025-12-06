@@ -40,7 +40,6 @@
             lbUltimoAcctxt = new Label();
             lbUltimaIPtxt = new Label();
             lbFechaAltatxt = new Label();
-            this.lbUltimoPase = new Label();
             lblTotalEnc = new Label();
             pnMain = new Panel();
             grb = new GroupBox();
@@ -153,7 +152,6 @@
             groupBox1.Controls.Add(lbUltimoAcctxt);
             groupBox1.Controls.Add(lbUltimaIPtxt);
             groupBox1.Controls.Add(lbFechaAltatxt);
-            groupBox1.Controls.Add(this.lbUltimoPase);
             groupBox1.Controls.Add(lblTotalEnc);
             groupBox1.Location = new Point(64, 22);
             groupBox1.Name = "groupBox1";
@@ -196,15 +194,6 @@
             lbFechaAltatxt.Size = new Size(101, 15);
             lbFechaAltatxt.TabIndex = 23;
             lbFechaAltatxt.Text = "Placeholder Pases";
-            // 
-            // lbUltimoPase
-            // 
-            this.lbUltimoPase.AutoSize = true;
-            this.lbUltimoPase.Location = new Point(246, 81);
-            this.lbUltimoPase.Name = "lbUltimoPase";
-            this.lbUltimoPase.Size = new Size(73, 15);
-            this.lbUltimoPase.TabIndex = 22;
-            this.lbUltimoPase.Text = "Último pase:";
             // 
             // lblTotalEnc
             // 
