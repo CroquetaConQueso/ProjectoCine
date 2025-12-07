@@ -1,25 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using AplicacionCine.Modelos;
-using AplicacionCine.Utilidades;
 
 namespace AplicacionCine.Formularios
 {
     public partial class FrmBrowReservas : Form
     {
-        // BindingSource para enlazar la lista de reservas al DataGridView
+        #region Campos
+
         private readonly BindingSource _bsReservas = new BindingSource();
+        private List<Reserva> _todasReservas = new List<Reserva>();
+
+        #endregion
+
+        #region Constructor
 
         public FrmBrowReservas()
         {
             InitializeComponent();
 
-            // Eventos de ciclo de vida
             Load += FrmBrowReservas_Load;
 
-            // Eventos de botones
             btnBuscar.Click += BtnBuscar_Click;
             btnLimpiar.Click += BtnLimpiar_Click;
             btnNuevo.Click += BtnNuevo_Click;
@@ -28,17 +31,15 @@ namespace AplicacionCine.Formularios
             btnMapa.Click += BtnMapa_Click;
             btnCerrar.Click += (s, e) => Close();
 
-            // Doble clic en la rejilla = editar
             dvgUsuarios.DoubleClick += DvgUsuarios_DoubleClick;
         }
 
-        // =====================================================
-        //  CARGA INICIAL
-        // =====================================================
+        #endregion
+
+        #region Carga inicial
 
         private void FrmBrowReservas_Load(object? sender, EventArgs e)
         {
-            // StatusStrip
             if (AppContext.UsuarioActual != null)
             {
                 tsLnombreUsuario.Text = "Usuario:";
@@ -53,17 +54,15 @@ namespace AplicacionCine.Formularios
             tslEstado.Text = "Listo";
             tsLsituacion.Text = string.Empty;
 
-            // Filtros por defecto
             dateTimePicker1.Value = DateTime.Today;
 
             cbEstado.Items.Clear();
             cbEstado.Items.Add("(Todos)");
             cbEstado.Items.Add("Pendiente");
-            cbEstado.Items.Add("Pagada");
+            cbEstado.Items.Add("Confirmada");
             cbEstado.Items.Add("Cancelada");
             cbEstado.SelectedIndex = 0;
 
-            // TODO: cuando tengas PeliculaDAO, carga el combo desde la BD
             cbPeliculas.Items.Clear();
             cbPeliculas.Items.Add("(Todas)");
             cbPeliculas.SelectedIndex = 0;
@@ -72,11 +71,9 @@ namespace AplicacionCine.Formularios
 
             dvgUsuarios.DataSource = _bsReservas;
 
-            // Primera carga (ahora mismo solo vacía, sin BD)
             Recargar();
         }
 
-        // Configuración de columnas del grid
         private void ConfigurarGrid()
         {
             dvgUsuarios.AutoGenerateColumns = false;
@@ -96,38 +93,38 @@ namespace AplicacionCine.Formularios
 
             dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "Fecha",
+                DataPropertyName = "FechaReserva",
                 HeaderText = "Fecha",
-                Width = 90,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "d" }
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "g" }
             });
 
             dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "PeliculaTitulo",
-                HeaderText = "Película",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                DataPropertyName = "IdPase",
+                HeaderText = "Pase",
+                Width = 80
             });
 
             dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "UsuarioNombre",
+                DataPropertyName = "IdUsuario",
                 HeaderText = "Usuario",
-                Width = 160
+                Width = 80
             });
 
             dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Estado",
                 HeaderText = "Estado",
-                Width = 90
+                Width = 100
             });
 
             dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Total",
                 HeaderText = "Total",
-                Width = 80,
+                Width = 90,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Alignment = DataGridViewContentAlignment.MiddleRight,
@@ -136,34 +133,19 @@ namespace AplicacionCine.Formularios
             });
         }
 
-        // =====================================================
-        //  CARGA / FILTRO (ahora mismo sin BD real)
-        // =====================================================
+        #endregion
+
+        #region Carga / filtro
 
         private void Recargar()
         {
             tslEstado.Text = "Cargando...";
             tsLsituacion.Text = string.Empty;
 
-            // Lee los filtros, por si luego quieres usarlos con ReservaDAO
-            DateTime? fechaFiltro = dateTimePicker1.Value.Date;
+            // Cargamos TODAS las reservas desde la BD (sin filtro por fecha aquí).
+            _todasReservas = AppContext.Reservas.GetAll();
 
-            int? idPelicula = null;
-            if (cbPeliculas.SelectedIndex > 0 && cbPeliculas.SelectedValue is int v)
-                idPelicula = v;
-
-            string? estado = null;
-            if (cbEstado.SelectedIndex > 0)
-                estado = cbEstado.SelectedItem?.ToString();
-
-            string? usuario = string.IsNullOrWhiteSpace(txtFiltroUsuario.Text)
-                ? null
-                : txtFiltroUsuario.Text.Trim();
-
-            // TODO: sustituir esta lista "dummy" por la llamada real a ReservaDAO.Buscar(...)
-            var lista = new List<Reserva>();
-            // Ejemplo futuro:
-            // lista = _reservaDAO.Buscar(fechaFiltro, idPelicula, estado, usuario);
+            var lista = AplicarFiltros(_todasReservas);
 
             _bsReservas.DataSource = lista;
 
@@ -171,11 +153,47 @@ namespace AplicacionCine.Formularios
             tsLsituacion.Text = $"{lista.Count} reservas encontradas";
         }
 
-        // =====================================================
-        //  BOTONES DE FILTRO
-        // =====================================================
+        private List<Reserva> AplicarFiltros(List<Reserva> origen)
+        {
+            var lista = origen;
 
-        private void BtnBuscar_Click(object? sender, EventArgs e) => Recargar();
+            // Filtro por estado (opcional)
+            if (cbEstado.SelectedIndex > 0)
+            {
+                var estadoFiltro = cbEstado.SelectedItem?.ToString();
+                if (!string.IsNullOrEmpty(estadoFiltro))
+                {
+                    lista = lista
+                        .Where(r => r.Estado.ToString()
+                            .Equals(estadoFiltro, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                }
+            }
+
+            // De momento ignoramos cbPeliculas y txtFiltroUsuario
+            // hasta que tengamos un DTO o joins preparados.
+
+            return lista
+                .OrderByDescending(r => r.FechaReserva)
+                .ThenByDescending(r => r.IdReserva)
+                .ToList();
+        }
+
+        #endregion
+
+        #region Botones de filtro
+
+        private void BtnBuscar_Click(object? sender, EventArgs e)
+        {
+            if (_todasReservas == null || _todasReservas.Count == 0)
+                Recargar();
+            else
+            {
+                var lista = AplicarFiltros(_todasReservas);
+                _bsReservas.DataSource = lista;
+                tsLsituacion.Text = $"{lista.Count} reservas encontradas";
+            }
+        }
 
         private void BtnLimpiar_Click(object? sender, EventArgs e)
         {
@@ -187,27 +205,22 @@ namespace AplicacionCine.Formularios
             Recargar();
         }
 
-        // =====================================================
-        //  UTILIDAD: obtener reserva seleccionada
-        // =====================================================
+        #endregion
+
+        #region Utilidades
 
         private Reserva? GetReservaSeleccionada()
         {
             return _bsReservas.Current as Reserva;
         }
 
-        // =====================================================
-        //  CRUD (sin lógica de BD todavía)
-        // =====================================================
+        #endregion
+
+        #region CRUD / mapa (pendiente de implementar con DAO completo)
 
         private void BtnNuevo_Click(object? sender, EventArgs e)
         {
-            // TODO: cuando tengas FrmReserva, abrelo aquí en modo "nuevo"
-            // using (var frm = new FrmReserva())
-            // {
-            //     if (frm.ShowDialog(this) == DialogResult.OK)
-            //         Recargar();
-            // }
+            // TODO: abrir formulario de edición/alta de reserva y tras guardar llamar a Recargar()
         }
 
         private void BtnEditar_Click(object? sender, EventArgs e)
@@ -220,17 +233,11 @@ namespace AplicacionCine.Formularios
                 return;
             }
 
-            // TODO: abrir FrmReserva en modo edición
-            // using (var frm = new FrmReserva(r.IdReserva))
-            // {
-            //     if (frm.ShowDialog(this) == DialogResult.OK)
-            //         Recargar();
-            // }
+            // TODO: abrir formulario de edición y al aceptar, Recargar()
         }
 
         private void DvgUsuarios_DoubleClick(object? sender, EventArgs e)
         {
-            // reutilizamos la lógica del botón Editar
             BtnEditar_Click(sender, e);
         }
 
@@ -252,9 +259,7 @@ namespace AplicacionCine.Formularios
 
             if (resp != DialogResult.Yes) return;
 
-            // TODO: llamar a ReservaDAO.Delete(r.IdReserva);
-            // _reservaDAO.Delete(r.IdReserva);
-
+            // TODO: AppContext.Reservas.DeleteReserva(r.IdReserva);
             Recargar();
         }
 
@@ -268,11 +273,9 @@ namespace AplicacionCine.Formularios
                 return;
             }
 
-            // TODO: cuando FrmMapaButacas acepte datos de reserva/pase, abrirlo aquí
-            // using (var frm = new FrmMapaButacas(r.IdPase, r.IdReserva))
-            // {
-            //     frm.ShowDialog(this);
-            // }
+            // TODO: abrir FrmMapaButacas con datos de pase/reserva
         }
+
+        #endregion
     }
 }

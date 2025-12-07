@@ -33,6 +33,33 @@ namespace AplicacionCine.DAO
             return Map(reader);
         }
 
+        public List<Pase> GetAll()
+        {
+            var result = new List<Pase>();
+
+            const string sql = @"
+                SELECT p.id_pase, p.id_pelicula, p.id_sala,
+                       p.fecha_hora, p.precio_base,
+                       p.id_empleado_encargado, p.id_empleado_seguridad,
+                       p.activo,
+                       pel.titulo       AS titulo_pelicula,
+                       s.nombre         AS nombre_sala
+                FROM pases p
+                JOIN peliculas pel ON pel.id_pelicula = p.id_pelicula
+                JOIN salas     s   ON s.id_sala       = p.id_sala
+                ORDER BY p.fecha_hora;
+            ";
+
+            using var conn = DbConnectionFactory.CreateOpenConnection();
+            using var cmd = new NpgsqlCommand(sql, conn);
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+                result.Add(Map(reader));
+
+            return result;
+        }
+
         /// <summary>
         /// Devuelve los pases de una fecha concreta, opcionalmente filtrados por película o sala.
         /// </summary>

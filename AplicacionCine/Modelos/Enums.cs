@@ -2,7 +2,15 @@
 
 namespace AplicacionCine.Modelos
 {
-    // Estado lógico de una reserva
+    // Estado lógico de una reserva (nombre nuevo usado en la app)
+    public enum EstadoReserva
+    {
+        Pendiente = 0,
+        Confirmada = 1,
+        Cancelada = 2
+    }
+
+    // Alias del enum antiguo por si aún queda código que lo use
     public enum EEstadoReserva
     {
         Pendiente = 0,
@@ -10,7 +18,7 @@ namespace AplicacionCine.Modelos
         Cancelada = 2
     }
 
-    // Tipo de empleado
+    // Tipo de empleado (para la tabla EMPLEADOS)
     public enum TipoEmpleado
     {
         Taquilla = 0,
@@ -24,7 +32,8 @@ namespace AplicacionCine.Modelos
     {
         Admin = 0,
         Empleado = 1,
-        Cliente = 2
+        Cliente = 2,
+        Gerente = 3  // añadido para mapear usuarios con rol GERENTE
     }
 
     // Tipo de asiento en la sala
@@ -33,5 +42,13 @@ namespace AplicacionCine.Modelos
         Normal = 0,
         MovilidadReducida = 1,
         Bloqueado = 2
+    }
+
+    public enum EstadoButaca
+    {
+        Libre = 0,
+        Seleccionada = 1,
+        Reservada = 2,
+        Ocupada = 3
     }
 }

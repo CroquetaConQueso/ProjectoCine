@@ -30,39 +30,39 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPasesHoy));
             pnTotal = new Panel();
+            pnGrid = new Panel();
+            dgvPases = new DataGridView();
+            pnOpciones = new Panel();
+            btnCerrar = new Button();
+            btnVerButacas = new Button();
+            pnEstado = new Panel();
+            ssEstado = new StatusStrip();
+            tsslUsuario = new ToolStripStatusLabel();
+            tsslRol = new ToolStripStatusLabel();
+            tsslEstado = new ToolStripStatusLabel();
+            toolStripProgressBar1 = new ToolStripProgressBar();
+            pnFiltro = new Panel();
+            btnHoy = new Button();
+            btnBuscar = new Button();
+            cbPeliculas = new ComboBox();
+            lbPelicula = new Label();
+            dtpFecha = new DateTimePicker();
+            lbFecha = new Label();
             panel1 = new Panel();
             menuPrincipal = new MenuStrip();
             archivoToolStripMenuItem = new ToolStripMenuItem();
             pasesToolStripMenuItem = new ToolStripMenuItem();
             gestiónToolStripMenuItem = new ToolStripMenuItem();
             ayudaToolStripMenuItem = new ToolStripMenuItem();
-            pnFiltro = new Panel();
-            lbFecha = new Label();
-            dtpFecha = new DateTimePicker();
-            lbPelicula = new Label();
-            cbPeliculas = new ComboBox();
-            btnBuscar = new Button();
-            btnHoy = new Button();
-            pnEstado = new Panel();
-            pnOpciones = new Panel();
-            pnGrid = new Panel();
-            dgvPases = new DataGridView();
-            btnVerButacas = new Button();
-            btnCerrar = new Button();
-            ssEstado = new StatusStrip();
-            tsslUsuario = new ToolStripStatusLabel();
-            tsslRol = new ToolStripStatusLabel();
-            tsslEstado = new ToolStripStatusLabel();
-            toolStripProgressBar1 = new ToolStripProgressBar();
             pnTotal.SuspendLayout();
-            panel1.SuspendLayout();
-            menuPrincipal.SuspendLayout();
-            pnFiltro.SuspendLayout();
-            pnEstado.SuspendLayout();
-            pnOpciones.SuspendLayout();
             pnGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPases).BeginInit();
+            pnOpciones.SuspendLayout();
+            pnEstado.SuspendLayout();
             ssEstado.SuspendLayout();
+            pnFiltro.SuspendLayout();
+            panel1.SuspendLayout();
+            menuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
             // pnTotal
@@ -75,126 +75,26 @@
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
             pnTotal.Name = "pnTotal";
-            pnTotal.Size = new Size(800, 450);
+            pnTotal.Size = new Size(953, 450);
             pnTotal.TabIndex = 0;
             // 
-            // panel1
+            // pnGrid
             // 
-            panel1.Controls.Add(menuPrincipal);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(800, 29);
-            panel1.TabIndex = 0;
+            pnGrid.Controls.Add(dgvPases);
+            pnGrid.Dock = DockStyle.Fill;
+            pnGrid.Location = new Point(0, 84);
+            pnGrid.Name = "pnGrid";
+            pnGrid.Size = new Size(953, 303);
+            pnGrid.TabIndex = 4;
             // 
-            // menuPrincipal
+            // dgvPases
             // 
-            menuPrincipal.Dock = DockStyle.Fill;
-            menuPrincipal.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, pasesToolStripMenuItem, gestiónToolStripMenuItem, ayudaToolStripMenuItem });
-            menuPrincipal.Location = new Point(0, 0);
-            menuPrincipal.Name = "menuPrincipal";
-            menuPrincipal.Size = new Size(800, 29);
-            menuPrincipal.TabIndex = 1;
-            menuPrincipal.Text = "menuStrip1";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            archivoToolStripMenuItem.Size = new Size(60, 25);
-            archivoToolStripMenuItem.Text = "&Archivo";
-            // 
-            // pasesToolStripMenuItem
-            // 
-            pasesToolStripMenuItem.Name = "pasesToolStripMenuItem";
-            pasesToolStripMenuItem.Size = new Size(48, 25);
-            pasesToolStripMenuItem.Text = "&Pases";
-            // 
-            // gestiónToolStripMenuItem
-            // 
-            gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
-            gestiónToolStripMenuItem.Size = new Size(59, 25);
-            gestiónToolStripMenuItem.Text = "&Gestión";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(53, 25);
-            ayudaToolStripMenuItem.Text = "A&yuda";
-            // 
-            // pnFiltro
-            // 
-            pnFiltro.Controls.Add(btnHoy);
-            pnFiltro.Controls.Add(btnBuscar);
-            pnFiltro.Controls.Add(cbPeliculas);
-            pnFiltro.Controls.Add(lbPelicula);
-            pnFiltro.Controls.Add(dtpFecha);
-            pnFiltro.Controls.Add(lbFecha);
-            pnFiltro.Dock = DockStyle.Top;
-            pnFiltro.Location = new Point(0, 29);
-            pnFiltro.Name = "pnFiltro";
-            pnFiltro.Size = new Size(800, 55);
-            pnFiltro.TabIndex = 1;
-            // 
-            // lbFecha
-            // 
-            lbFecha.AutoSize = true;
-            lbFecha.Location = new Point(29, 20);
-            lbFecha.Name = "lbFecha";
-            lbFecha.Size = new Size(41, 15);
-            lbFecha.TabIndex = 0;
-            lbFecha.Text = "Fecha:";
-            // 
-            // dtpFecha
-            // 
-            dtpFecha.Format = DateTimePickerFormat.Short;
-            dtpFecha.Location = new Point(76, 16);
-            dtpFecha.Name = "dtpFecha";
-            dtpFecha.Size = new Size(84, 23);
-            dtpFecha.TabIndex = 1;
-            // 
-            // lbPelicula
-            // 
-            lbPelicula.AutoSize = true;
-            lbPelicula.Location = new Point(233, 20);
-            lbPelicula.Name = "lbPelicula";
-            lbPelicula.Size = new Size(51, 15);
-            lbPelicula.TabIndex = 2;
-            lbPelicula.Text = "Película:";
-            // 
-            // cbPeliculas
-            // 
-            cbPeliculas.FormattingEnabled = true;
-            cbPeliculas.Location = new Point(290, 16);
-            cbPeliculas.Name = "cbPeliculas";
-            cbPeliculas.Size = new Size(154, 23);
-            cbPeliculas.TabIndex = 3;
-            // 
-            // btnBuscar
-            // 
-            btnBuscar.Location = new Point(450, 16);
-            btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(75, 23);
-            btnBuscar.TabIndex = 4;
-            btnBuscar.Text = "Buscar";
-            btnBuscar.UseVisualStyleBackColor = true;
-            // 
-            // btnHoy
-            // 
-            btnHoy.Location = new Point(713, 16);
-            btnHoy.Name = "btnHoy";
-            btnHoy.Size = new Size(75, 23);
-            btnHoy.TabIndex = 5;
-            btnHoy.Text = "Hoy";
-            btnHoy.UseVisualStyleBackColor = true;
-            // 
-            // pnEstado
-            // 
-            pnEstado.Controls.Add(ssEstado);
-            pnEstado.Dock = DockStyle.Bottom;
-            pnEstado.Location = new Point(0, 418);
-            pnEstado.Name = "pnEstado";
-            pnEstado.Size = new Size(800, 32);
-            pnEstado.TabIndex = 2;
+            dgvPases.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPases.Dock = DockStyle.Fill;
+            dgvPases.Location = new Point(0, 0);
+            dgvPases.Name = "dgvPases";
+            dgvPases.Size = new Size(953, 303);
+            dgvPases.TabIndex = 0;
             // 
             // pnOpciones
             // 
@@ -204,35 +104,8 @@
             pnOpciones.Dock = DockStyle.Bottom;
             pnOpciones.Location = new Point(0, 387);
             pnOpciones.Name = "pnOpciones";
-            pnOpciones.Size = new Size(800, 31);
+            pnOpciones.Size = new Size(953, 31);
             pnOpciones.TabIndex = 3;
-            // 
-            // pnGrid
-            // 
-            pnGrid.Controls.Add(dgvPases);
-            pnGrid.Dock = DockStyle.Fill;
-            pnGrid.Location = new Point(0, 84);
-            pnGrid.Name = "pnGrid";
-            pnGrid.Size = new Size(800, 303);
-            pnGrid.TabIndex = 4;
-            // 
-            // dgvPases
-            // 
-            dgvPases.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPases.Dock = DockStyle.Fill;
-            dgvPases.Location = new Point(0, 0);
-            dgvPases.Name = "dgvPases";
-            dgvPases.Size = new Size(800, 303);
-            dgvPases.TabIndex = 0;
-            // 
-            // btnVerButacas
-            // 
-            btnVerButacas.Location = new Point(233, 5);
-            btnVerButacas.Name = "btnVerButacas";
-            btnVerButacas.Size = new Size(125, 23);
-            btnVerButacas.TabIndex = 0;
-            btnVerButacas.Text = "Ver Mapa Butacas";
-            btnVerButacas.UseVisualStyleBackColor = true;
             // 
             // btnCerrar
             // 
@@ -243,13 +116,31 @@
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
             // 
+            // btnVerButacas
+            // 
+            btnVerButacas.Location = new Point(233, 5);
+            btnVerButacas.Name = "btnVerButacas";
+            btnVerButacas.Size = new Size(125, 23);
+            btnVerButacas.TabIndex = 0;
+            btnVerButacas.Text = "Ver Mapa Butacas";
+            btnVerButacas.UseVisualStyleBackColor = true;
+            // 
+            // pnEstado
+            // 
+            pnEstado.Controls.Add(ssEstado);
+            pnEstado.Dock = DockStyle.Bottom;
+            pnEstado.Location = new Point(0, 418);
+            pnEstado.Name = "pnEstado";
+            pnEstado.Size = new Size(953, 32);
+            pnEstado.TabIndex = 2;
+            // 
             // ssEstado
             // 
             ssEstado.Dock = DockStyle.Fill;
             ssEstado.Items.AddRange(new ToolStripItem[] { tsslUsuario, tsslRol, tsslEstado, toolStripProgressBar1 });
             ssEstado.Location = new Point(0, 0);
             ssEstado.Name = "ssEstado";
-            ssEstado.Size = new Size(800, 32);
+            ssEstado.Size = new Size(953, 32);
             ssEstado.TabIndex = 0;
             ssEstado.Text = "statusStrip1";
             // 
@@ -279,29 +170,138 @@
             toolStripProgressBar1.Name = "toolStripProgressBar1";
             toolStripProgressBar1.Size = new Size(100, 26);
             // 
+            // pnFiltro
+            // 
+            pnFiltro.Controls.Add(btnHoy);
+            pnFiltro.Controls.Add(btnBuscar);
+            pnFiltro.Controls.Add(cbPeliculas);
+            pnFiltro.Controls.Add(lbPelicula);
+            pnFiltro.Controls.Add(dtpFecha);
+            pnFiltro.Controls.Add(lbFecha);
+            pnFiltro.Dock = DockStyle.Top;
+            pnFiltro.Location = new Point(0, 29);
+            pnFiltro.Name = "pnFiltro";
+            pnFiltro.Size = new Size(953, 55);
+            pnFiltro.TabIndex = 1;
+            // 
+            // btnHoy
+            // 
+            btnHoy.Location = new Point(713, 16);
+            btnHoy.Name = "btnHoy";
+            btnHoy.Size = new Size(75, 23);
+            btnHoy.TabIndex = 5;
+            btnHoy.Text = "Hoy";
+            btnHoy.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Location = new Point(450, 16);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(75, 23);
+            btnBuscar.TabIndex = 4;
+            btnBuscar.Text = "Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            // 
+            // cbPeliculas
+            // 
+            cbPeliculas.FormattingEnabled = true;
+            cbPeliculas.Location = new Point(290, 16);
+            cbPeliculas.Name = "cbPeliculas";
+            cbPeliculas.Size = new Size(154, 23);
+            cbPeliculas.TabIndex = 3;
+            // 
+            // lbPelicula
+            // 
+            lbPelicula.AutoSize = true;
+            lbPelicula.Location = new Point(233, 20);
+            lbPelicula.Name = "lbPelicula";
+            lbPelicula.Size = new Size(51, 15);
+            lbPelicula.TabIndex = 2;
+            lbPelicula.Text = "Película:";
+            // 
+            // dtpFecha
+            // 
+            dtpFecha.Format = DateTimePickerFormat.Short;
+            dtpFecha.Location = new Point(76, 16);
+            dtpFecha.Name = "dtpFecha";
+            dtpFecha.Size = new Size(84, 23);
+            dtpFecha.TabIndex = 1;
+            // 
+            // lbFecha
+            // 
+            lbFecha.AutoSize = true;
+            lbFecha.Location = new Point(29, 20);
+            lbFecha.Name = "lbFecha";
+            lbFecha.Size = new Size(41, 15);
+            lbFecha.TabIndex = 0;
+            lbFecha.Text = "Fecha:";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(menuPrincipal);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(953, 29);
+            panel1.TabIndex = 0;
+            // 
+            // menuPrincipal
+            // 
+            menuPrincipal.Dock = DockStyle.Fill;
+            menuPrincipal.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, pasesToolStripMenuItem, gestiónToolStripMenuItem, ayudaToolStripMenuItem });
+            menuPrincipal.Location = new Point(0, 0);
+            menuPrincipal.Name = "menuPrincipal";
+            menuPrincipal.Size = new Size(953, 29);
+            menuPrincipal.TabIndex = 1;
+            menuPrincipal.Text = "menuStrip1";
+            // 
+            // archivoToolStripMenuItem
+            // 
+            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            archivoToolStripMenuItem.Size = new Size(60, 25);
+            archivoToolStripMenuItem.Text = "&Archivo";
+            // 
+            // pasesToolStripMenuItem
+            // 
+            pasesToolStripMenuItem.Name = "pasesToolStripMenuItem";
+            pasesToolStripMenuItem.Size = new Size(48, 25);
+            pasesToolStripMenuItem.Text = "&Pases";
+            // 
+            // gestiónToolStripMenuItem
+            // 
+            gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
+            gestiónToolStripMenuItem.Size = new Size(59, 25);
+            gestiónToolStripMenuItem.Text = "&Gestión";
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            ayudaToolStripMenuItem.Size = new Size(53, 25);
+            ayudaToolStripMenuItem.Text = "A&yuda";
+            // 
             // FrmPasesHoy
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(953, 450);
             Controls.Add(pnTotal);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmPasesHoy";
             Text = "Pases de Hoy";
             pnTotal.ResumeLayout(false);
+            pnGrid.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvPases).EndInit();
+            pnOpciones.ResumeLayout(false);
+            pnEstado.ResumeLayout(false);
+            pnEstado.PerformLayout();
+            ssEstado.ResumeLayout(false);
+            ssEstado.PerformLayout();
+            pnFiltro.ResumeLayout(false);
+            pnFiltro.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             menuPrincipal.ResumeLayout(false);
             menuPrincipal.PerformLayout();
-            pnFiltro.ResumeLayout(false);
-            pnFiltro.PerformLayout();
-            pnEstado.ResumeLayout(false);
-            pnEstado.PerformLayout();
-            pnOpciones.ResumeLayout(false);
-            pnGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvPases).EndInit();
-            ssEstado.ResumeLayout(false);
-            ssEstado.PerformLayout();
             ResumeLayout(false);
         }
 

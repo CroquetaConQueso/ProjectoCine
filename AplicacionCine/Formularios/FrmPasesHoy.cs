@@ -31,12 +31,13 @@ namespace AplicacionCine.Formularios
             dtpFecha.Value = DateTime.Today;
             CargarPeliculas();
             ActualizarEstadoUsuario();
-            CargarPases();
+            CargarPases(); // carga TODOS los pases
         }
 
         private void CargarPeliculas()
         {
             var pelis = AppContext.Peliculas.GetAll();
+
             cbPeliculas.DisplayMember = "Titulo";
             cbPeliculas.ValueMember = "IdPelicula";
             cbPeliculas.DataSource = pelis;
@@ -60,26 +61,50 @@ namespace AplicacionCine.Formularios
             }
         }
 
+        /// <summary>
+        /// Carga TODOS los pases desde la BD, sin filtro.
+        /// </summary>
         private void CargarPases()
         {
+            _listaCompleta = AppContext.Pases.GetAll();
+            _bsPases.DataSource = new BindingList<Pase>(_listaCompleta);
+            tsslEstado.Text = $"Mostrando {_listaCompleta.Count} pases (sin filtro)";
+        }
+
+        /// <summary>
+        /// Aplica filtros en memoria sobre _listaCompleta.
+        /// </summary>
+        private void AplicarFiltro()
+        {
+            var fecha = dtpFecha.Value.Date;
+
             int? idPeli = null;
             if (cbPeliculas.SelectedItem is Pelicula peli)
                 idPeli = peli.IdPelicula;
 
-            var fecha = dtpFecha.Value.Date;
-            _listaCompleta = AppContext.Pases.GetPasesDeFecha(fecha, idPeli);
-            _bsPases.DataSource = new BindingList<Pase>(_listaCompleta);
+            IEnumerable<Pase> query = _listaCompleta;
+
+            // Filtrar por fecha seleccionada
+            query = query.Where(p => p.FechaHora.Date == fecha);
+
+            // Filtrar por película si hay una seleccionada
+            if (idPeli.HasValue)
+                query = query.Where(p => p.IdPelicula == idPeli.Value);
+
+            var listaFiltrada = query.ToList();
+            _bsPases.DataSource = new BindingList<Pase>(listaFiltrada);
+            tsslEstado.Text = $"Mostrando {listaFiltrada.Count} pases filtrados";
         }
 
         private void BtnBuscar_Click(object? sender, EventArgs e)
         {
-            CargarPases();
+            AplicarFiltro();
         }
 
         private void BtnHoy_Click(object? sender, EventArgs e)
         {
             dtpFecha.Value = DateTime.Today;
-            CargarPases();
+            AplicarFiltro();
         }
 
         private Pase? GetPaseActual()
@@ -97,8 +122,19 @@ namespace AplicacionCine.Formularios
                 return;
             }
 
-            using var frm = new FrmMapaButacas();
-            frm.MdiParent = MdiParent;
+            // Obtenemos la sala asociada al pase
+            var sala = AppContext.Salas.GetById(pase.IdSala);
+            if (sala == null)
+            {
+                MessageBox.Show("No se ha encontrado la sala asociada al pase.",
+                    "Pases", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var frm = new FrmMapaButacas(sala, pase)
+            {
+                MdiParent = MdiParent
+            };
             frm.Show();
         }
 

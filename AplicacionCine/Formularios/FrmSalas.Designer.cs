@@ -45,6 +45,10 @@
             pnGrid = new Panel();
             dvgSalas = new DataGridView();
             pnTop = new Panel();
+            lbFNombre = new Label();
+            tbNomSal = new TextBox();
+            btnLimpiar = new Button();
+            btnBuscar = new Button();
             pnBot = new Panel();
             pnBotones = new Panel();
             btnCerrar = new Button();
@@ -62,10 +66,6 @@
             pasesToolStripMenuItem = new ToolStripMenuItem();
             gestiónToolStripMenuItem = new ToolStripMenuItem();
             ayudaToolStripMenuItem = new ToolStripMenuItem();
-            lbFNombre = new Label();
-            tbNomSal = new TextBox();
-            btnLimpiar = new Button();
-            btnBuscar = new Button();
             pnTotal.SuspendLayout();
             pnMain.SuspendLayout();
             pnInfo.SuspendLayout();
@@ -93,7 +93,7 @@
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
             pnTotal.Name = "pnTotal";
-            pnTotal.Size = new Size(800, 450);
+            pnTotal.Size = new Size(1054, 533);
             pnTotal.TabIndex = 0;
             // 
             // pnMain
@@ -103,7 +103,7 @@
             pnMain.Dock = DockStyle.Fill;
             pnMain.Location = new Point(0, 66);
             pnMain.Name = "pnMain";
-            pnMain.Size = new Size(800, 317);
+            pnMain.Size = new Size(1054, 400);
             pnMain.TabIndex = 4;
             // 
             // pnInfo
@@ -119,9 +119,9 @@
             pnInfo.Controls.Add(lbIcapacidad);
             pnInfo.Controls.Add(lbItitulo);
             pnInfo.Dock = DockStyle.Fill;
-            pnInfo.Location = new Point(599, 0);
+            pnInfo.Location = new Point(762, 0);
             pnInfo.Name = "pnInfo";
-            pnInfo.Size = new Size(201, 317);
+            pnInfo.Size = new Size(292, 400);
             pnInfo.TabIndex = 1;
             // 
             // tbDescripcion
@@ -130,7 +130,7 @@
             tbDescripcion.Location = new Point(13, 173);
             tbDescripcion.Multiline = true;
             tbDescripcion.Name = "tbDescripcion";
-            tbDescripcion.Size = new Size(176, 138);
+            tbDescripcion.Size = new Size(267, 202);
             tbDescripcion.TabIndex = 16;
             // 
             // lbDescripcion
@@ -147,7 +147,7 @@
             nudColumnas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             nudColumnas.Location = new Point(83, 115);
             nudColumnas.Name = "nudColumnas";
-            nudColumnas.Size = new Size(106, 23);
+            nudColumnas.Size = new Size(197, 23);
             nudColumnas.TabIndex = 14;
             // 
             // label2
@@ -164,7 +164,7 @@
             nudFilas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             nudFilas.Location = new Point(83, 81);
             nudFilas.Name = "nudFilas";
-            nudFilas.Size = new Size(106, 23);
+            nudFilas.Size = new Size(197, 23);
             nudFilas.TabIndex = 12;
             // 
             // label1
@@ -181,7 +181,7 @@
             nudCapacidad.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             nudCapacidad.Location = new Point(83, 46);
             nudCapacidad.Name = "nudCapacidad";
-            nudCapacidad.Size = new Size(106, 23);
+            nudCapacidad.Size = new Size(197, 23);
             nudCapacidad.TabIndex = 10;
             // 
             // tbTitulo
@@ -189,7 +189,7 @@
             tbTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbTitulo.Location = new Point(66, 12);
             tbTitulo.Name = "tbTitulo";
-            tbTitulo.Size = new Size(123, 23);
+            tbTitulo.Size = new Size(214, 23);
             tbTitulo.TabIndex = 9;
             // 
             // lbIcapacidad
@@ -216,7 +216,7 @@
             pnGrid.Dock = DockStyle.Left;
             pnGrid.Location = new Point(0, 0);
             pnGrid.Name = "pnGrid";
-            pnGrid.Size = new Size(599, 317);
+            pnGrid.Size = new Size(762, 400);
             pnGrid.TabIndex = 0;
             // 
             // dvgSalas
@@ -225,7 +225,7 @@
             dvgSalas.Dock = DockStyle.Fill;
             dvgSalas.Location = new Point(0, 0);
             dvgSalas.Name = "dvgSalas";
-            dvgSalas.Size = new Size(599, 317);
+            dvgSalas.Size = new Size(762, 400);
             dvgSalas.TabIndex = 1;
             // 
             // pnTop
@@ -237,16 +237,51 @@
             pnTop.Dock = DockStyle.Top;
             pnTop.Location = new Point(0, 32);
             pnTop.Name = "pnTop";
-            pnTop.Size = new Size(800, 34);
+            pnTop.Size = new Size(1054, 34);
             pnTop.TabIndex = 3;
+            // 
+            // lbFNombre
+            // 
+            lbFNombre.AutoSize = true;
+            lbFNombre.Location = new Point(172, 9);
+            lbFNombre.Name = "lbFNombre";
+            lbFNombre.Size = new Size(54, 15);
+            lbFNombre.TabIndex = 12;
+            lbFNombre.Text = "Nombre:";
+            // 
+            // tbNomSal
+            // 
+            tbNomSal.Location = new Point(232, 5);
+            tbNomSal.Name = "tbNomSal";
+            tbNomSal.PlaceholderText = "Nombre de la Película";
+            tbNomSal.Size = new Size(138, 23);
+            tbNomSal.TabIndex = 16;
+            // 
+            // btnLimpiar
+            // 
+            btnLimpiar.Location = new Point(499, 5);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new Size(75, 23);
+            btnLimpiar.TabIndex = 15;
+            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Location = new Point(406, 5);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(75, 23);
+            btnBuscar.TabIndex = 14;
+            btnBuscar.Text = "Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
             // 
             // pnBot
             // 
             pnBot.Controls.Add(pnBotones);
             pnBot.Dock = DockStyle.Bottom;
-            pnBot.Location = new Point(0, 383);
+            pnBot.Location = new Point(0, 466);
             pnBot.Name = "pnBot";
-            pnBot.Size = new Size(800, 34);
+            pnBot.Size = new Size(1054, 34);
             pnBot.TabIndex = 2;
             // 
             // pnBotones
@@ -258,7 +293,7 @@
             pnBotones.Dock = DockStyle.Bottom;
             pnBotones.Location = new Point(0, 3);
             pnBotones.Name = "pnBotones";
-            pnBotones.Size = new Size(800, 31);
+            pnBotones.Size = new Size(1054, 31);
             pnBotones.TabIndex = 5;
             // 
             // btnCerrar
@@ -301,9 +336,9 @@
             // 
             pnBotBar.Controls.Add(ssInfo);
             pnBotBar.Dock = DockStyle.Bottom;
-            pnBotBar.Location = new Point(0, 417);
+            pnBotBar.Location = new Point(0, 500);
             pnBotBar.Name = "pnBotBar";
-            pnBotBar.Size = new Size(800, 33);
+            pnBotBar.Size = new Size(1054, 33);
             pnBotBar.TabIndex = 1;
             // 
             // ssInfo
@@ -312,7 +347,7 @@
             ssInfo.Items.AddRange(new ToolStripItem[] { tslUsuario, tslRol, tslEstado });
             ssInfo.Location = new Point(0, 0);
             ssInfo.Name = "ssInfo";
-            ssInfo.Size = new Size(800, 33);
+            ssInfo.Size = new Size(1054, 33);
             ssInfo.TabIndex = 2;
             ssInfo.Text = "statusStrip1";
             // 
@@ -342,7 +377,7 @@
             pnTopBar.Dock = DockStyle.Top;
             pnTopBar.Location = new Point(0, 0);
             pnTopBar.Name = "pnTopBar";
-            pnTopBar.Size = new Size(800, 32);
+            pnTopBar.Size = new Size(1054, 32);
             pnTopBar.TabIndex = 0;
             // 
             // menuPrincipal
@@ -351,7 +386,7 @@
             menuPrincipal.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, pasesToolStripMenuItem, gestiónToolStripMenuItem, ayudaToolStripMenuItem });
             menuPrincipal.Location = new Point(0, 0);
             menuPrincipal.Name = "menuPrincipal";
-            menuPrincipal.Size = new Size(800, 32);
+            menuPrincipal.Size = new Size(1054, 32);
             menuPrincipal.TabIndex = 2;
             menuPrincipal.Text = "menuStrip1";
             // 
@@ -379,46 +414,11 @@
             ayudaToolStripMenuItem.Size = new Size(53, 28);
             ayudaToolStripMenuItem.Text = "A&yuda";
             // 
-            // lbFNombre
-            // 
-            lbFNombre.AutoSize = true;
-            lbFNombre.Location = new Point(172, 9);
-            lbFNombre.Name = "lbFNombre";
-            lbFNombre.Size = new Size(54, 15);
-            lbFNombre.TabIndex = 12;
-            lbFNombre.Text = "Nombre:";
-            // 
-            // tbNomSal
-            // 
-            tbNomSal.Location = new Point(232, 5);
-            tbNomSal.Name = "tbNomSal";
-            tbNomSal.PlaceholderText = "Nombre de la Película";
-            tbNomSal.Size = new Size(138, 23);
-            tbNomSal.TabIndex = 16;
-            // 
-            // btnLimpiar
-            // 
-            btnLimpiar.Location = new Point(499, 5);
-            btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(75, 23);
-            btnLimpiar.TabIndex = 15;
-            btnLimpiar.Text = "Limpiar";
-            btnLimpiar.UseVisualStyleBackColor = true;
-            // 
-            // btnBuscar
-            // 
-            btnBuscar.Location = new Point(406, 5);
-            btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(75, 23);
-            btnBuscar.TabIndex = 14;
-            btnBuscar.Text = "Buscar";
-            btnBuscar.UseVisualStyleBackColor = true;
-            // 
             // FrmSalas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1054, 533);
             Controls.Add(pnTotal);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmSalas";

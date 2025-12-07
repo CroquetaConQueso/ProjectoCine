@@ -37,8 +37,5 @@
     <Compile Update="Formularios\FrmUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Formularios\test.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 </Project>

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using Npgsql;
 using AplicacionCine.Modelos;
+using EstadoReserva = AplicacionCine.Modelos.EEstadoReserva;
 
 namespace AplicacionCine.DAO
 {
     public class ReservaDAO
     {
-        /// <summary>
-        /// Devuelve las reservas asociadas a un pase concreto.
-        /// </summary>
+        // --------- CONSULTAS BÁSICAS ---------
+
         public List<Reserva> GetReservasDePase(int idPase)
         {
             const string sql = @"
@@ -28,16 +28,11 @@ namespace AplicacionCine.DAO
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
-            {
                 result.Add(MapReserva(reader));
-            }
 
             return result;
         }
 
-        /// <summary>
-        /// Devuelve todas las reservas de la base de datos.
-        /// </summary>
         public List<Reserva> GetAll()
         {
             const string sql = @"
@@ -51,15 +46,90 @@ namespace AplicacionCine.DAO
 
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
-
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
-            {
                 result.Add(MapReserva(reader));
-            }
 
             return result;
         }
+
+        public Reserva? GetById(int idReserva)
+        {
+            const string sql = @"
+                SELECT id_reserva, id_pase, id_usuario,
+                       fecha_reserva, estado, total, observaciones
+                FROM reservas
+                WHERE id_reserva = @Id;
+            ";
+
+            using var conn = DbConnectionFactory.CreateOpenConnection();
+            using var cmd = new NpgsqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("Id", idReserva);
+
+            using var reader = cmd.ExecuteReader();
+            if (!reader.Read()) return null;
+
+            return MapReserva(reader);
+        }
+
+        // --------- BÚSQUEDA PARA FrmBrowReservas ---------
+
+        public List<Reserva> Buscar(
+            DateTime? fecha = null,
+            int? idPelicula = null,
+            string? estado = null,
+            string? usuario = null)
+        {
+            var resultado = new List<Reserva>();
+
+            var sql = @"
+                SELECT r.id_reserva,
+                       r.id_pase,
+                       r.id_usuario,
+                       r.fecha_reserva,
+                       r.estado,
+                       r.total,
+                       r.observaciones,
+                       pel.titulo           AS titulo_pelicula,
+                       COALESCE(u.login,'') AS usuario_nombre
+                FROM reservas r
+                JOIN pases p        ON p.id_pase       = r.id_pase
+                JOIN peliculas pel  ON pel.id_pelicula = p.id_pelicula
+                LEFT JOIN usuarios u ON u.id_usuario   = r.id_usuario
+                WHERE 1 = 1
+            ";
+
+            if (fecha.HasValue)
+                sql += " AND r.fecha_reserva = @Fecha";
+            if (idPelicula.HasValue)
+                sql += " AND pel.id_pelicula = @IdPelicula";
+            if (!string.IsNullOrWhiteSpace(estado))
+                sql += " AND UPPER(r.estado) = UPPER(@Estado)";
+            if (!string.IsNullOrWhiteSpace(usuario))
+                sql += " AND (u.login ILIKE @Usuario OR pel.titulo ILIKE @Usuario)";
+
+            sql += " ORDER BY r.fecha_reserva DESC, r.id_reserva DESC;";
+
+            using var conn = DbConnectionFactory.CreateOpenConnection();
+            using var cmd = new NpgsqlCommand(sql, conn);
+
+            if (fecha.HasValue)
+                cmd.Parameters.AddWithValue("Fecha", fecha.Value.Date);
+            if (idPelicula.HasValue)
+                cmd.Parameters.AddWithValue("IdPelicula", idPelicula.Value);
+            if (!string.IsNullOrWhiteSpace(estado))
+                cmd.Parameters.AddWithValue("Estado", estado);
+            if (!string.IsNullOrWhiteSpace(usuario))
+                cmd.Parameters.AddWithValue("Usuario", "%" + usuario + "%");
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                resultado.Add(MapReserva(reader));
+
+            return resultado;
+        }
+
+        // --------- CRUD RESERVA ---------
 
         public int InsertReserva(Reserva reserva)
         {
@@ -77,7 +147,7 @@ namespace AplicacionCine.DAO
             cmd.Parameters.AddWithValue("IdPase", reserva.IdPase);
             cmd.Parameters.AddWithValue("IdUsuario", (object?)reserva.IdUsuario ?? DBNull.Value);
             cmd.Parameters.AddWithValue("FechaReserva", reserva.FechaReserva);
-            cmd.Parameters.AddWithValue("Estado", reserva.Estado.ToString());
+            cmd.Parameters.AddWithValue("Estado", reserva.Estado.ToString().ToUpperInvariant());
             cmd.Parameters.AddWithValue("Total", (object?)reserva.Total ?? DBNull.Value);
             cmd.Parameters.AddWithValue("Observaciones", (object?)reserva.Observaciones ?? DBNull.Value);
 
@@ -104,7 +174,7 @@ namespace AplicacionCine.DAO
             cmd.Parameters.AddWithValue("IdPase", reserva.IdPase);
             cmd.Parameters.AddWithValue("IdUsuario", (object?)reserva.IdUsuario ?? DBNull.Value);
             cmd.Parameters.AddWithValue("FechaReserva", reserva.FechaReserva);
-            cmd.Parameters.AddWithValue("Estado", reserva.Estado.ToString());
+            cmd.Parameters.AddWithValue("Estado", reserva.Estado.ToString().ToUpperInvariant());
             cmd.Parameters.AddWithValue("Total", (object?)reserva.Total ?? DBNull.Value);
             cmd.Parameters.AddWithValue("Observaciones", (object?)reserva.Observaciones ?? DBNull.Value);
             cmd.Parameters.AddWithValue("IdReserva", reserva.IdReserva);
@@ -122,9 +192,8 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
-        /// <summary>
-        /// Devuelve las líneas de una reserva (asientos asociados).
-        /// </summary>
+        // --------- CRUD LÍNEAS ---------
+
         public List<LineaReserva> GetLineasDeReserva(int idReserva)
         {
             const string sql = @"
@@ -143,9 +212,7 @@ namespace AplicacionCine.DAO
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
-            {
                 result.Add(MapLinea(reader));
-            }
 
             return result;
         }
@@ -208,9 +275,15 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        // --------- MAPEO ---------
+
         private static Reserva MapReserva(NpgsqlDataReader reader)
         {
-            return new Reserva
+            var estadoStr = reader.GetString(reader.GetOrdinal("estado"));
+            if (!Enum.TryParse<EstadoReserva>(estadoStr, true, out var estado))
+                estado = EstadoReserva.Pendiente;
+
+            var reserva = new Reserva
             {
                 IdReserva = reader.GetInt32(reader.GetOrdinal("id_reserva")),
                 IdPase = reader.GetInt32(reader.GetOrdinal("id_pase")),
@@ -218,10 +291,7 @@ namespace AplicacionCine.DAO
                     ? (int?)null
                     : reader.GetInt32(reader.GetOrdinal("id_usuario")),
                 FechaReserva = reader.GetDateTime(reader.GetOrdinal("fecha_reserva")),
-                Estado = (EstadoReserva)Enum.Parse(
-                    typeof(EstadoReserva),
-                    reader.GetString(reader.GetOrdinal("estado"))
-                ),
+                Estado = estado,
                 Total = reader.IsDBNull(reader.GetOrdinal("total"))
                     ? (decimal?)null
                     : reader.GetDecimal(reader.GetOrdinal("total")),
@@ -229,6 +299,16 @@ namespace AplicacionCine.DAO
                     ? null
                     : reader.GetString(reader.GetOrdinal("observaciones"))
             };
+
+            if (HasColumn(reader, "titulo_pelicula") &&
+                !reader.IsDBNull(reader.GetOrdinal("titulo_pelicula")))
+                reserva.PeliculaTitulo = reader.GetString(reader.GetOrdinal("titulo_pelicula"));
+
+            if (HasColumn(reader, "usuario_nombre") &&
+                !reader.IsDBNull(reader.GetOrdinal("usuario_nombre")))
+                reserva.UsuarioNombre = reader.GetString(reader.GetOrdinal("usuario_nombre"));
+
+            return reserva;
         }
 
         private static LineaReserva MapLinea(NpgsqlDataReader reader)
@@ -242,6 +322,14 @@ namespace AplicacionCine.DAO
                 Precio = reader.GetDecimal(reader.GetOrdinal("precio")),
                 EstadoLinea = reader.GetString(reader.GetOrdinal("estado_linea"))
             };
+        }
+
+        private static bool HasColumn(NpgsqlDataReader reader, string columnName)
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+                if (reader.GetName(i).Equals(columnName, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            return false;
         }
     }
 }
