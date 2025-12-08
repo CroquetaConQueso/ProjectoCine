@@ -17,6 +17,11 @@ namespace AplicacionCine.Formularios
         {
             InitializeComponent();
 
+            // >>> NUEVO: bloquear maximizar y el tamaño de la ventana
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            // <<<
+
             Load += FrmPeliculas_Load;
 
             btnBuscar.Click += BtnBuscar_Click;
@@ -26,14 +31,19 @@ namespace AplicacionCine.Formularios
             btnEliminar.Click += BtnEliminar_Click;
             btnCerrar.Click += BtnCerrar_Click;
 
-            dvgPelis.AutoGenerateColumns = false;
+            dvgPelis.AutoGenerateColumns = false;   // definimos columnas a mano
             dvgPelis.DataSource = _bsPelis;
+
             dvgPelis.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgPelis.MultiSelect = false;
-            dvgPelis.ReadOnly = true;
+
+            // El grid NO es de solo lectura para permitir el clic en el check
+            dvgPelis.ReadOnly = false;
             dvgPelis.AllowUserToAddRows = false;
             dvgPelis.AllowUserToDeleteRows = false;
+
             dvgPelis.SelectionChanged += DvgPelis_SelectionChanged;
+            dvgPelis.CellContentClick += DvgPelis_CellContentClick;
 
             ConfigurarGrid();
         }
@@ -66,8 +76,8 @@ namespace AplicacionCine.Formularios
             dvgPelis.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = nameof(Pelicula.DuracionMin),
-                HeaderText = "DuracionMin",
-                Width = 80,
+                HeaderText = "Duración (min)",
+                Width = 90,
                 ReadOnly = true
             });
 
@@ -84,7 +94,7 @@ namespace AplicacionCine.Formularios
             dvgPelis.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = nameof(Pelicula.Genero),
-                HeaderText = "Genero",
+                HeaderText = "Género",
                 Width = 120,
                 ReadOnly = true
             });
@@ -98,13 +108,13 @@ namespace AplicacionCine.Formularios
                 ReadOnly = true
             });
 
-            // Activa (solo lectura en el grid)
+            // Activa (EDITABLE en grid)
             dvgPelis.Columns.Add(new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = nameof(Pelicula.Activa),
                 HeaderText = "Activa",
                 Width = 60,
-                ReadOnly = true
+                ReadOnly = false
             });
         }
 
@@ -114,9 +124,11 @@ namespace AplicacionCine.Formularios
 
         private void FrmPeliculas_Load(object? sender, EventArgs e)
         {
+            nudDuracion.Maximum = 600; // pelis largas
+
             CargarCombos();
             CargarPeliculas();
-            ActualizarEstadoUsuario();
+            ActualizarEstadoUsuario();   // ahora actualiza el StatusStrip de pelis
         }
 
         private void CargarCombos()
@@ -132,21 +144,44 @@ namespace AplicacionCine.Formularios
             });
         }
 
+        /// <summary>
+        /// ACTUALIZAR STATUSSTRIP (ya no muestra usuario/rol).
+        /// </summary>
         private void ActualizarEstadoUsuario()
         {
-            var u = AppContext.UsuarioActual;
-            if (u == null)
-            {
-                tslUsuario.Text = "(sin sesión)";
-                tslRol.Text = "";
-                tslEstado.Text = "Desconectado";
-            }
+            // 1) Totales / visibles
+            int total = _listaCompleta?.Count ?? 0;
+
+            int visibles = 0;
+            if (_bsPelis.List is IList<Pelicula> lista)
+                visibles = lista.Count;
+
+            tslPeliculas.Text = "Películas:";
+            tslCantidadPeliculas.Text = $"{visibles} / {total}";
+
+            // 2) Descripción del filtro
+            string filtroTexto = "(ninguno)";
+            var partes = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(tbNombre.Text))
+                partes.Add($"Título contiene \"{tbNombre.Text.Trim()}\"");
+
+            if (cbCalificacion.SelectedIndex > 0)
+                partes.Add($"Clasificación = {cbCalificacion.SelectedItem}");
+
+            if (partes.Count > 0)
+                filtroTexto = string.Join("; ", partes);
+
+            tslFiltro.Text = "Filtro:";
+            tslCantidadFiltro.Text = filtroTexto;
+
+            // 3) Selección actual
+            tslSeleccion.Text = "Selección:";
+            if (_peliculaActual != null)
+                tslResultadoSeleccion.Text =
+                    $"{_peliculaActual.IdPelicula} - {_peliculaActual.Titulo}";
             else
-            {
-                tslUsuario.Text = u.NombreUsuario;
-                tslRol.Text = u.Rol.ToString();
-                tslEstado.Text = "Listo";
-            }
+                tslResultadoSeleccion.Text = "(ninguna)";
         }
 
         private void CargarPeliculas()
@@ -175,6 +210,9 @@ namespace AplicacionCine.Formularios
             var lista = query.ToList();
             _bsPelis.DataSource = new BindingList<Pelicula>(lista);
             dvgPelis.ClearSelection();
+
+            // tras cambiar el filtro, refrescamos el status
+            ActualizarEstadoUsuario();
         }
 
         private Pelicula? GetPeliculaActual()
@@ -190,6 +228,7 @@ namespace AplicacionCine.Formularios
         {
             _peliculaActual = GetPeliculaActual();
             RellenarDetalle();
+            ActualizarEstadoUsuario();
         }
 
         private void RellenarDetalle()
@@ -213,14 +252,12 @@ namespace AplicacionCine.Formularios
                 ? _peliculaActual.DuracionMin
                 : nudDuracion.Minimum;
 
-            // Clasificación detalle
             if (_peliculaActual.Clasificacion != null &&
                 cbCalif.Items.Contains(_peliculaActual.Clasificacion))
                 cbCalif.SelectedItem = _peliculaActual.Clasificacion;
             else
                 cbCalif.SelectedIndex = -1;
 
-            // Género detalle
             if (_peliculaActual.Genero != null &&
                 cbGenero.Items.Contains(_peliculaActual.Genero))
                 cbGenero.SelectedItem = _peliculaActual.Genero;
@@ -261,6 +298,7 @@ namespace AplicacionCine.Formularios
                 chkActiva.Checked = true;
 
             tbTitulo.Focus();
+            // no es necesario actualizar status aquí: todavía no está en la lista
         }
 
         private void BtnGuardar_Click(object? sender, EventArgs e)
@@ -294,7 +332,7 @@ namespace AplicacionCine.Formularios
             else
                 AppContext.Peliculas.Update(_peliculaActual);
 
-            CargarPeliculas();
+            CargarPeliculas(); // AplicarFiltro + ActualizarEstadoUsuario()
         }
 
         private void BtnEliminar_Click(object? sender, EventArgs e)
@@ -322,6 +360,46 @@ namespace AplicacionCine.Formularios
         private void BtnCerrar_Click(object? sender, EventArgs e)
         {
             Close();
+        }
+
+        #endregion
+
+        #region Edición rápida de 'Activa' en el grid
+
+        private void DvgPelis_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            var col = dvgPelis.Columns[e.ColumnIndex];
+
+            // Solo reaccionamos a la columna checkbox "Activa"
+            if (col is not DataGridViewCheckBoxColumn ||
+                col.DataPropertyName != nameof(Pelicula.Activa))
+            {
+                return;
+            }
+
+            dvgPelis.EndEdit();
+
+            if (dvgPelis.Rows[e.RowIndex].DataBoundItem is not Pelicula peli)
+                return;
+
+            var celda = dvgPelis.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            bool nuevoValor = (celda.Value is bool b && b);
+
+            peli.Activa = nuevoValor;
+            AppContext.Peliculas.Update(peli);
+
+            _peliculaActual = GetPeliculaActual();
+            if (_peliculaActual != null && chkActiva != null &&
+                _peliculaActual.IdPelicula == peli.IdPelicula)
+            {
+                chkActiva.Checked = peli.Activa;
+            }
+
+            // Actualizamos el StatusStrip con la selección actual
+            ActualizarEstadoUsuario();
         }
 
         #endregion

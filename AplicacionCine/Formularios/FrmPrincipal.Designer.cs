@@ -228,7 +228,7 @@
             // sStrip
             // 
             sStrip.Dock = DockStyle.Fill;
-            sStrip.Items.AddRange(new ToolStripItem[] { tsLnombreUsuario, tsLusuario, tsLestado, tsLsituacion });
+            sStrip.Items.AddRange(new ToolStripItem[] { tsLnombreUsuario, tsLusuario, tsLsituacion, tsLestado });
             sStrip.Location = new Point(0, 0);
             sStrip.Name = "sStrip";
             sStrip.Size = new Size(1101, 28);
@@ -253,17 +253,18 @@
             // tsLestado
             // 
             tsLestado.BackColor = SystemColors.ButtonFace;
-            tsLestado.Margin = new Padding(80, 3, 10, 2);
+            tsLestado.Margin = new Padding(0, 3, 10, 2);
             tsLestado.Name = "tsLestado";
-            tsLestado.Size = new Size(45, 23);
-            tsLestado.Text = "Estado:";
+            tsLestado.Size = new Size(32, 23);
+            tsLestado.Text = "Listo";
             // 
             // tsLsituacion
             // 
             tsLsituacion.BackColor = SystemColors.ButtonFace;
+            tsLsituacion.Margin = new Padding(85, 3, 0, 2);
             tsLsituacion.Name = "tsLsituacion";
-            tsLsituacion.Size = new Size(32, 23);
-            tsLsituacion.Text = "Listo";
+            tsLsituacion.Size = new Size(45, 23);
+            tsLsituacion.Text = "Estado:";
             // 
             // FrmPrincipal
             // 

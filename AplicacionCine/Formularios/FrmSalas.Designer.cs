@@ -32,6 +32,8 @@
             pnTotal = new Panel();
             pnMain = new Panel();
             pnInfo = new Panel();
+            lbEstado = new Label();
+            chkActiva = new CheckBox();
             tbDescripcion = new TextBox();
             lbDescripcion = new Label();
             nudColumnas = new NumericUpDown();
@@ -57,11 +59,12 @@
             btnNuevo = new Button();
             pnBotBar = new Panel();
             ssInfo = new StatusStrip();
-            tslUsuario = new ToolStripStatusLabel();
-            tslRol = new ToolStripStatusLabel();
-            tslEstado = new ToolStripStatusLabel();
-            lbEstado = new Label();
-            chkActiva = new CheckBox();
+            tslSalas = new ToolStripStatusLabel();
+            tslCantidadSalas = new ToolStripStatusLabel();
+            tslCapacidad = new ToolStripStatusLabel();
+            tslCantidadCapacidad = new ToolStripStatusLabel();
+            tslSeleccion = new ToolStripStatusLabel();
+            tslResultadoSeleccion = new ToolStripStatusLabel();
             pnTotal.SuspendLayout();
             pnMain.SuspendLayout();
             pnInfo.SuspendLayout();
@@ -118,6 +121,25 @@
             pnInfo.Name = "pnInfo";
             pnInfo.Size = new Size(292, 432);
             pnInfo.TabIndex = 1;
+            // 
+            // lbEstado
+            // 
+            lbEstado.AutoSize = true;
+            lbEstado.Location = new Point(32, 156);
+            lbEstado.Name = "lbEstado";
+            lbEstado.Size = new Size(45, 15);
+            lbEstado.TabIndex = 18;
+            lbEstado.Text = "Estado:";
+            // 
+            // chkActiva
+            // 
+            chkActiva.AutoSize = true;
+            chkActiva.Location = new Point(83, 156);
+            chkActiva.Name = "chkActiva";
+            chkActiva.Size = new Size(59, 19);
+            chkActiva.TabIndex = 17;
+            chkActiva.Text = "Activa";
+            chkActiva.UseVisualStyleBackColor = true;
             // 
             // tbDescripcion
             // 
@@ -334,51 +356,52 @@
             // ssInfo
             // 
             ssInfo.Dock = DockStyle.Fill;
-            ssInfo.Items.AddRange(new ToolStripItem[] { tslUsuario, tslRol, tslEstado });
+            ssInfo.Items.AddRange(new ToolStripItem[] { tslSalas, tslCantidadSalas, tslCapacidad, tslCantidadCapacidad, tslSeleccion, tslResultadoSeleccion });
             ssInfo.Location = new Point(0, 0);
             ssInfo.Name = "ssInfo";
             ssInfo.Size = new Size(1054, 33);
             ssInfo.TabIndex = 2;
             ssInfo.Text = "statusStrip1";
             // 
-            // tslUsuario
+            // tslSalas
             // 
-            tslUsuario.Margin = new Padding(20, 3, 10, 2);
-            tslUsuario.Name = "tslUsuario";
-            tslUsuario.Size = new Size(47, 28);
-            tslUsuario.Text = "Usuario";
+            tslSalas.Margin = new Padding(20, 3, 10, 2);
+            tslSalas.Name = "tslSalas";
+            tslSalas.Size = new Size(36, 28);
+            tslSalas.Text = "Salas:";
             // 
-            // tslRol
+            // tslCantidadSalas
             // 
-            tslRol.Margin = new Padding(0, 3, 10, 2);
-            tslRol.Name = "tslRol";
-            tslRol.Size = new Size(24, 28);
-            tslRol.Text = "Rol";
+            tslCantidadSalas.Margin = new Padding(0, 3, 10, 2);
+            tslCantidadSalas.Name = "tslCantidadSalas";
+            tslCantidadSalas.Size = new Size(84, 28);
+            tslCantidadSalas.Text = "Cantidad Salas";
             // 
-            // tslEstado
+            // tslCapacidad
             // 
-            tslEstado.Name = "tslEstado";
-            tslEstado.Size = new Size(42, 28);
-            tslEstado.Text = "Estado";
+            tslCapacidad.Margin = new Padding(20, 3, 0, 2);
+            tslCapacidad.Name = "tslCapacidad";
+            tslCapacidad.Size = new Size(66, 28);
+            tslCapacidad.Text = "Capacidad:";
             // 
-            // lbEstado
+            // tslCantidadCapacidad
             // 
-            lbEstado.AutoSize = true;
-            lbEstado.Location = new Point(32, 156);
-            lbEstado.Name = "lbEstado";
-            lbEstado.Size = new Size(45, 15);
-            lbEstado.TabIndex = 18;
-            lbEstado.Text = "Estado:";
+            tslCantidadCapacidad.Name = "tslCantidadCapacidad";
+            tslCantidadCapacidad.Size = new Size(114, 28);
+            tslCantidadCapacidad.Text = "Cantidad Capacidad";
             // 
-            // chkActiva
+            // tslSeleccion
             // 
-            chkActiva.AutoSize = true;
-            chkActiva.Location = new Point(83, 156);
-            chkActiva.Name = "chkActiva";
-            chkActiva.Size = new Size(59, 19);
-            chkActiva.TabIndex = 17;
-            chkActiva.Text = "Activa";
-            chkActiva.UseVisualStyleBackColor = true;
+            tslSeleccion.Margin = new Padding(20, 3, 0, 2);
+            tslSeleccion.Name = "tslSeleccion";
+            tslSeleccion.Size = new Size(60, 28);
+            tslSeleccion.Text = "Selección:";
+            // 
+            // tslResultadoSeleccion
+            // 
+            tslResultadoSeleccion.Name = "tslResultadoSeleccion";
+            tslResultadoSeleccion.Size = new Size(112, 28);
+            tslResultadoSeleccion.Text = "Resultado Selección";
             // 
             // FrmSalas
             // 
@@ -419,9 +442,9 @@
         private Panel pnBot;
         private Panel pnBotBar;
         private StatusStrip ssInfo;
-        private ToolStripStatusLabel tslUsuario;
-        private ToolStripStatusLabel tslRol;
-        private ToolStripStatusLabel tslEstado;
+        private ToolStripStatusLabel tslSalas;
+        private ToolStripStatusLabel tslCantidadSalas;
+        private ToolStripStatusLabel tslCapacidad;
         private Panel pnBotones;
         private Button btnCerrar;
         private Button btnEliminar;
@@ -444,5 +467,8 @@
         private Button btnBuscar;
         private Label lbEstado;
         private CheckBox chkActiva;
+        private ToolStripStatusLabel tslCantidadCapacidad;
+        private ToolStripStatusLabel tslSeleccion;
+        private ToolStripStatusLabel tslResultadoSeleccion;
     }
 }

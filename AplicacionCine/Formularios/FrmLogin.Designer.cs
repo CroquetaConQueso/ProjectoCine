@@ -31,118 +31,108 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             pnTotal = new Panel();
             pnBot = new Panel();
-            pnTop = new Panel();
-            lbTitulo = new Label();
-            pictureBox1 = new PictureBox();
-            lbUsuario = new Label();
-            txtUsuario = new TextBox();
-            lbContrasena = new Label();
-            txtContrasena = new TextBox();
+            cbUsuario = new CheckBox();
             btnEntrar = new Button();
+            txtContrasena = new TextBox();
+            lbContrasena = new Label();
+            txtUsuario = new TextBox();
+            lbUsuario = new Label();
+            pictureBox1 = new PictureBox();
             pnTotal.SuspendLayout();
             pnBot.SuspendLayout();
-            pnTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pnTotal
             // 
             pnTotal.Controls.Add(pnBot);
-            pnTotal.Controls.Add(pnTop);
+            pnTotal.Controls.Add(pictureBox1);
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
             pnTotal.Name = "pnTotal";
-            pnTotal.Size = new Size(800, 450);
+            pnTotal.Size = new Size(768, 428);
             pnTotal.TabIndex = 0;
             // 
             // pnBot
             // 
+            pnBot.Controls.Add(cbUsuario);
             pnBot.Controls.Add(btnEntrar);
             pnBot.Controls.Add(txtContrasena);
             pnBot.Controls.Add(lbContrasena);
             pnBot.Controls.Add(txtUsuario);
             pnBot.Controls.Add(lbUsuario);
-            pnBot.Dock = DockStyle.Fill;
-            pnBot.Location = new Point(0, 49);
+            pnBot.Location = new Point(233, 107);
             pnBot.Name = "pnBot";
-            pnBot.Size = new Size(800, 401);
+            pnBot.Size = new Size(295, 212);
             pnBot.TabIndex = 1;
             // 
-            // pnTop
+            // cbUsuario
             // 
-            pnTop.Controls.Add(pictureBox1);
-            pnTop.Controls.Add(lbTitulo);
-            pnTop.Dock = DockStyle.Top;
-            pnTop.Location = new Point(0, 0);
-            pnTop.Name = "pnTop";
-            pnTop.Size = new Size(800, 49);
-            pnTop.TabIndex = 0;
-            // 
-            // lbTitulo
-            // 
-            lbTitulo.AutoSize = true;
-            lbTitulo.Location = new Point(360, 16);
-            lbTitulo.Name = "lbTitulo";
-            lbTitulo.Size = new Size(62, 15);
-            lbTitulo.TabIndex = 0;
-            lbTitulo.Text = "CINE FEED";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(24, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(100, 50);
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
-            // 
-            // lbUsuario
-            // 
-            lbUsuario.AutoSize = true;
-            lbUsuario.Location = new Point(296, 96);
-            lbUsuario.Name = "lbUsuario";
-            lbUsuario.Size = new Size(50, 15);
-            lbUsuario.TabIndex = 2;
-            lbUsuario.Text = "Usuario:";
-            // 
-            // txtUsuario
-            // 
-            txtUsuario.Location = new Point(360, 92);
-            txtUsuario.Name = "txtUsuario";
-            txtUsuario.PlaceholderText = "Usuario...";
-            txtUsuario.Size = new Size(152, 23);
-            txtUsuario.TabIndex = 3;
-            // 
-            // lbContrasena
-            // 
-            lbContrasena.AutoSize = true;
-            lbContrasena.Location = new Point(280, 152);
-            lbContrasena.Name = "lbContrasena";
-            lbContrasena.Size = new Size(70, 15);
-            lbContrasena.TabIndex = 4;
-            lbContrasena.Text = "Contraseña:";
-            // 
-            // txtContrasena
-            // 
-            txtContrasena.Location = new Point(360, 148);
-            txtContrasena.Name = "txtContrasena";
-            txtContrasena.PlaceholderText = "Contraseña..";
-            txtContrasena.Size = new Size(152, 23);
-            txtContrasena.TabIndex = 5;
+            cbUsuario.AutoSize = true;
+            cbUsuario.Location = new Point(79, 84);
+            cbUsuario.Name = "cbUsuario";
+            cbUsuario.Size = new Size(130, 19);
+            cbUsuario.TabIndex = 7;
+            cbUsuario.Text = "Recuerda el Usuario";
+            cbUsuario.UseVisualStyleBackColor = true;
             // 
             // btnEntrar
             // 
-            btnEntrar.Location = new Point(360, 240);
+            btnEntrar.Location = new Point(110, 167);
             btnEntrar.Name = "btnEntrar";
             btnEntrar.Size = new Size(75, 23);
             btnEntrar.TabIndex = 6;
             btnEntrar.Text = "Enviar";
             btnEntrar.UseVisualStyleBackColor = true;
             // 
+            // txtContrasena
+            // 
+            txtContrasena.Location = new Point(95, 114);
+            txtContrasena.Name = "txtContrasena";
+            txtContrasena.Size = new Size(151, 23);
+            txtContrasena.TabIndex = 8;
+            // 
+            // lbContrasena
+            // 
+            lbContrasena.Location = new Point(6, 112);
+            lbContrasena.Name = "lbContrasena";
+            lbContrasena.Size = new Size(100, 23);
+            lbContrasena.TabIndex = 9;
+            lbContrasena.Text = "Contraseña:";
+            lbContrasena.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // txtUsuario
+            // 
+            txtUsuario.Location = new Point(95, 53);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(151, 23);
+            txtUsuario.TabIndex = 10;
+            // 
+            // lbUsuario
+            // 
+            lbUsuario.AutoSize = true;
+            lbUsuario.Location = new Point(32, 60);
+            lbUsuario.Name = "lbUsuario";
+            lbUsuario.Size = new Size(50, 15);
+            lbUsuario.TabIndex = 2;
+            lbUsuario.Text = "Usuario:";
+            lbUsuario.Click += lbUsuario_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(768, 428);
+            pictureBox1.TabIndex = 7;
+            pictureBox1.TabStop = false;
+            // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(768, 428);
             Controls.Add(pnTotal);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmLogin";
@@ -150,8 +140,6 @@
             pnTotal.ResumeLayout(false);
             pnBot.ResumeLayout(false);
             pnBot.PerformLayout();
-            pnTop.ResumeLayout(false);
-            pnTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -160,13 +148,12 @@
 
         private Panel pnTotal;
         private Panel pnBot;
-        private Panel pnTop;
-        private Label lbTitulo;
         private Label lbUsuario;
-        private PictureBox pictureBox1;
         private Button btnEntrar;
         private TextBox txtContrasena;
         private Label lbContrasena;
         private TextBox txtUsuario;
+        private PictureBox pictureBox1;
+        private CheckBox cbUsuario;
     }
 }

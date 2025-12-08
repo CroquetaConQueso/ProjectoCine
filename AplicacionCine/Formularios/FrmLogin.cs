@@ -11,6 +11,11 @@ namespace AplicacionCine
         {
             InitializeComponent();
 
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            StartPosition = FormStartPosition.CenterScreen;
+            AcceptButton = btnEntrar;
+
             Load += FrmLogin_Load;
             FormClosed += FrmLogin_FormClosed;
             btnEntrar.Click += btnEntrar_Click;
@@ -20,6 +25,7 @@ namespace AplicacionCine
         {
             txtUsuario.Text = string.Empty;
             txtContrasena.Text = string.Empty;
+            txtUsuario.Focus();
         }
 
         private void btnEntrar_Click(object? sender, EventArgs e)
@@ -34,7 +40,6 @@ namespace AplicacionCine
                 return;
             }
 
-            // Logueamos SIEMPRE contra la tabla USUARIOS
             var usuario = AppContext.Usuarios.GetByLogin(login);
 
             if (usuario == null)
@@ -44,7 +49,6 @@ namespace AplicacionCine
                 return;
             }
 
-            // De momento password en texto plano
             if (!string.Equals(usuario.PasswordHash, pass))
             {
                 MessageBox.Show("Usuario no encontrado o credenciales incorrectas.",
@@ -59,7 +63,6 @@ namespace AplicacionCine
                 return;
             }
 
-            // Login correcto: guardamos el usuario REAL con su IdUsuario
             AppContext.UsuarioActual = usuario;
 
             var frm = new FrmPrincipal();
@@ -72,6 +75,10 @@ namespace AplicacionCine
         {
             if (Application.OpenForms.Count == 0)
                 Application.Exit();
+        }
+
+        private void lbUsuario_Click(object sender, EventArgs e)
+        {
         }
     }
 }

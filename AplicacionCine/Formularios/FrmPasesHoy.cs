@@ -16,13 +16,17 @@ namespace AplicacionCine.Formularios
         {
             InitializeComponent();
 
+            // Bloquear maximizar y tamaño variable
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+
             Load += FrmPasesHoy_Load;
             btnBuscar.Click += BtnBuscar_Click;
             btnHoy.Click += BtnHoy_Click;
-            btnCerrar.Click += BtnCerrar_Click;
+            btnLimpiar.Click += BtnLimpiar_Click;
             btnVerButacas.Click += BtnVerButacas_Click;
 
-            // NO autogenerar columnas, las definimos nosotros
+            // Configuración del grid
             dgvPases.AutoGenerateColumns = false;
             dgvPases.DataSource = _bsPases;
 
@@ -31,6 +35,9 @@ namespace AplicacionCine.Formularios
             dgvPases.AllowUserToDeleteRows = false;
             dgvPases.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPases.MultiSelect = false;
+
+            // Cuando cambia la selección, actualizamos el StatusStrip
+            dgvPases.SelectionChanged += DgvPases_SelectionChanged;
 
             ConfigurarGrid();
         }
@@ -104,8 +111,12 @@ namespace AplicacionCine.Formularios
         {
             dtpFecha.Value = DateTime.Today;
             CargarPeliculas();
+
+            // Usuario actual en el status
             ActualizarEstadoUsuario();
-            CargarPases(); // carga TODOS los pases
+
+            // Cargar TODOS los pases (sin filtro)
+            CargarPases();
         }
 
         private void CargarPeliculas()
@@ -118,20 +129,21 @@ namespace AplicacionCine.Formularios
             cbPeliculas.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Muestra el usuario actual en el StatusStrip.
+        /// Solo usa tsslPasesResumen para no pisar
+        /// los textos de estado/selección.
+        /// </summary>
         private void ActualizarEstadoUsuario()
         {
             var u = AppContext.UsuarioActual;
             if (u == null)
             {
-                tsslUsuario.Text = "(sin sesión)";
-                tsslRol.Text = string.Empty;
-                tsslEstado.Text = "Desconectado";
+                tsslPasesResumen.Text = "Usuario: (sin sesión)";
             }
             else
             {
-                tsslUsuario.Text = u.NombreUsuario;
-                tsslRol.Text = u.Rol.ToString();
-                tsslEstado.Text = "Listo";
+                tsslPasesResumen.Text = $"Usuario: {u.NombreUsuario} ({u.Rol})";
             }
         }
 
@@ -141,8 +153,12 @@ namespace AplicacionCine.Formularios
         private void CargarPases()
         {
             _listaCompleta = AppContext.Pases.GetAll();
-            _bsPases.DataSource = new BindingList<Pase>(_listaCompleta);
-            tsslEstado.Text = $"Mostrando {_listaCompleta.Count} pases (sin filtro)";
+            var listaActual = _listaCompleta.ToList();
+
+            _bsPases.DataSource = new BindingList<Pase>(listaActual);
+
+            // Actualiza resumen de pases y selección
+            ActualizarResumenYSeleccion(listaActual);
         }
 
         /// <summary>
@@ -167,7 +183,68 @@ namespace AplicacionCine.Formularios
 
             var listaFiltrada = query.ToList();
             _bsPases.DataSource = new BindingList<Pase>(listaFiltrada);
-            tsslEstado.Text = $"Mostrando {listaFiltrada.Count} pases filtrados";
+
+            // Actualiza resumen de pases y selección
+            ActualizarResumenYSeleccion(listaFiltrada);
+        }
+
+        /// <summary>
+        /// Actualiza tsslPasesEstado (resumen de pases/filtros)
+        /// y tsslPasesSeleccion (pase seleccionado).
+        /// </summary>
+        private void ActualizarResumenYSeleccion(IList<Pase> listaActual)
+        {
+            int total = _listaCompleta?.Count ?? 0;
+            int filtrados = listaActual?.Count ?? 0;
+
+            string textoCantidad;
+            if (total == 0)
+            {
+                textoCantidad = "Pases: 0";
+            }
+            else if (total == filtrados)
+            {
+                textoCantidad = $"Pases: {total} (sin filtro)";
+            }
+            else
+            {
+                textoCantidad = $"Pases: {filtrados} de {total} (filtrados)";
+            }
+
+            var fecha = dtpFecha.Value.Date;
+            string filtroFecha = fecha.ToString("dd/MM/yyyy");
+
+            string filtroPeli;
+            if (cbPeliculas.SelectedItem is Pelicula peli)
+                filtroPeli = peli.Titulo;
+            else
+                filtroPeli = "Todas las películas";
+
+            tsslPasesEstado.Text = $"{textoCantidad} | Fecha: {filtroFecha} | Película: {filtroPeli}";
+
+            // Y ahora la parte de selección concreta
+            ActualizarSeleccion();
+        }
+
+        /// <summary>
+        /// Actualiza tsslPasesSeleccion con la fila actualmente seleccionada.
+        /// </summary>
+        private void ActualizarSeleccion()
+        {
+            var pase = GetPaseActual();
+            if (pase == null)
+            {
+                tsslPasesSeleccion.Text = "Selección: (ningún pase seleccionado)";
+                return;
+            }
+
+            tsslPasesSeleccion.Text =
+                $"Selección: Id {pase.IdPase} | {pase.FechaHora:dd/MM HH:mm} | {pase.TituloPelicula} | Sala {pase.NombreSala}";
+        }
+
+        private void DgvPases_SelectionChanged(object? sender, EventArgs e)
+        {
+            ActualizarSeleccion();
         }
 
         private void BtnBuscar_Click(object? sender, EventArgs e)
@@ -179,6 +256,16 @@ namespace AplicacionCine.Formularios
         {
             dtpFecha.Value = DateTime.Today;
             AplicarFiltro();
+        }
+
+        /// <summary>
+        /// Limpia filtros (fecha = hoy, sin película) y muestra todos los pases.
+        /// </summary>
+        private void BtnLimpiar_Click(object? sender, EventArgs e)
+        {
+            dtpFecha.Value = DateTime.Today;
+            cbPeliculas.SelectedIndex = -1;
+            CargarPases();   // sin filtro, todos los pases
         }
 
         private Pase? GetPaseActual()
@@ -209,11 +296,6 @@ namespace AplicacionCine.Formularios
                 MdiParent = MdiParent
             };
             frm.Show();
-        }
-
-        private void BtnCerrar_Click(object? sender, EventArgs e)
-        {
-            Close();
         }
     }
 }

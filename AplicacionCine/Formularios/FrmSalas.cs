@@ -17,6 +17,10 @@ namespace AplicacionCine.Formularios
         {
             InitializeComponent();
 
+            // Bloquear maximizar y tamaño variable
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+
             Load += FrmSalas_Load;
 
             btnBuscar.Click += BtnBuscar_Click;
@@ -30,10 +34,15 @@ namespace AplicacionCine.Formularios
             dvgSalas.DataSource = _bsSalas;
             dvgSalas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgSalas.MultiSelect = false;
-            dvgSalas.ReadOnly = true;
+
+            // El grid NO es totalmente de solo lectura:
+            // solo permitimos editar el checkbox de Activa
+            dvgSalas.ReadOnly = false;
             dvgSalas.AllowUserToAddRows = false;
             dvgSalas.AllowUserToDeleteRows = false;
+
             dvgSalas.SelectionChanged += DvgSalas_SelectionChanged;
+            dvgSalas.CellContentClick += DvgSalas_CellContentClick;
 
             ConfigurarGrid();
         }
@@ -89,41 +98,23 @@ namespace AplicacionCine.Formularios
                 ReadOnly = true
             });
 
-            // Activa (solo lectura en el grid)
+            // Activa (EDITABLE en el grid)
             dvgSalas.Columns.Add(new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = nameof(Sala.Activa),
                 HeaderText = "Activa",
                 Width = 60,
-                ReadOnly = true
+                ReadOnly = false
             });
         }
 
         #endregion
 
-        #region Carga inicial / estado usuario
+        #region Carga inicial
 
         private void FrmSalas_Load(object? sender, EventArgs e)
         {
             CargarSalas();
-            ActualizarEstadoUsuario();
-        }
-
-        private void ActualizarEstadoUsuario()
-        {
-            var u = AppContext.UsuarioActual;
-            if (u == null)
-            {
-                tslUsuario.Text = "(sin sesión)";
-                tslRol.Text = "";
-                tslEstado.Text = "Desconectado";
-            }
-            else
-            {
-                tslUsuario.Text = u.NombreUsuario;
-                tslRol.Text = u.Rol.ToString();
-                tslEstado.Text = "Listo";
-            }
         }
 
         private void CargarSalas()
@@ -146,18 +137,29 @@ namespace AplicacionCine.Formularios
 
             var lista = query.ToList();
             _bsSalas.DataSource = new BindingList<Sala>(lista);
+
+            // Limpiar selección y detalle
             dvgSalas.ClearSelection();
+            _salaActual = null;
+            RellenarDetalle();
+
+            // Actualizar status strip (cantidad, capacidad, selección)
+            ActualizarResumenYSeleccion(lista);
         }
 
         private Sala? GetSalaActual()
         {
-            return _bsSalas.Current as Sala;
+            if (dvgSalas.SelectedRows.Count > 0)
+                return dvgSalas.SelectedRows[0].DataBoundItem as Sala;
+
+            return null;
         }
 
         private void DvgSalas_SelectionChanged(object? sender, EventArgs e)
         {
             _salaActual = GetSalaActual();
             RellenarDetalle();
+            ActualizarSeleccion();
         }
 
         #endregion
@@ -173,9 +175,10 @@ namespace AplicacionCine.Formularios
                 nudFilas.Value = 0;
                 nudColumnas.Value = 0;
                 nudCapacidad.Value = 0;
-                // por defecto marcamos activa para nuevas
+
                 if (chkActiva != null)
                     chkActiva.Checked = true;
+
                 return;
             }
 
@@ -197,9 +200,74 @@ namespace AplicacionCine.Formularios
                 ? _salaActual.Capacidad
                 : nudCapacidad.Minimum;
 
-            // nuevo: estado activa en el panel derecho
             if (chkActiva != null)
                 chkActiva.Checked = _salaActual.Activa;
+        }
+
+        #endregion
+
+        #region StatusStrip (resumen + selección)
+
+        /// <summary>
+        /// Actualiza:
+        /// - tslCantidadSalas: nº salas total / filtradas.
+        /// - tslCantidadCapacidad: capacidad total / filtrada.
+        /// - tslResultadoSeleccion: se delega en ActualizarSeleccion().
+        /// </summary>
+        private void ActualizarResumenYSeleccion(IList<Sala> listaActual)
+        {
+            int total = _listaCompleta?.Count ?? 0;
+            int filtradas = listaActual?.Count ?? 0;
+
+            // Cantidad de salas
+            if (total == 0)
+            {
+                tslCantidadSalas.Text = "Salas: 0";
+            }
+            else if (total == filtradas)
+            {
+                tslCantidadSalas.Text = $"Salas: {total} (sin filtro)";
+            }
+            else
+            {
+                tslCantidadSalas.Text = $"Salas: {filtradas} de {total} (filtradas)";
+            }
+
+            // Capacidad total / filtrada
+            int capTotal = _listaCompleta?.Sum(s => s.Capacidad) ?? 0;
+            int capFiltrada = listaActual?.Sum(s => s.Capacidad) ?? 0;
+
+            if (capTotal == 0)
+            {
+                tslCantidadCapacidad.Text = "Capacidad total: 0";
+            }
+            else if (capTotal == capFiltrada)
+            {
+                tslCantidadCapacidad.Text = $"Capacidad total: {capTotal}";
+            }
+            else
+            {
+                tslCantidadCapacidad.Text = $"Capacidad filtrada: {capFiltrada} de {capTotal}";
+            }
+
+            // Detalle de selección
+            ActualizarSeleccion();
+        }
+
+        /// <summary>
+        /// Actualiza tslResultadoSeleccion con la sala seleccionada.
+        /// </summary>
+        private void ActualizarSeleccion()
+        {
+            var sala = GetSalaActual();
+            if (sala == null)
+            {
+                tslResultadoSeleccion.Text = "Selección: (ninguna sala seleccionada)";
+                return;
+            }
+
+            tslResultadoSeleccion.Text =
+                $"Selección: Id {sala.IdSala} | {sala.Nombre} | {sala.Filas}x{sala.Columnas} | Cap: {sala.Capacidad} | {(sala.Activa ? "Activa" : "Inactiva")}";
         }
 
         #endregion
@@ -228,6 +296,7 @@ namespace AplicacionCine.Formularios
             if (chkActiva != null)
                 chkActiva.Checked = true;
 
+            tslResultadoSeleccion.Text = "Selección: (nueva sala sin guardar)";
             tbTitulo.Focus();
         }
 
@@ -253,11 +322,10 @@ namespace AplicacionCine.Formularios
             _salaActual.Columnas = (int)nudColumnas.Value;
             _salaActual.Capacidad = (int)nudCapacidad.Value;
 
-            // leer el checkbox de detalle
             if (chkActiva != null)
                 _salaActual.Activa = chkActiva.Checked;
             else if (_salaActual.IdSala == 0)
-                _salaActual.Activa = true; // por si acaso
+                _salaActual.Activa = true;
 
             if (_salaActual.IdSala == 0)
                 AppContext.Salas.Insert(_salaActual);
@@ -292,6 +360,56 @@ namespace AplicacionCine.Formularios
         private void BtnCerrar_Click(object? sender, EventArgs e)
         {
             Close();
+        }
+
+        #endregion
+
+        #region Edición rápida de 'Activa' en el grid
+
+        private void DvgSalas_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            var col = dvgSalas.Columns[e.ColumnIndex];
+
+            // Solo reaccionamos a la columna checkbox "Activa"
+            if (col is not DataGridViewCheckBoxColumn ||
+                col.DataPropertyName != nameof(Sala.Activa))
+            {
+                return;
+            }
+
+            // Confirmar la edición del checkbox
+            dvgSalas.EndEdit();
+
+            // Obtenemos la sala asociada a la fila
+            if (dvgSalas.Rows[e.RowIndex].DataBoundItem is not Sala sala)
+                return;
+
+            var celda = dvgSalas.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            bool nuevoValor = (celda.Value is bool b && b);
+
+            sala.Activa = nuevoValor;
+
+            // Guardar en BD
+            AppContext.Salas.Update(sala);
+
+            // Sincronizar panel de detalle si esta sala es la seleccionada
+            _salaActual = GetSalaActual();
+            if (_salaActual != null &&
+                chkActiva != null &&
+                _salaActual.IdSala == sala.IdSala)
+            {
+                chkActiva.Checked = sala.Activa;
+            }
+
+            // Actualizar texto de selección
+            tslResultadoSeleccion.Text =
+                $"Sala '{sala.Nombre}' marcada como {(sala.Activa ? "activa" : "inactiva")}.";
+
+            // También refrescamos la selección calculada
+            ActualizarSeleccion();
         }
 
         #endregion

@@ -16,18 +16,22 @@ namespace AplicacionCine.Formularios
         {
             InitializeComponent();
 
-            // Eventos
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;   // <-- añadido
+
+            // Eventos de la ventana
             Load += FrmBrowReservas_Load;
             btnBuscar.Click += BtnBuscar_Click;
             btnLimpiar.Click += BtnLimpiar_Click;
-            btnHoy.Click += BtnHoy_Click;
             btnEditar.Click += BtnEditar_Click;
             btnEliminar.Click += BtnEliminar_Click;
             btnMapa.Click += BtnMapa_Click;
             btnCerrar.Click += (s, e) => Close();
-            dvgUsuarios.CellDoubleClick += DgvUsuarios_CellDoubleClick;
 
-            // Config grid
+            dvgUsuarios.CellDoubleClick += DgvUsuarios_CellDoubleClick;
+            dvgUsuarios.SelectionChanged += DvgUsuarios_SelectionChanged;
+
+            // Configuración del grid
             dvgUsuarios.AutoGenerateColumns = true;
             dvgUsuarios.ReadOnly = true;
             dvgUsuarios.AllowUserToAddRows = false;
@@ -35,6 +39,12 @@ namespace AplicacionCine.Formularios
             dvgUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgUsuarios.MultiSelect = false;
             dvgUsuarios.DataSource = _bsReservas;
+
+            // Eventos de filtro por fecha
+            dateTimePicker1.ValueChanged += DateTimePicker1_ValueChanged;
+
+            // Checkbox que decide si usamos la fecha como filtro
+            cbUsar.CheckedChanged += CbUsar_CheckedChanged;
         }
 
         private void FrmBrowReservas_Load(object? sender, EventArgs e)
@@ -44,7 +54,9 @@ namespace AplicacionCine.Formularios
             CargarPeliculas();
             CargarEstados();
 
-            cbUsar.Checked = false; // por defecto la fecha no filtra
+            // Por defecto: NO filtrar por fecha -> se verán todas las reservas
+            cbUsar.Checked = false;
+
             Buscar();
         }
 
@@ -66,26 +78,20 @@ namespace AplicacionCine.Formularios
             cbEstado.SelectedIndex = 0;
         }
 
-        // ----------------- ACCIONES -----------------
+        // ================= ACCIONES =================
 
         private void BtnBuscar_Click(object? sender, EventArgs e) => Buscar();
 
-        private void BtnHoy_Click(object? sender, EventArgs e)
-        {
-            cbUsar.Checked = true;
-            dateTimePicker1.Value = DateTime.Today;
-            Buscar();
-        }
-
         private void BtnLimpiar_Click(object? sender, EventArgs e)
         {
-            cbUsar.Checked = false;
+            // Reset de filtros
+            cbUsar.Checked = false; // al limpiar, dejamos de filtrar por fecha
             dateTimePicker1.Value = DateTime.Today;
             cbPeliculas.SelectedIndex = -1;
             cbEstado.SelectedIndex = 0;
             txtFiltroUsuario.Clear();
 
-            _bsReservas.DataSource = new BindingList<Reserva>(new List<Reserva>());
+            Buscar();
         }
 
         private void BtnEditar_Click(object? sender, EventArgs e)
@@ -101,27 +107,21 @@ namespace AplicacionCine.Formularios
             using var frm = new FrmReserva(reserva);
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                // Recargar la reserva desde BD
                 var refrescada = AppContext.Reservas.GetById(reserva.IdReserva);
                 if (refrescada != null)
                 {
-                    // 1) Sacamos la lista actual como List<Reserva>
                     var lista = _bsReservas.List.Cast<Reserva>().ToList();
-
-                    // 2) Buscamos la posición de la reserva editada
                     int idx = lista.FindIndex(r => r.IdReserva == refrescada.IdReserva);
                     if (idx >= 0)
                     {
-                        // 3) Sustituimos el objeto en la lista
                         lista[idx] = refrescada;
-
-                        // 4) Volvemos a enchufar la lista al BindingSource
                         _bsReservas.DataSource = new BindingList<Reserva>(lista);
+                        ConfigurarColumnas();
+                        ActualizarStatus();
                     }
                 }
             }
         }
-
 
         private void BtnEliminar_Click(object? sender, EventArgs e)
         {
@@ -192,13 +192,31 @@ namespace AplicacionCine.Formularios
                 BtnEditar_Click(sender, EventArgs.Empty);
         }
 
-        // ----------------- BÚSQUEDA -----------------
+        private void DvgUsuarios_SelectionChanged(object? sender, EventArgs e)
+        {
+            ActualizarStatus();
+        }
+
+        private void DateTimePicker1_ValueChanged(object? sender, EventArgs e)
+        {
+            // Si el usuario ha decidido usar la fecha, recargamos con ese filtro
+            Buscar();
+        }
+
+        private void CbUsar_CheckedChanged(object? sender, EventArgs e)
+        {
+            // Cada vez que el usuario marca/desmarca el uso de la fecha, volvemos a buscar
+            Buscar();
+        }
+
+        // ================= BÚSQUEDA =================
 
         private void Buscar()
         {
-            DateTime? fecha = cbUsar.Checked
-                ? dateTimePicker1.Value.Date
-                : (DateTime?)null;
+            // Filtrar por fecha SOLO si cbUsar está marcado
+            DateTime? fecha = null;
+            if (cbUsar.Checked)
+                fecha = dateTimePicker1.Value.Date;
 
             int? idPeli = null;
             if (cbPeliculas.SelectedItem is Pelicula peli)
@@ -206,7 +224,7 @@ namespace AplicacionCine.Formularios
 
             string? estado = null;
             if (cbEstado.SelectedItem is EEstadoReserva est)
-                estado = est.ToString();
+                estado = est.ToString(); // el DAO sigue recibiendo string
 
             string? usuario = string.IsNullOrWhiteSpace(txtFiltroUsuario.Text)
                 ? null
@@ -216,13 +234,13 @@ namespace AplicacionCine.Formularios
 
             _bsReservas.DataSource = new BindingList<Reserva>(lista);
             ConfigurarColumnas();
+            ActualizarStatus();
         }
 
         private void ConfigurarColumnas()
         {
             if (dvgUsuarios.Columns.Count == 0) return;
 
-            // Mostrar lo importante y ocultar ids internos
             void Hide(string name)
             {
                 if (dvgUsuarios.Columns.Contains(name))
@@ -256,5 +274,66 @@ namespace AplicacionCine.Formularios
         {
             return _bsReservas.Current as Reserva;
         }
+
+        // ================= STATUSSTRIP =================
+
+        private void ActualizarStatus()
+        {
+            var lista = _bsReservas.List.Cast<Reserva>().ToList();
+
+            // 1) Resumen: número de reservas visibles
+            int visibles = lista.Count;
+            if (tslReservasResumen != null)
+                tslReservasResumen.Text = $"Reservas: {visibles}";
+
+            // 2) Estados: desglose por estado
+            string estadosTexto;
+            if (visibles == 0)
+            {
+                estadosTexto = "Estados: (ninguno)";
+            }
+            else
+            {
+                var grupos = lista
+                    .GroupBy(r => r.Estado)
+                    .OrderBy(g => g.Key.ToString());
+
+                estadosTexto = "Estados: " +
+                               string.Join(" | ",
+                                   grupos.Select(g => $"{g.Key}: {g.Count()}"));
+            }
+
+            if (tslReservasEstados != null)
+                tslReservasEstados.Text = estadosTexto;
+
+            // 3) Importe total
+            decimal totalImporte = lista.Sum(r => r.Total ?? 0m);
+            if (tslReservasImporte != null)
+                tslReservasImporte.Text = $"Importe total: {totalImporte:0.00} €";
+
+            // 4) Reserva seleccionada
+            var rSel = GetReservaActual();
+            string selTexto;
+
+            if (rSel != null)
+            {
+                var usuario = string.IsNullOrWhiteSpace(rSel.UsuarioNombre)
+                    ? "(sin usuario)"
+                    : rSel.UsuarioNombre;
+
+                decimal importeSel = rSel.Total ?? 0m;
+
+                selTexto =
+                    $"Selección: #{rSel.IdReserva} - {usuario} - {rSel.Estado} - {importeSel:0.00} €";
+            }
+            else
+            {
+                selTexto = "Selección: (ninguna)";
+            }
+
+            if (tslReservasSeleccion != null)
+                tslReservasSeleccion.Text = selTexto;
+        }
     }
 }
+

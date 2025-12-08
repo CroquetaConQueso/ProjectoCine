@@ -33,14 +33,12 @@
             pnGrid = new Panel();
             dgvPases = new DataGridView();
             pnOpciones = new Panel();
-            btnCerrar = new Button();
             btnVerButacas = new Button();
             pnEstado = new Panel();
             ssEstado = new StatusStrip();
-            tsslUsuario = new ToolStripStatusLabel();
-            tsslRol = new ToolStripStatusLabel();
-            tsslEstado = new ToolStripStatusLabel();
-            toolStripProgressBar1 = new ToolStripProgressBar();
+            tsslPasesResumen = new ToolStripStatusLabel();
+            tsslPasesEstado = new ToolStripStatusLabel();
+            tsslPasesSeleccion = new ToolStripStatusLabel();
             pnFiltro = new Panel();
             btnHoy = new Button();
             btnBuscar = new Button();
@@ -48,6 +46,7 @@
             lbPelicula = new Label();
             dtpFecha = new DateTimePicker();
             lbFecha = new Label();
+            btnLimpiar = new Button();
             pnTotal.SuspendLayout();
             pnGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPases).BeginInit();
@@ -90,7 +89,6 @@
             // pnOpciones
             // 
             pnOpciones.BackColor = SystemColors.ActiveCaption;
-            pnOpciones.Controls.Add(btnCerrar);
             pnOpciones.Controls.Add(btnVerButacas);
             pnOpciones.Dock = DockStyle.Bottom;
             pnOpciones.Location = new Point(0, 387);
@@ -98,18 +96,9 @@
             pnOpciones.Size = new Size(953, 31);
             pnOpciones.TabIndex = 3;
             // 
-            // btnCerrar
-            // 
-            btnCerrar.Location = new Point(450, 5);
-            btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(75, 23);
-            btnCerrar.TabIndex = 1;
-            btnCerrar.Text = "Cerrar";
-            btnCerrar.UseVisualStyleBackColor = true;
-            // 
             // btnVerButacas
             // 
-            btnVerButacas.Location = new Point(233, 5);
+            btnVerButacas.Location = new Point(400, 2);
             btnVerButacas.Name = "btnVerButacas";
             btnVerButacas.Size = new Size(125, 23);
             btnVerButacas.TabIndex = 0;
@@ -128,41 +117,37 @@
             // ssEstado
             // 
             ssEstado.Dock = DockStyle.Fill;
-            ssEstado.Items.AddRange(new ToolStripItem[] { tsslUsuario, tsslRol, tsslEstado, toolStripProgressBar1 });
+            ssEstado.Items.AddRange(new ToolStripItem[] { tsslPasesResumen, tsslPasesEstado, tsslPasesSeleccion });
             ssEstado.Location = new Point(0, 0);
             ssEstado.Name = "ssEstado";
             ssEstado.Size = new Size(953, 32);
             ssEstado.TabIndex = 0;
             ssEstado.Text = "statusStrip1";
             // 
-            // tsslUsuario
+            // tsslPasesResumen
             // 
-            tsslUsuario.Margin = new Padding(0, 3, 40, 2);
-            tsslUsuario.Name = "tsslUsuario";
-            tsslUsuario.Size = new Size(47, 27);
-            tsslUsuario.Text = "Usuario";
+            tsslPasesResumen.Margin = new Padding(10, 3, 40, 2);
+            tsslPasesResumen.Name = "tsslPasesResumen";
+            tsslPasesResumen.Size = new Size(88, 27);
+            tsslPasesResumen.Text = "Resumen Pases";
             // 
-            // tsslRol
+            // tsslPasesEstado
             // 
-            tsslRol.Margin = new Padding(0, 0, 40, 2);
-            tsslRol.Name = "tsslRol";
-            tsslRol.Size = new Size(24, 30);
-            tsslRol.Text = "Rol";
+            tsslPasesEstado.Margin = new Padding(0, 0, 40, 2);
+            tsslPasesEstado.Name = "tsslPasesEstado";
+            tsslPasesEstado.Size = new Size(74, 30);
+            tsslPasesEstado.Text = "Pases Estado";
             // 
-            // tsslEstado
+            // tsslPasesSeleccion
             // 
-            tsslEstado.Margin = new Padding(0, 3, 40, 2);
-            tsslEstado.Name = "tsslEstado";
-            tsslEstado.Size = new Size(42, 27);
-            tsslEstado.Text = "Estado";
-            // 
-            // toolStripProgressBar1
-            // 
-            toolStripProgressBar1.Name = "toolStripProgressBar1";
-            toolStripProgressBar1.Size = new Size(100, 26);
+            tsslPasesSeleccion.Margin = new Padding(0, 3, 40, 2);
+            tsslPasesSeleccion.Name = "tsslPasesSeleccion";
+            tsslPasesSeleccion.Size = new Size(86, 27);
+            tsslPasesSeleccion.Text = "PasesSeleccion";
             // 
             // pnFiltro
             // 
+            pnFiltro.Controls.Add(btnLimpiar);
             pnFiltro.Controls.Add(btnHoy);
             pnFiltro.Controls.Add(btnBuscar);
             pnFiltro.Controls.Add(cbPeliculas);
@@ -227,6 +212,15 @@
             lbFecha.TabIndex = 0;
             lbFecha.Text = "Fecha:";
             // 
+            // btnLimpiar
+            // 
+            btnLimpiar.Location = new Point(531, 16);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new Size(75, 23);
+            btnLimpiar.TabIndex = 6;
+            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.UseVisualStyleBackColor = true;
+            // 
             // FrmPasesHoy
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -263,12 +257,11 @@
         private Panel pnOpciones;
         private Panel pnEstado;
         private DataGridView dgvPases;
-        private Button btnCerrar;
         private Button btnVerButacas;
         private StatusStrip ssEstado;
-        private ToolStripStatusLabel tsslUsuario;
-        private ToolStripStatusLabel tsslRol;
-        private ToolStripStatusLabel tsslEstado;
-        private ToolStripProgressBar toolStripProgressBar1;
+        private ToolStripStatusLabel tsslPasesResumen;
+        private ToolStripStatusLabel tsslPasesEstado;
+        private ToolStripStatusLabel tsslPasesSeleccion;
+        private Button btnLimpiar;
     }
 }

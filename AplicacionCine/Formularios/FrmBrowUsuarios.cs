@@ -16,6 +16,10 @@ namespace AplicacionCine.Formularios
         {
             InitializeComponent();
 
+            // Bloquear maximizar y tamaño variable
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+
             Load += FrmBrowUsuarios_Load;
 
             tsbtBuscar.Click += TsbtBuscar_Click;
@@ -36,6 +40,7 @@ namespace AplicacionCine.Formularios
             dvgUsuarios.AllowUserToAddRows = false;
             dvgUsuarios.AllowUserToDeleteRows = false;
             dvgUsuarios.DoubleClick += DvgUsuarios_DoubleClick;
+            dvgUsuarios.SelectionChanged += DvgUsuarios_SelectionChanged;
 
             ConfigurarGrid();
         }
@@ -122,7 +127,6 @@ namespace AplicacionCine.Formularios
         {
             CargarCombos();
             CargarUsuarios();
-            ActualizarEstadoUsuario();
         }
 
         private void CargarCombos()
@@ -211,6 +215,9 @@ namespace AplicacionCine.Formularios
 
             _bsUsuarios.DataSource = new BindingList<Usuario>(lista);
             dvgUsuarios.ClearSelection();
+
+            // Actualizar status strip (resumen, filtros, selección)
+            ActualizarResumenYSeleccion(lista);
         }
 
         private Usuario? GetUsuarioSeleccionado()
@@ -372,33 +379,86 @@ namespace AplicacionCine.Formularios
 
         #endregion
 
-        #region StatusStrip
+        #region StatusStrip (resumen + filtros + selección)
 
-        private void ActualizarEstadoUsuario()
+        /// <summary>
+        /// Actualiza:
+        /// - tslUsuariosResumen: resumen de cantidad (total / filtrados).
+        /// - tslUsuariosFiltro: descripción del filtro actual.
+        /// - tslUsuariosSeleccion: se delega en ActualizarSeleccion().
+        /// </summary>
+        private void ActualizarResumenYSeleccion(IList<Usuario> listaActual)
         {
-            if (AppContext.UsuarioActual != null)
+            int total = _listaCompleta?.Count ?? 0;
+            int filtrados = listaActual?.Count ?? 0;
+
+            // Resumen cantidad
+            if (total == 0)
             {
-                var u = AppContext.UsuarioActual;
-
-                tslUsuario.Text = $"Usuario: {u.Login}";
-                tslRol.Text = $"Rol: {u.Rol}";
-
-                string estado;
-                if (u.Bloqueado)
-                    estado = "Bloqueado";
-                else if (u.Activo)
-                    estado = "Activo";
-                else
-                    estado = "Inactivo";
-
-                tslEstado.Text = $"Estado: {estado}";
+                tslUsuariosResumen.Text = "Usuarios: 0";
+            }
+            else if (total == filtrados)
+            {
+                tslUsuariosResumen.Text = $"Usuarios: {total} (sin filtro)";
             }
             else
             {
-                tslUsuario.Text = "Usuario: (ninguno)";
-                tslRol.Text = "Rol: -";
-                tslEstado.Text = "Estado: -";
+                tslUsuariosResumen.Text = $"Usuarios: {filtrados} de {total} (filtrados)";
             }
+
+            // Resumen filtros
+            var textoUsuario = tstbUsuario.Text?.Trim();
+            string filtroUsuario = string.IsNullOrWhiteSpace(textoUsuario)
+                ? "(cualquiera)"
+                : $"'{textoUsuario}'";
+
+            string filtroRol = tscbRol.SelectedIndex <= 0
+                ? "(Todos)"
+                : tscbRol.SelectedItem?.ToString() ?? "(Todos)";
+
+            string filtroEstado = tscbEstado.SelectedIndex switch
+            {
+                1 => "Activos",
+                2 => "Inactivos",
+                3 => "Bloqueados",
+                4 => "No bloqueados",
+                _ => "(Todos)"
+            };
+
+            tslUsuariosFiltro.Text =
+                $"Filtro → Usuario: {filtroUsuario} | Rol: {filtroRol} | Estado: {filtroEstado}";
+
+            // Detalle de selección
+            ActualizarSeleccion();
+        }
+
+        /// <summary>
+        /// Actualiza tslUsuariosSeleccion según el usuario seleccionado.
+        /// </summary>
+        private void ActualizarSeleccion()
+        {
+            var u = GetUsuarioSeleccionado();
+            if (u == null)
+            {
+                tslUsuariosSeleccion.Text = "Selección: (ningún usuario seleccionado)";
+                return;
+            }
+
+            string estado;
+            if (u.Bloqueado)
+                estado = "Bloqueado";
+            else if (u.Activo)
+                estado = "Activo";
+            else
+                estado = "Inactivo";
+
+            tslUsuariosSeleccion.Text =
+                $"Selección: {u.Login} | Rol: {u.Rol} | Estado: {estado} | Intentos: {u.IntentosFallidos}";
+        }
+
+        private void DvgUsuarios_SelectionChanged(object? sender, EventArgs e)
+        {
+            ActualizarSeleccion();
         }
 
         #endregion

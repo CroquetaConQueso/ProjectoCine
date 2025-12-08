@@ -33,6 +33,8 @@
             tbDatos = new TabPage();
             pnExtra = new Panel();
             groupBox1 = new GroupBox();
+            lbCantidadTotalReservas = new Label();
+            lbTotalReserva = new Label();
             lbPrecio = new Label();
             lbCantidadTotalEntradas = new Label();
             lbCantidadPrecio = new Label();
@@ -65,8 +67,6 @@
             lbTitulo = new Label();
             tbObservaciones = new TabPage();
             rtbObservaciones = new RichTextBox();
-            lbCantidadTotalReservas = new Label();
-            lbTotalReserva = new Label();
             tbControl.SuspendLayout();
             tbDatos.SuspendLayout();
             pnExtra.SuspendLayout();
@@ -132,6 +132,24 @@
             groupBox1.Size = new Size(814, 51);
             groupBox1.TabIndex = 24;
             groupBox1.TabStop = false;
+            // 
+            // lbCantidadTotalReservas
+            // 
+            lbCantidadTotalReservas.AutoSize = true;
+            lbCantidadTotalReservas.Location = new Point(701, 22);
+            lbCantidadTotalReservas.Name = "lbCantidadTotalReservas";
+            lbCantidadTotalReservas.Size = new Size(86, 15);
+            lbCantidadTotalReservas.TabIndex = 28;
+            lbCantidadTotalReservas.Text = "CTotalReservas";
+            // 
+            // lbTotalReserva
+            // 
+            lbTotalReserva.AutoSize = true;
+            lbTotalReserva.Location = new Point(611, 22);
+            lbTotalReserva.Name = "lbTotalReserva";
+            lbTotalReserva.Size = new Size(84, 15);
+            lbTotalReserva.TabIndex = 27;
+            lbTotalReserva.Text = "Total Reservas:";
             // 
             // lbPrecio
             // 
@@ -439,24 +457,6 @@
             rtbObservaciones.Size = new Size(814, 483);
             rtbObservaciones.TabIndex = 0;
             rtbObservaciones.Text = "";
-            // 
-            // lbCantidadTotalReservas
-            // 
-            lbCantidadTotalReservas.AutoSize = true;
-            lbCantidadTotalReservas.Location = new Point(701, 22);
-            lbCantidadTotalReservas.Name = "lbCantidadTotalReservas";
-            lbCantidadTotalReservas.Size = new Size(86, 15);
-            lbCantidadTotalReservas.TabIndex = 28;
-            lbCantidadTotalReservas.Text = "CTotalReservas";
-            // 
-            // lbTotalReserva
-            // 
-            lbTotalReserva.AutoSize = true;
-            lbTotalReserva.Location = new Point(611, 22);
-            lbTotalReserva.Name = "lbTotalReserva";
-            lbTotalReserva.Size = new Size(84, 15);
-            lbTotalReserva.TabIndex = 27;
-            lbTotalReserva.Text = "Total Reservas:";
             // 
             // FrmReserva
             // 

@@ -3,88 +3,64 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmpeliculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmpeliculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\aplicacioncine\\formularios\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmpeliculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmpeliculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmbrowreservas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowreservas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmbrowempleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowempleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmreserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmreserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmpaseshoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\aplicacioncine\\formularios\\frmpaseshoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmpaseshoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmmapabutacas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmmapabutacas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\aplicacioncine\\formularios\\frmbrowusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmbrowusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmbrowusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\dao\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\dao\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmpaseshoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmpaseshoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmmapabutacas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmmapabutacas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmbrowreservas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowreservas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmreserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmreserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmlogin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmlogin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\dao\\peliculadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\dao\\peliculadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\aplicacioncine\\formularios\\frmreserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmreserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\dao\\pasedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\dao\\pasedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\aplicacioncine\\formularios\\frmbrowreservas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowreservas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmbrowreservas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowreservas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmbrowusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmbrowusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmpaseshoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmpaseshoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmpeliculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmpeliculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\aplicacioncine\\formularios\\frmpeliculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmpeliculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|c:\\users\\usuario\\desktop\\proyectos\\c#\\aplicacioncine\\aplicacioncine\\formularios\\frmsalas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmsalas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\aplicacioncine\\formularios\\frmsalas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DA407A9C-24CD-4C17-A660-E0DE2C79C842}|AplicacionCine\\AplicacionCine.csproj|solutionrelative:aplicacioncine\\formularios\\frmsalas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -94,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 199,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -110,266 +86,186 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FrmPeliculas.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPeliculas.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmPeliculas.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPeliculas.cs",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmPeliculas.cs",
-              "ViewState": "AgIAANwAAAAAAAAAAAAIwPoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-08T00:21:39.511Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "FrmUsuario.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmUsuario.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmUsuario.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmUsuario.cs",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmUsuario.cs",
-              "ViewState": "AgIAAKAAAAAAAAAAAAAAwMEAAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T23:52:17.312Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "FrmUsuario.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmUsuario.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmUsuario.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmUsuario.cs [Dise\u00F1o]",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmUsuario.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T23:49:34.189Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmBrowEmpleados.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowEmpleados.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowEmpleados.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowEmpleados.cs [Dise\u00F1o]",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowEmpleados.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T23:49:24.15Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmPeliculas.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPeliculas.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmPeliculas.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPeliculas.cs [Dise\u00F1o]",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmPeliculas.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T23:49:11.055Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FrmEmpleado.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmEmpleado.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmEmpleado.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmEmpleado.cs [Dise\u00F1o]",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmEmpleado.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T23:48:58.296Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "FrmBrowUsuarios.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
-              "ViewState": "AgIAAHkBAAAAAAAAAAAAwJYBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T23:20:21.854Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "FrmBrowUsuarios.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowUsuarios.cs [Dise\u00F1o]",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowUsuarios.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T23:20:19.351Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "FrmBrowReservas.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowReservas.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowReservas.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowReservas.cs",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowReservas.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAowHQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T21:52:59.57Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "FrmReserva.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmReserva.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmReserva.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmReserva.cs",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmReserva.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAIwJAAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T21:00:15.364Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "FrmReserva.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmReserva.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmReserva.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmReserva.cs [Dise\u00F1o]",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmReserva.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T21:19:30.328Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FrmBrowReservas.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowReservas.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowReservas.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowReservas.cs [Dise\u00F1o]",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowReservas.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T21:15:52.6Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "UsuarioDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\DAO\\UsuarioDAO.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\DAO\\UsuarioDAO.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\DAO\\UsuarioDAO.cs",
-              "RelativeToolTip": "AplicacionCine\\DAO\\UsuarioDAO.cs",
-              "ViewState": "AgIAAEMBAAAAAAAAAAAYwHUBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:48:21.052Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
               "Title": "FrmLogin.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmLogin.cs",
               "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmLogin.cs",
               "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmLogin.cs",
               "RelativeToolTip": "AplicacionCine\\Formularios\\FrmLogin.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAcwE0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAcwFQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:48:03.261Z",
+              "WhenOpened": "2025-12-08T12:53:33.337Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
+              "Title": "FrmLogin.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmLogin.Designer.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmLogin.Designer.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmLogin.Designer.cs",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmLogin.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T12:46:52.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "FrmLogin.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmLogin.cs",
               "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmLogin.cs",
               "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmLogin.cs [Dise\u00F1o]",
               "RelativeToolTip": "AplicacionCine\\Formularios\\FrmLogin.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:48:01.36Z",
+              "WhenOpened": "2025-12-08T12:34:18.231Z",
               "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "PeliculaDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\DAO\\PeliculaDAO.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\DAO\\PeliculaDAO.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\DAO\\PeliculaDAO.cs",
-              "RelativeToolTip": "AplicacionCine\\DAO\\PeliculaDAO.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAcwIYAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "FrmBrowUsuarios.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
+              "ViewState": "AgIAAKIBAAAAAAAAAAAcwKsBAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:23:53.729Z",
+              "WhenOpened": "2025-12-08T11:09:18.037Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "FrmMapaButacas.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmMapaButacas.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmMapaButacas.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmMapaButacas.cs",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmMapaButacas.cs",
-              "ViewState": "AgIAAA4CAAAAAAAAAAAcwEECAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:22:08.867Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 10,
               "Title": "FrmPasesHoy.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPasesHoy.cs",
               "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmPasesHoy.cs",
               "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPasesHoy.cs",
               "RelativeToolTip": "AplicacionCine\\Formularios\\FrmPasesHoy.cs",
-              "ViewState": "AgIAALwAAAAAAAAAAAA7wA4AAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAPQAAAAAAAAAAAA0wC0BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:21:51.754Z",
+              "WhenOpened": "2025-12-08T10:57:08.365Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
+              "Title": "FrmBrowUsuarios.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowUsuarios.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowUsuarios.cs [Dise\u00F1o]",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowUsuarios.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T10:03:07.549Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "FrmPasesHoy.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPasesHoy.cs",
               "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmPasesHoy.cs",
               "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPasesHoy.cs [Dise\u00F1o]",
               "RelativeToolTip": "AplicacionCine\\Formularios\\FrmPasesHoy.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:19:13.153Z",
+              "WhenOpened": "2025-12-08T09:47:54.417Z",
               "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "FrmMapaButacas.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmMapaButacas.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmMapaButacas.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmMapaButacas.cs [Dise\u00F1o]",
-              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmMapaButacas.cs [Dise\u00F1o]",
+              "DocumentIndex": 0,
+              "Title": "FrmPrincipal.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPrincipal.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmPrincipal.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPrincipal.cs [Dise\u00F1o]",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmPrincipal.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:19:06.279Z",
+              "WhenOpened": "2025-12-08T09:45:09.54Z",
               "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "PaseDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\DAO\\PaseDAO.cs",
-              "RelativeDocumentMoniker": "AplicacionCine\\DAO\\PaseDAO.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\DAO\\PaseDAO.cs",
-              "RelativeToolTip": "AplicacionCine\\DAO\\PaseDAO.cs",
-              "ViewState": "AgIAAK0AAAAAAAAAAAAYwLwAAAABAAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "FrmSalas.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmSalas.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmSalas.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmSalas.cs",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmSalas.cs",
+              "ViewState": "AgIAAIIBAAAAAAAAAAAmwKEBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:11:44.494Z",
+              "WhenOpened": "2025-12-08T00:57:37.931Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FrmSalas.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmSalas.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmSalas.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmSalas.cs [Dise\u00F1o]",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmSalas.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:57:36.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FrmBrowReservas.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowReservas.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowReservas.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowReservas.cs",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowReservas.cs",
+              "ViewState": "AgIAADEBAAAAAAAAAAAcwFIBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:57:19.708Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FrmBrowReservas.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowReservas.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmBrowReservas.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmBrowReservas.cs [Dise\u00F1o]",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmBrowReservas.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:57:17.173Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FrmReserva.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmReserva.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmReserva.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmReserva.cs [Dise\u00F1o]",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmReserva.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:57:12.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "FrmPeliculas.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPeliculas.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmPeliculas.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPeliculas.cs",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmPeliculas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:54:16.015Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FrmPeliculas.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPeliculas.cs",
+              "RelativeDocumentMoniker": "AplicacionCine\\Formularios\\FrmPeliculas.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Proyectos\\c#\\AplicacionCine\\AplicacionCine\\Formularios\\FrmPeliculas.cs [Dise\u00F1o]",
+              "RelativeToolTip": "AplicacionCine\\Formularios\\FrmPeliculas.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:52:49.506Z"
             }
           ]
         }

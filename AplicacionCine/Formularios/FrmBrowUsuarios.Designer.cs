@@ -34,9 +34,9 @@
             dvgUsuarios = new DataGridView();
             pnStatus = new Panel();
             ssInfo = new StatusStrip();
-            tslUsuario = new ToolStripStatusLabel();
-            tslRol = new ToolStripStatusLabel();
-            tslEstado = new ToolStripStatusLabel();
+            tslUsuariosResumen = new ToolStripStatusLabel();
+            tslUsuariosFiltro = new ToolStripStatusLabel();
+            tslUsuariosSeleccion = new ToolStripStatusLabel();
             pnTop = new Panel();
             toolStrip1 = new ToolStrip();
             tstUsuario = new ToolStripLabel();
@@ -103,32 +103,33 @@
             // ssInfo
             // 
             ssInfo.Dock = DockStyle.Fill;
-            ssInfo.Items.AddRange(new ToolStripItem[] { tslUsuario, tslRol, tslEstado });
+            ssInfo.Items.AddRange(new ToolStripItem[] { tslUsuariosResumen, tslUsuariosFiltro, tslUsuariosSeleccion });
             ssInfo.Location = new Point(0, 0);
             ssInfo.Name = "ssInfo";
             ssInfo.Size = new Size(868, 30);
             ssInfo.TabIndex = 3;
             ssInfo.Text = "statusStrip1";
             // 
-            // tslUsuario
+            // tslUsuariosResumen
             // 
-            tslUsuario.Margin = new Padding(20, 3, 10, 2);
-            tslUsuario.Name = "tslUsuario";
-            tslUsuario.Size = new Size(47, 25);
-            tslUsuario.Text = "Usuario";
+            tslUsuariosResumen.Margin = new Padding(20, 3, 10, 2);
+            tslUsuariosResumen.Name = "tslUsuariosResumen";
+            tslUsuariosResumen.Size = new Size(56, 25);
+            tslUsuariosResumen.Text = "Resumen";
             // 
-            // tslRol
+            // tslUsuariosFiltro
             // 
-            tslRol.Margin = new Padding(0, 3, 10, 2);
-            tslRol.Name = "tslRol";
-            tslRol.Size = new Size(24, 25);
-            tslRol.Text = "Rol";
+            tslUsuariosFiltro.Margin = new Padding(20, 3, 10, 2);
+            tslUsuariosFiltro.Name = "tslUsuariosFiltro";
+            tslUsuariosFiltro.Size = new Size(34, 25);
+            tslUsuariosFiltro.Text = "Filtro";
             // 
-            // tslEstado
+            // tslUsuariosSeleccion
             // 
-            tslEstado.Name = "tslEstado";
-            tslEstado.Size = new Size(42, 25);
-            tslEstado.Text = "Estado";
+            tslUsuariosSeleccion.Margin = new Padding(20, 3, 0, 2);
+            tslUsuariosSeleccion.Name = "tslUsuariosSeleccion";
+            tslUsuariosSeleccion.Size = new Size(57, 25);
+            tslUsuariosSeleccion.Text = "Selección";
             // 
             // pnTop
             // 
@@ -288,9 +289,9 @@
         private Panel pnStatus;
         private Panel pnInfo;
         private StatusStrip ssInfo;
-        private ToolStripStatusLabel tslUsuario;
-        private ToolStripStatusLabel tslRol;
-        private ToolStripStatusLabel tslEstado;
+        private ToolStripStatusLabel tslUsuariosResumen;
+        private ToolStripStatusLabel tslUsuariosFiltro;
+        private ToolStripStatusLabel tslUsuariosSeleccion;
         private DataGridView dvgUsuarios;
         private ToolStrip toolStrip1;
         private ToolStripLabel tstUsuario;
