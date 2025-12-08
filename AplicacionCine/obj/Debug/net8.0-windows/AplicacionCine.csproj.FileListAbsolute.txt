@@ -15,10 +15,8 @@ C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\ne
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.genruntimeconfig.cache
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\ref\AplicacionCine.dll
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.csproj.AssemblyReference.cache
-C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.Formularios.FrmBrowEmpleados.resources
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.Formularios.FrmBrowReservas.resources
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.Formularios.FrmBrowUsuarios.resources
-C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.Formularios.FrmEmpleado.resources
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.Formularios.FrmMapaButacas.resources
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.Formularios.FrmPasesHoy.resources
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.Formularios.FrmPeliculas.resources
@@ -33,3 +31,4 @@ C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\bin\Debug\ne
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\bin\Debug\net8.0-windows\Npgsql.dll
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\Aplicaci.87B955F3.Up2Date
+C:\Users\Usuario\Desktop\Proyectos\c#\AplicacionCine\AplicacionCine\obj\Debug\net8.0-windows\AplicacionCine.Formularios.FrmConfiguracion.resources

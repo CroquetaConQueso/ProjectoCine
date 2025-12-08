@@ -8,25 +8,22 @@ namespace AplicacionCine.Formularios
     public partial class FrmPrincipal : Form
     {
         private FrmBrowUsuarios? _frmBrowUsuarios;
-        private FrmBrowEmpleados? _frmBrowEmpleados;
         private FrmPeliculas? _frmPeliculas;
         private FrmSalas? _frmSalas;
         private FrmPasesHoy? _frmPasesHoy;
         private FrmBrowReservas? _frmBrowReservas;
         private FrmMapaButacas? _frmMapaButacas;
+        private FrmConfiguracion? _frmConfiguracion;
 
         public FrmPrincipal()
         {
             InitializeComponent();
 
-            // Contenedor MDI
             IsMdiContainer = true;
 
-            // Eventos del propio formulario
             Load += FrmPrincipal_Load;
             FormClosed += FrmPrincipal_FormClosed;
 
-            // Eventos de botones del ToolStrip
             btnNavPases.Click += BtnNavPases_Click;
             btnNavReservas.Click += BtnNavReservas_Click;
             btnNavPeliculas.Click += BtnNavPeliculas_Click;
@@ -85,8 +82,7 @@ namespace AplicacionCine.Formularios
 
         private void BtnNavConfiguracion_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Pantalla de configuración pendiente de implementar.",
-                "Configuración", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            AppProgram.AbrirFormulario(ref _frmConfiguracion, this);
         }
 
         private void BtnNavSalir_Click(object? sender, EventArgs e)
