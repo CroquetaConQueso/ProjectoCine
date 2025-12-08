@@ -26,13 +26,91 @@ namespace AplicacionCine.Formularios
             btnEliminar.Click += BtnEliminar_Click;
             btnCerrar.Click += BtnCerrar_Click;
 
-            dvgPelis.AutoGenerateColumns = true;
+            dvgPelis.AutoGenerateColumns = false;
             dvgPelis.DataSource = _bsPelis;
             dvgPelis.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgPelis.MultiSelect = false;
             dvgPelis.ReadOnly = true;
+            dvgPelis.AllowUserToAddRows = false;
+            dvgPelis.AllowUserToDeleteRows = false;
             dvgPelis.SelectionChanged += DvgPelis_SelectionChanged;
+
+            ConfigurarGrid();
         }
+
+        #region Configurar grid
+
+        private void ConfigurarGrid()
+        {
+            dvgPelis.Columns.Clear();
+
+            // Id
+            dvgPelis.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Pelicula.IdPelicula),
+                HeaderText = "IdPelicula",
+                Width = 70,
+                ReadOnly = true
+            });
+
+            // Título
+            dvgPelis.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Pelicula.Titulo),
+                HeaderText = "Título",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                ReadOnly = true
+            });
+
+            // Duración
+            dvgPelis.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Pelicula.DuracionMin),
+                HeaderText = "DuracionMin",
+                Width = 80,
+                ReadOnly = true
+            });
+
+            // Clasificación
+            dvgPelis.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Pelicula.Clasificacion),
+                HeaderText = "Clasificación",
+                Width = 90,
+                ReadOnly = true
+            });
+
+            // Género
+            dvgPelis.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Pelicula.Genero),
+                HeaderText = "Genero",
+                Width = 120,
+                ReadOnly = true
+            });
+
+            // Sinopsis
+            dvgPelis.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Pelicula.Sinopsis),
+                HeaderText = "Sinopsis",
+                Width = 250,
+                ReadOnly = true
+            });
+
+            // Activa (solo lectura en el grid)
+            dvgPelis.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = nameof(Pelicula.Activa),
+                HeaderText = "Activa",
+                Width = 60,
+                ReadOnly = true
+            });
+        }
+
+        #endregion
+
+        #region Carga inicial
 
         private void FrmPeliculas_Load(object? sender, EventArgs e)
         {
@@ -77,6 +155,10 @@ namespace AplicacionCine.Formularios
             AplicarFiltro();
         }
 
+        #endregion
+
+        #region Filtro
+
         private void AplicarFiltro()
         {
             IEnumerable<Pelicula> query = _listaCompleta;
@@ -87,16 +169,22 @@ namespace AplicacionCine.Formularios
 
             var clasif = cbCalificacion.SelectedItem as string;
             if (!string.IsNullOrEmpty(clasif))
-                query = query.Where(p => (p.Clasificacion ?? "").Equals(clasif, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(p => (p.Clasificacion ?? "")
+                    .Equals(clasif, StringComparison.OrdinalIgnoreCase));
 
             var lista = query.ToList();
             _bsPelis.DataSource = new BindingList<Pelicula>(lista);
+            dvgPelis.ClearSelection();
         }
 
         private Pelicula? GetPeliculaActual()
         {
             return _bsPelis.Current as Pelicula;
         }
+
+        #endregion
+
+        #region Detalle
 
         private void DvgPelis_SelectionChanged(object? sender, EventArgs e)
         {
@@ -113,19 +201,41 @@ namespace AplicacionCine.Formularios
                 cbCalif.SelectedIndex = -1;
                 cbGenero.SelectedIndex = -1;
                 tbSinopsis.Text = "";
+                if (chkActiva != null)
+                    chkActiva.Checked = true;
                 return;
             }
 
             tbTitulo.Text = _peliculaActual.Titulo;
+
             nudDuracion.Value = _peliculaActual.DuracionMin >= nudDuracion.Minimum &&
                                 _peliculaActual.DuracionMin <= nudDuracion.Maximum
                 ? _peliculaActual.DuracionMin
                 : nudDuracion.Minimum;
 
-            cbCalif.SelectedItem = _peliculaActual.Clasificacion;
-            cbGenero.SelectedItem = _peliculaActual.Genero;
+            // Clasificación detalle
+            if (_peliculaActual.Clasificacion != null &&
+                cbCalif.Items.Contains(_peliculaActual.Clasificacion))
+                cbCalif.SelectedItem = _peliculaActual.Clasificacion;
+            else
+                cbCalif.SelectedIndex = -1;
+
+            // Género detalle
+            if (_peliculaActual.Genero != null &&
+                cbGenero.Items.Contains(_peliculaActual.Genero))
+                cbGenero.SelectedItem = _peliculaActual.Genero;
+            else
+                cbGenero.SelectedIndex = -1;
+
             tbSinopsis.Text = _peliculaActual.Sinopsis ?? "";
+
+            if (chkActiva != null)
+                chkActiva.Checked = _peliculaActual.Activa;
         }
+
+        #endregion
+
+        #region Botones
 
         private void BtnBuscar_Click(object? sender, EventArgs e)
         {
@@ -141,8 +251,15 @@ namespace AplicacionCine.Formularios
 
         private void BtnNuevo_Click(object? sender, EventArgs e)
         {
-            _peliculaActual = new Pelicula { Activa = true };
+            _peliculaActual = new Pelicula
+            {
+                Activa = true
+            };
+
             RellenarDetalle();
+            if (chkActiva != null)
+                chkActiva.Checked = true;
+
             tbTitulo.Focus();
         }
 
@@ -164,7 +281,13 @@ namespace AplicacionCine.Formularios
             _peliculaActual.Clasificacion = cbCalif.SelectedItem as string;
             _peliculaActual.Genero = cbGenero.SelectedItem as string;
             _peliculaActual.Sinopsis = string.IsNullOrWhiteSpace(tbSinopsis.Text)
-                ? null : tbSinopsis.Text;
+                ? null
+                : tbSinopsis.Text;
+
+            if (chkActiva != null)
+                _peliculaActual.Activa = chkActiva.Checked;
+            else if (_peliculaActual.IdPelicula == 0)
+                _peliculaActual.Activa = true; // seguridad para altas
 
             if (_peliculaActual.IdPelicula == 0)
                 AppContext.Peliculas.Insert(_peliculaActual);
@@ -200,5 +323,7 @@ namespace AplicacionCine.Formularios
         {
             Close();
         }
+
+        #endregion
     }
 }

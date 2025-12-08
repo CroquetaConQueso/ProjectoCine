@@ -22,8 +22,82 @@ namespace AplicacionCine.Formularios
             btnCerrar.Click += BtnCerrar_Click;
             btnVerButacas.Click += BtnVerButacas_Click;
 
-            dgvPases.AutoGenerateColumns = true;
+            // NO autogenerar columnas, las definimos nosotros
+            dgvPases.AutoGenerateColumns = false;
             dgvPases.DataSource = _bsPases;
+
+            dgvPases.ReadOnly = true;
+            dgvPases.AllowUserToAddRows = false;
+            dgvPases.AllowUserToDeleteRows = false;
+            dgvPases.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPases.MultiSelect = false;
+
+            ConfigurarGrid();
+        }
+
+        private void ConfigurarGrid()
+        {
+            dgvPases.Columns.Clear();
+
+            // Id del pase
+            dgvPases.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "IdPase",
+                HeaderText = "Id",
+                Width = 50,
+                ReadOnly = true
+            });
+
+            // Fecha y hora
+            dgvPases.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FechaHora",
+                HeaderText = "Fecha / hora",
+                Width = 130,
+                ReadOnly = true,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy HH:mm" }
+            });
+
+            // Título de la película
+            dgvPases.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TituloPelicula",
+                HeaderText = "Película",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                ReadOnly = true
+            });
+
+            // Sala
+            dgvPases.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NombreSala",
+                HeaderText = "Sala",
+                Width = 100,
+                ReadOnly = true
+            });
+
+            // Precio base
+            dgvPases.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PrecioBase",
+                HeaderText = "Precio",
+                Width = 70,
+                ReadOnly = true,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleRight,
+                    Format = "0.00 €"
+                }
+            });
+
+            // Activo
+            dgvPases.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "Activo",
+                HeaderText = "Activo",
+                Width = 60,
+                ReadOnly = true
+            });
         }
 
         private void FrmPasesHoy_Load(object? sender, EventArgs e)
@@ -122,7 +196,6 @@ namespace AplicacionCine.Formularios
                 return;
             }
 
-            // Obtenemos la sala asociada al pase
             var sala = AppContext.Salas.GetById(pase.IdSala);
             if (sala == null)
             {

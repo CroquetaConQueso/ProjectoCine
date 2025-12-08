@@ -30,20 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBrowUsuarios));
             pnTotal = new Panel();
-            pnTop = new Panel();
-            pnTopBar = new Panel();
-            pnStatus = new Panel();
             pnInfo = new Panel();
-            menuPrincipal = new MenuStrip();
-            archivoToolStripMenuItem = new ToolStripMenuItem();
-            pasesToolStripMenuItem = new ToolStripMenuItem();
-            gestiónToolStripMenuItem = new ToolStripMenuItem();
-            ayudaToolStripMenuItem = new ToolStripMenuItem();
+            dvgUsuarios = new DataGridView();
+            pnStatus = new Panel();
             ssInfo = new StatusStrip();
             tslUsuario = new ToolStripStatusLabel();
             tslRol = new ToolStripStatusLabel();
             tslEstado = new ToolStripStatusLabel();
-            dvgUsuarios = new DataGridView();
+            pnTop = new Panel();
             toolStrip1 = new ToolStrip();
             tstUsuario = new ToolStripLabel();
             tstbUsuario = new ToolStripTextBox();
@@ -60,13 +54,11 @@
             tsbtResetPass = new ToolStripButton();
             tsbtRefrescar = new ToolStripButton();
             pnTotal.SuspendLayout();
-            pnTop.SuspendLayout();
-            pnTopBar.SuspendLayout();
-            pnStatus.SuspendLayout();
             pnInfo.SuspendLayout();
-            menuPrincipal.SuspendLayout();
-            ssInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dvgUsuarios).BeginInit();
+            pnStatus.SuspendLayout();
+            ssInfo.SuspendLayout();
+            pnTop.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -75,30 +67,29 @@
             pnTotal.Controls.Add(pnInfo);
             pnTotal.Controls.Add(pnStatus);
             pnTotal.Controls.Add(pnTop);
-            pnTotal.Controls.Add(pnTopBar);
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
             pnTotal.Name = "pnTotal";
             pnTotal.Size = new Size(868, 554);
             pnTotal.TabIndex = 0;
             // 
-            // pnTop
+            // pnInfo
             // 
-            pnTop.Controls.Add(toolStrip1);
-            pnTop.Dock = DockStyle.Top;
-            pnTop.Location = new Point(0, 31);
-            pnTop.Name = "pnTop";
-            pnTop.Size = new Size(868, 34);
-            pnTop.TabIndex = 1;
+            pnInfo.Controls.Add(dvgUsuarios);
+            pnInfo.Dock = DockStyle.Fill;
+            pnInfo.Location = new Point(0, 34);
+            pnInfo.Name = "pnInfo";
+            pnInfo.Size = new Size(868, 490);
+            pnInfo.TabIndex = 3;
             // 
-            // pnTopBar
+            // dvgUsuarios
             // 
-            pnTopBar.Controls.Add(menuPrincipal);
-            pnTopBar.Dock = DockStyle.Top;
-            pnTopBar.Location = new Point(0, 0);
-            pnTopBar.Name = "pnTopBar";
-            pnTopBar.Size = new Size(868, 31);
-            pnTopBar.TabIndex = 0;
+            dvgUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dvgUsuarios.Dock = DockStyle.Fill;
+            dvgUsuarios.Location = new Point(0, 0);
+            dvgUsuarios.Name = "dvgUsuarios";
+            dvgUsuarios.Size = new Size(868, 490);
+            dvgUsuarios.TabIndex = 2;
             // 
             // pnStatus
             // 
@@ -108,49 +99,6 @@
             pnStatus.Name = "pnStatus";
             pnStatus.Size = new Size(868, 30);
             pnStatus.TabIndex = 2;
-            // 
-            // pnInfo
-            // 
-            pnInfo.Controls.Add(dvgUsuarios);
-            pnInfo.Dock = DockStyle.Fill;
-            pnInfo.Location = new Point(0, 65);
-            pnInfo.Name = "pnInfo";
-            pnInfo.Size = new Size(868, 459);
-            pnInfo.TabIndex = 3;
-            // 
-            // menuPrincipal
-            // 
-            menuPrincipal.Dock = DockStyle.Fill;
-            menuPrincipal.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, pasesToolStripMenuItem, gestiónToolStripMenuItem, ayudaToolStripMenuItem });
-            menuPrincipal.Location = new Point(0, 0);
-            menuPrincipal.Name = "menuPrincipal";
-            menuPrincipal.Size = new Size(868, 31);
-            menuPrincipal.TabIndex = 2;
-            menuPrincipal.Text = "menuStrip1";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            archivoToolStripMenuItem.Size = new Size(60, 27);
-            archivoToolStripMenuItem.Text = "&Archivo";
-            // 
-            // pasesToolStripMenuItem
-            // 
-            pasesToolStripMenuItem.Name = "pasesToolStripMenuItem";
-            pasesToolStripMenuItem.Size = new Size(48, 27);
-            pasesToolStripMenuItem.Text = "&Pases";
-            // 
-            // gestiónToolStripMenuItem
-            // 
-            gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
-            gestiónToolStripMenuItem.Size = new Size(59, 27);
-            gestiónToolStripMenuItem.Text = "&Gestión";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(53, 27);
-            ayudaToolStripMenuItem.Text = "A&yuda";
             // 
             // ssInfo
             // 
@@ -182,14 +130,14 @@
             tslEstado.Size = new Size(42, 25);
             tslEstado.Text = "Estado";
             // 
-            // dvgUsuarios
+            // pnTop
             // 
-            dvgUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dvgUsuarios.Dock = DockStyle.Fill;
-            dvgUsuarios.Location = new Point(0, 0);
-            dvgUsuarios.Name = "dvgUsuarios";
-            dvgUsuarios.Size = new Size(868, 459);
-            dvgUsuarios.TabIndex = 2;
+            pnTop.Controls.Add(toolStrip1);
+            pnTop.Dock = DockStyle.Top;
+            pnTop.Location = new Point(0, 0);
+            pnTop.Name = "pnTop";
+            pnTop.Size = new Size(868, 34);
+            pnTop.TabIndex = 1;
             // 
             // toolStrip1
             // 
@@ -320,18 +268,14 @@
             Name = "FrmBrowUsuarios";
             Text = "Lista de Usuarios";
             pnTotal.ResumeLayout(false);
-            pnTop.ResumeLayout(false);
-            pnTop.PerformLayout();
-            pnTopBar.ResumeLayout(false);
-            pnTopBar.PerformLayout();
+            pnInfo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dvgUsuarios).EndInit();
             pnStatus.ResumeLayout(false);
             pnStatus.PerformLayout();
-            pnInfo.ResumeLayout(false);
-            menuPrincipal.ResumeLayout(false);
-            menuPrincipal.PerformLayout();
             ssInfo.ResumeLayout(false);
             ssInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dvgUsuarios).EndInit();
+            pnTop.ResumeLayout(false);
+            pnTop.PerformLayout();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ResumeLayout(false);
@@ -341,14 +285,8 @@
 
         private Panel pnTotal;
         private Panel pnTop;
-        private Panel pnTopBar;
         private Panel pnStatus;
         private Panel pnInfo;
-        private MenuStrip menuPrincipal;
-        private ToolStripMenuItem archivoToolStripMenuItem;
-        private ToolStripMenuItem pasesToolStripMenuItem;
-        private ToolStripMenuItem gestiónToolStripMenuItem;
-        private ToolStripMenuItem ayudaToolStripMenuItem;
         private StatusStrip ssInfo;
         private ToolStripStatusLabel tslUsuario;
         private ToolStripStatusLabel tslRol;

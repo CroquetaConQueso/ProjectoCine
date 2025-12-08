@@ -61,12 +61,8 @@
             tslUsuario = new ToolStripStatusLabel();
             tslRol = new ToolStripStatusLabel();
             tslEstado = new ToolStripStatusLabel();
-            pnTopBar = new Panel();
-            menuPrincipal = new MenuStrip();
-            archivoToolStripMenuItem = new ToolStripMenuItem();
-            pasesToolStripMenuItem = new ToolStripMenuItem();
-            gestiónToolStripMenuItem = new ToolStripMenuItem();
-            ayudaToolStripMenuItem = new ToolStripMenuItem();
+            chkActiva = new CheckBox();
+            lbEstado = new Label();
             pnTotal.SuspendLayout();
             pnMain.SuspendLayout();
             pnInfo.SuspendLayout();
@@ -77,8 +73,6 @@
             pnBotones.SuspendLayout();
             pnStatus.SuspendLayout();
             ssInfo.SuspendLayout();
-            pnTopBar.SuspendLayout();
-            menuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
             // pnTotal
@@ -87,7 +81,6 @@
             pnTotal.Controls.Add(pnTop);
             pnTotal.Controls.Add(pnBotones);
             pnTotal.Controls.Add(pnStatus);
-            pnTotal.Controls.Add(pnTopBar);
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
             pnTotal.Name = "pnTotal";
@@ -99,13 +92,15 @@
             pnMain.Controls.Add(pnInfo);
             pnMain.Controls.Add(pnGrid);
             pnMain.Dock = DockStyle.Fill;
-            pnMain.Location = new Point(0, 64);
+            pnMain.Location = new Point(0, 35);
             pnMain.Name = "pnMain";
-            pnMain.Size = new Size(1103, 343);
+            pnMain.Size = new Size(1103, 372);
             pnMain.TabIndex = 7;
             // 
             // pnInfo
             // 
+            pnInfo.Controls.Add(lbEstado);
+            pnInfo.Controls.Add(chkActiva);
             pnInfo.Controls.Add(tbSinopsis);
             pnInfo.Controls.Add(cbGenero);
             pnInfo.Controls.Add(cbCalif);
@@ -119,13 +114,12 @@
             pnInfo.Dock = DockStyle.Fill;
             pnInfo.Location = new Point(809, 0);
             pnInfo.Name = "pnInfo";
-            pnInfo.Size = new Size(294, 343);
+            pnInfo.Size = new Size(294, 372);
             pnInfo.TabIndex = 1;
             // 
             // tbSinopsis
             // 
-            tbSinopsis.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tbSinopsis.Location = new Point(6, 212);
+            tbSinopsis.Location = new Point(6, 232);
             tbSinopsis.Multiline = true;
             tbSinopsis.Name = "tbSinopsis";
             tbSinopsis.Size = new Size(280, 107);
@@ -133,42 +127,38 @@
             // 
             // cbGenero
             // 
-            cbGenero.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cbGenero.FormattingEnabled = true;
             cbGenero.Location = new Point(60, 142);
             cbGenero.Name = "cbGenero";
-            cbGenero.Size = new Size(226, 23);
+            cbGenero.Size = new Size(202, 23);
             cbGenero.TabIndex = 8;
             // 
             // cbCalif
             // 
-            cbCalif.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cbCalif.FormattingEnabled = true;
             cbCalif.Location = new Point(78, 98);
             cbCalif.Name = "cbCalif";
-            cbCalif.Size = new Size(213, 23);
+            cbCalif.Size = new Size(189, 23);
             cbCalif.TabIndex = 7;
             // 
             // nudDuracion
             // 
-            nudDuracion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             nudDuracion.Location = new Point(70, 51);
             nudDuracion.Name = "nudDuracion";
-            nudDuracion.Size = new Size(221, 23);
+            nudDuracion.Size = new Size(197, 23);
             nudDuracion.TabIndex = 6;
             // 
             // tbTitulo
             // 
-            tbTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbTitulo.Location = new Point(53, 11);
             tbTitulo.Name = "tbTitulo";
-            tbTitulo.Size = new Size(238, 23);
+            tbTitulo.Size = new Size(214, 23);
             tbTitulo.TabIndex = 5;
             // 
             // lbIsin
             // 
             lbIsin.AutoSize = true;
-            lbIsin.Location = new Point(6, 194);
+            lbIsin.Location = new Point(6, 214);
             lbIsin.Name = "lbIsin";
             lbIsin.Size = new Size(56, 15);
             lbIsin.TabIndex = 4;
@@ -216,7 +206,7 @@
             pnGrid.Dock = DockStyle.Left;
             pnGrid.Location = new Point(0, 0);
             pnGrid.Name = "pnGrid";
-            pnGrid.Size = new Size(809, 343);
+            pnGrid.Size = new Size(809, 372);
             pnGrid.TabIndex = 0;
             // 
             // dvgPelis
@@ -225,7 +215,7 @@
             dvgPelis.Dock = DockStyle.Fill;
             dvgPelis.Location = new Point(0, 0);
             dvgPelis.Name = "dvgPelis";
-            dvgPelis.Size = new Size(809, 343);
+            dvgPelis.Size = new Size(809, 372);
             dvgPelis.TabIndex = 0;
             // 
             // pnTop
@@ -237,7 +227,7 @@
             pnTop.Controls.Add(btnBuscar);
             pnTop.Controls.Add(lbFClasificacion);
             pnTop.Dock = DockStyle.Top;
-            pnTop.Location = new Point(0, 29);
+            pnTop.Location = new Point(0, 0);
             pnTop.Name = "pnTop";
             pnTop.Size = new Size(1103, 35);
             pnTop.TabIndex = 6;
@@ -381,48 +371,24 @@
             tslEstado.Size = new Size(42, 25);
             tslEstado.Text = "Estado";
             // 
-            // pnTopBar
+            // chkActiva
             // 
-            pnTopBar.Controls.Add(menuPrincipal);
-            pnTopBar.Dock = DockStyle.Top;
-            pnTopBar.Location = new Point(0, 0);
-            pnTopBar.Name = "pnTopBar";
-            pnTopBar.Size = new Size(1103, 29);
-            pnTopBar.TabIndex = 2;
+            chkActiva.AutoSize = true;
+            chkActiva.Location = new Point(144, 182);
+            chkActiva.Name = "chkActiva";
+            chkActiva.Size = new Size(59, 19);
+            chkActiva.TabIndex = 10;
+            chkActiva.Text = "Activa";
+            chkActiva.UseVisualStyleBackColor = true;
             // 
-            // menuPrincipal
+            // lbEstado
             // 
-            menuPrincipal.Dock = DockStyle.Fill;
-            menuPrincipal.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, pasesToolStripMenuItem, gestiónToolStripMenuItem, ayudaToolStripMenuItem });
-            menuPrincipal.Location = new Point(0, 0);
-            menuPrincipal.Name = "menuPrincipal";
-            menuPrincipal.Size = new Size(1103, 29);
-            menuPrincipal.TabIndex = 1;
-            menuPrincipal.Text = "menuStrip1";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            archivoToolStripMenuItem.Size = new Size(60, 25);
-            archivoToolStripMenuItem.Text = "&Archivo";
-            // 
-            // pasesToolStripMenuItem
-            // 
-            pasesToolStripMenuItem.Name = "pasesToolStripMenuItem";
-            pasesToolStripMenuItem.Size = new Size(48, 25);
-            pasesToolStripMenuItem.Text = "&Pases";
-            // 
-            // gestiónToolStripMenuItem
-            // 
-            gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
-            gestiónToolStripMenuItem.Size = new Size(59, 25);
-            gestiónToolStripMenuItem.Text = "&Gestión";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(53, 25);
-            ayudaToolStripMenuItem.Text = "A&yuda";
+            lbEstado.AutoSize = true;
+            lbEstado.Location = new Point(93, 183);
+            lbEstado.Name = "lbEstado";
+            lbEstado.Size = new Size(45, 15);
+            lbEstado.TabIndex = 11;
+            lbEstado.Text = "Estado:";
             // 
             // FrmPeliculas
             // 
@@ -447,10 +413,6 @@
             pnStatus.PerformLayout();
             ssInfo.ResumeLayout(false);
             ssInfo.PerformLayout();
-            pnTopBar.ResumeLayout(false);
-            pnTopBar.PerformLayout();
-            menuPrincipal.ResumeLayout(false);
-            menuPrincipal.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -459,7 +421,6 @@
         private Panel pnTotal;
         private Panel pnBotones;
         private Panel pnStatus;
-        private Panel pnTopBar;
         private Panel pnTop;
         private Label lbFNombre;
         private ComboBox cbCalificacion;
@@ -467,11 +428,6 @@
         private Button btnLimpiar;
         private Button btnBuscar;
         private Label lbFClasificacion;
-        private MenuStrip menuPrincipal;
-        private ToolStripMenuItem archivoToolStripMenuItem;
-        private ToolStripMenuItem pasesToolStripMenuItem;
-        private ToolStripMenuItem gestiónToolStripMenuItem;
-        private ToolStripMenuItem ayudaToolStripMenuItem;
         private StatusStrip ssInfo;
         private ToolStripStatusLabel tslUsuario;
         private ToolStripStatusLabel tslRol;
@@ -494,5 +450,7 @@
         private Button btnEliminar;
         private Button btnGuardar;
         private Button btnNuevo;
+        private Label lbEstado;
+        private CheckBox chkActiva;
     }
 }

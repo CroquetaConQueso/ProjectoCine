@@ -31,11 +31,24 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmReserva));
             tbControl = new TabControl();
             tbDatos = new TabPage();
+            pnExtra = new Panel();
+            groupBox1 = new GroupBox();
+            lbPrecio = new Label();
+            lbCantidadTotalEntradas = new Label();
+            lbCantidadPrecio = new Label();
+            lbCantidadEntradas = new Label();
+            lbTotalEntradas = new Label();
+            lbNentradas = new Label();
+            pnDatos = new Panel();
+            groupBox2 = new GroupBox();
+            dataGridView1 = new DataGridView();
             pnBotones = new Panel();
             btnCancelar = new Button();
             btnAceptar = new Button();
             pnInfo = new Panel();
             grb = new GroupBox();
+            lPase = new Label();
+            lFecha = new Label();
             cbEstado = new ComboBox();
             lblPase = new Label();
             dateTimePicker1 = new DateTimePicker();
@@ -52,31 +65,20 @@
             lbTitulo = new Label();
             tbObservaciones = new TabPage();
             rtbObservaciones = new RichTextBox();
-            lFecha = new Label();
-            lPase = new Label();
-            pnDatos = new Panel();
-            pnExtra = new Panel();
-            groupBox1 = new GroupBox();
-            lbPrecio = new Label();
-            lbCantidadTotal = new Label();
-            lbCantidadPrecio = new Label();
-            lbCantidadEntradas = new Label();
-            lbTotal = new Label();
-            lbNentradas = new Label();
-            groupBox2 = new GroupBox();
-            dataGridView1 = new DataGridView();
+            lbCantidadTotalReservas = new Label();
+            lbTotalReserva = new Label();
             tbControl.SuspendLayout();
             tbDatos.SuspendLayout();
+            pnExtra.SuspendLayout();
+            groupBox1.SuspendLayout();
+            pnDatos.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             pnBotones.SuspendLayout();
             pnInfo.SuspendLayout();
             grb.SuspendLayout();
             pnTop.SuspendLayout();
             tbObservaciones.SuspendLayout();
-            pnDatos.SuspendLayout();
-            pnExtra.SuspendLayout();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // tbControl
@@ -104,6 +106,115 @@
             tbDatos.TabIndex = 0;
             tbDatos.Text = "Datos";
             tbDatos.UseVisualStyleBackColor = true;
+            // 
+            // pnExtra
+            // 
+            pnExtra.Controls.Add(groupBox1);
+            pnExtra.Dock = DockStyle.Top;
+            pnExtra.Location = new Point(3, 372);
+            pnExtra.Name = "pnExtra";
+            pnExtra.Size = new Size(814, 51);
+            pnExtra.TabIndex = 5;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(lbCantidadTotalReservas);
+            groupBox1.Controls.Add(lbTotalReserva);
+            groupBox1.Controls.Add(lbPrecio);
+            groupBox1.Controls.Add(lbCantidadTotalEntradas);
+            groupBox1.Controls.Add(lbCantidadPrecio);
+            groupBox1.Controls.Add(lbCantidadEntradas);
+            groupBox1.Controls.Add(lbTotalEntradas);
+            groupBox1.Controls.Add(lbNentradas);
+            groupBox1.Dock = DockStyle.Fill;
+            groupBox1.Location = new Point(0, 0);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(814, 51);
+            groupBox1.TabIndex = 24;
+            groupBox1.TabStop = false;
+            // 
+            // lbPrecio
+            // 
+            lbPrecio.AutoSize = true;
+            lbPrecio.Location = new Point(251, 22);
+            lbPrecio.Name = "lbPrecio";
+            lbPrecio.Size = new Size(70, 15);
+            lbPrecio.TabIndex = 26;
+            lbPrecio.Text = "Precio base:";
+            // 
+            // lbCantidadTotalEntradas
+            // 
+            lbCantidadTotalEntradas.AutoSize = true;
+            lbCantidadTotalEntradas.Location = new Point(516, 22);
+            lbCantidadTotalEntradas.Name = "lbCantidadTotalEntradas";
+            lbCantidadTotalEntradas.Size = new Size(81, 15);
+            lbCantidadTotalEntradas.TabIndex = 25;
+            lbCantidadTotalEntradas.Text = "CantidadTotal";
+            // 
+            // lbCantidadPrecio
+            // 
+            lbCantidadPrecio.AutoSize = true;
+            lbCantidadPrecio.Location = new Point(327, 22);
+            lbCantidadPrecio.Name = "lbCantidadPrecio";
+            lbCantidadPrecio.Size = new Size(88, 15);
+            lbCantidadPrecio.TabIndex = 24;
+            lbCantidadPrecio.Text = "CantidadPrecio";
+            lbCantidadPrecio.Click += lbCantidadPrecio_Click;
+            // 
+            // lbCantidadEntradas
+            // 
+            lbCantidadEntradas.AutoSize = true;
+            lbCantidadEntradas.Location = new Point(117, 22);
+            lbCantidadEntradas.Name = "lbCantidadEntradas";
+            lbCantidadEntradas.Size = new Size(100, 15);
+            lbCantidadEntradas.TabIndex = 23;
+            lbCantidadEntradas.Text = "CantidadEntradas";
+            // 
+            // lbTotalEntradas
+            // 
+            lbTotalEntradas.AutoSize = true;
+            lbTotalEntradas.Location = new Point(426, 22);
+            lbTotalEntradas.Name = "lbTotalEntradas";
+            lbTotalEntradas.Size = new Size(84, 15);
+            lbTotalEntradas.TabIndex = 22;
+            lbTotalEntradas.Text = "Total Entradas:";
+            // 
+            // lbNentradas
+            // 
+            lbNentradas.AutoSize = true;
+            lbNentradas.Location = new Point(39, 22);
+            lbNentradas.Name = "lbNentradas";
+            lbNentradas.Size = new Size(72, 15);
+            lbNentradas.TabIndex = 21;
+            lbNentradas.Text = "Nº Entradas:";
+            // 
+            // pnDatos
+            // 
+            pnDatos.Controls.Add(groupBox2);
+            pnDatos.Dock = DockStyle.Top;
+            pnDatos.Location = new Point(3, 165);
+            pnDatos.Name = "pnDatos";
+            pnDatos.Size = new Size(814, 207);
+            pnDatos.TabIndex = 4;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(dataGridView1);
+            groupBox2.Dock = DockStyle.Fill;
+            groupBox2.Location = new Point(0, 0);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(814, 207);
+            groupBox2.TabIndex = 0;
+            groupBox2.TabStop = false;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 19);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(808, 185);
+            dataGridView1.TabIndex = 0;
             // 
             // pnBotones
             // 
@@ -164,6 +275,24 @@
             grb.Size = new Size(814, 121);
             grb.TabIndex = 25;
             grb.TabStop = false;
+            // 
+            // lPase
+            // 
+            lPase.AutoSize = true;
+            lPase.Location = new Point(452, 55);
+            lPase.Name = "lPase";
+            lPase.Size = new Size(34, 15);
+            lPase.TabIndex = 41;
+            lPase.Text = "Pase:";
+            // 
+            // lFecha
+            // 
+            lFecha.AutoSize = true;
+            lFecha.Location = new Point(444, 27);
+            lFecha.Name = "lFecha";
+            lFecha.Size = new Size(41, 15);
+            lFecha.TabIndex = 40;
+            lFecha.Text = "Fecha:";
             // 
             // cbEstado
             // 
@@ -311,130 +440,23 @@
             rtbObservaciones.TabIndex = 0;
             rtbObservaciones.Text = "";
             // 
-            // lFecha
+            // lbCantidadTotalReservas
             // 
-            lFecha.AutoSize = true;
-            lFecha.Location = new Point(444, 27);
-            lFecha.Name = "lFecha";
-            lFecha.Size = new Size(41, 15);
-            lFecha.TabIndex = 40;
-            lFecha.Text = "Fecha:";
+            lbCantidadTotalReservas.AutoSize = true;
+            lbCantidadTotalReservas.Location = new Point(701, 22);
+            lbCantidadTotalReservas.Name = "lbCantidadTotalReservas";
+            lbCantidadTotalReservas.Size = new Size(86, 15);
+            lbCantidadTotalReservas.TabIndex = 28;
+            lbCantidadTotalReservas.Text = "CTotalReservas";
             // 
-            // lPase
+            // lbTotalReserva
             // 
-            lPase.AutoSize = true;
-            lPase.Location = new Point(452, 55);
-            lPase.Name = "lPase";
-            lPase.Size = new Size(34, 15);
-            lPase.TabIndex = 41;
-            lPase.Text = "Pase:";
-            // 
-            // pnDatos
-            // 
-            pnDatos.Controls.Add(groupBox2);
-            pnDatos.Dock = DockStyle.Top;
-            pnDatos.Location = new Point(3, 165);
-            pnDatos.Name = "pnDatos";
-            pnDatos.Size = new Size(814, 207);
-            pnDatos.TabIndex = 4;
-            // 
-            // pnExtra
-            // 
-            pnExtra.Controls.Add(groupBox1);
-            pnExtra.Dock = DockStyle.Top;
-            pnExtra.Location = new Point(3, 372);
-            pnExtra.Name = "pnExtra";
-            pnExtra.Size = new Size(814, 51);
-            pnExtra.TabIndex = 5;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(lbPrecio);
-            groupBox1.Controls.Add(lbCantidadTotal);
-            groupBox1.Controls.Add(lbCantidadPrecio);
-            groupBox1.Controls.Add(lbCantidadEntradas);
-            groupBox1.Controls.Add(lbTotal);
-            groupBox1.Controls.Add(lbNentradas);
-            groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Location = new Point(0, 0);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(814, 51);
-            groupBox1.TabIndex = 24;
-            groupBox1.TabStop = false;
-            // 
-            // lbPrecio
-            // 
-            lbPrecio.AutoSize = true;
-            lbPrecio.Location = new Point(336, 22);
-            lbPrecio.Name = "lbPrecio";
-            lbPrecio.Size = new Size(70, 15);
-            lbPrecio.TabIndex = 26;
-            lbPrecio.Text = "Precio base:";
-            // 
-            // lbCantidadTotal
-            // 
-            lbCantidadTotal.AutoSize = true;
-            lbCantidadTotal.Location = new Point(590, 22);
-            lbCantidadTotal.Name = "lbCantidadTotal";
-            lbCantidadTotal.Size = new Size(81, 15);
-            lbCantidadTotal.TabIndex = 25;
-            lbCantidadTotal.Text = "CantidadTotal";
-            // 
-            // lbCantidadPrecio
-            // 
-            lbCantidadPrecio.AutoSize = true;
-            lbCantidadPrecio.Location = new Point(420, 22);
-            lbCantidadPrecio.Name = "lbCantidadPrecio";
-            lbCantidadPrecio.Size = new Size(88, 15);
-            lbCantidadPrecio.TabIndex = 24;
-            lbCantidadPrecio.Text = "CantidadPrecio";
-            lbCantidadPrecio.Click += lbCantidadPrecio_Click;
-            // 
-            // lbCantidadEntradas
-            // 
-            lbCantidadEntradas.AutoSize = true;
-            lbCantidadEntradas.Location = new Point(213, 22);
-            lbCantidadEntradas.Name = "lbCantidadEntradas";
-            lbCantidadEntradas.Size = new Size(100, 15);
-            lbCantidadEntradas.TabIndex = 23;
-            lbCantidadEntradas.Text = "CantidadEntradas";
-            // 
-            // lbTotal
-            // 
-            lbTotal.AutoSize = true;
-            lbTotal.Location = new Point(539, 22);
-            lbTotal.Name = "lbTotal";
-            lbTotal.Size = new Size(36, 15);
-            lbTotal.TabIndex = 22;
-            lbTotal.Text = "Total:";
-            // 
-            // lbNentradas
-            // 
-            lbNentradas.AutoSize = true;
-            lbNentradas.Location = new Point(129, 22);
-            lbNentradas.Name = "lbNentradas";
-            lbNentradas.Size = new Size(72, 15);
-            lbNentradas.TabIndex = 21;
-            lbNentradas.Text = "Nº Entradas:";
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(dataGridView1);
-            groupBox2.Dock = DockStyle.Fill;
-            groupBox2.Location = new Point(0, 0);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(814, 207);
-            groupBox2.TabIndex = 0;
-            groupBox2.TabStop = false;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 19);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(808, 185);
-            dataGridView1.TabIndex = 0;
+            lbTotalReserva.AutoSize = true;
+            lbTotalReserva.Location = new Point(611, 22);
+            lbTotalReserva.Name = "lbTotalReserva";
+            lbTotalReserva.Size = new Size(84, 15);
+            lbTotalReserva.TabIndex = 27;
+            lbTotalReserva.Text = "Total Reservas:";
             // 
             // FrmReserva
             // 
@@ -447,18 +469,18 @@
             Text = "Datos Reserva";
             tbControl.ResumeLayout(false);
             tbDatos.ResumeLayout(false);
+            pnExtra.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            pnDatos.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             pnBotones.ResumeLayout(false);
             pnInfo.ResumeLayout(false);
             grb.ResumeLayout(false);
             grb.PerformLayout();
             pnTop.ResumeLayout(false);
             tbObservaciones.ResumeLayout(false);
-            pnDatos.ResumeLayout(false);
-            pnExtra.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -502,15 +524,17 @@
         private Panel pnExtra;
         private GroupBox groupBox1;
         private Label lbPrecio;
-        private Label lbCantidadTotal;
+        private Label lbCantidadTotalEntradas;
         private Label lbCantidadPrecio;
         private Label lbCantidadEntradas;
-        private Label lbTotal;
+        private Label lbTotalEntradas;
         private Label lbNentradas;
         private Panel pnDatos;
         private GroupBox groupBox2;
         private DataGridView dataGridView1;
         private Label lPase;
         private Label lFecha;
+        private Label lbCantidadTotalReservas;
+        private Label lbTotalReserva;
     }
 }

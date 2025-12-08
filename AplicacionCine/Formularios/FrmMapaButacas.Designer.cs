@@ -73,11 +73,6 @@
             pnOpciones = new Panel();
             btnCancelar = new Button();
             btnConfirmarReserva = new Button();
-            pnBot = new Panel();
-            ssInfo = new StatusStrip();
-            tslUsuario = new ToolStripStatusLabel();
-            tslRol = new ToolStripStatusLabel();
-            tslEstado = new ToolStripStatusLabel();
             pnTop = new Panel();
             lbTitulo = new Label();
             pnTotal.SuspendLayout();
@@ -99,8 +94,6 @@
             pnInfoButacas.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             pnOpciones.SuspendLayout();
-            pnBot.SuspendLayout();
-            ssInfo.SuspendLayout();
             pnTop.SuspendLayout();
             SuspendLayout();
             // 
@@ -108,7 +101,6 @@
             // 
             pnTotal.Controls.Add(pnMain);
             pnTotal.Controls.Add(pnOpciones);
-            pnTotal.Controls.Add(pnBot);
             pnTotal.Controls.Add(pnTop);
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
@@ -124,7 +116,7 @@
             pnMain.Dock = DockStyle.Fill;
             pnMain.Location = new Point(0, 35);
             pnMain.Name = "pnMain";
-            pnMain.Size = new Size(867, 482);
+            pnMain.Size = new Size(867, 517);
             pnMain.TabIndex = 3;
             // 
             // pnDatos
@@ -134,7 +126,7 @@
             pnDatos.Dock = DockStyle.Fill;
             pnDatos.Location = new Point(576, 32);
             pnDatos.Name = "pnDatos";
-            pnDatos.Size = new Size(291, 450);
+            pnDatos.Size = new Size(291, 485);
             pnDatos.TabIndex = 2;
             // 
             // grpSeleccion
@@ -143,7 +135,7 @@
             grpSeleccion.Dock = DockStyle.Fill;
             grpSeleccion.Location = new Point(0, 228);
             grpSeleccion.Name = "grpSeleccion";
-            grpSeleccion.Size = new Size(291, 222);
+            grpSeleccion.Size = new Size(291, 257);
             grpSeleccion.TabIndex = 1;
             grpSeleccion.TabStop = false;
             grpSeleccion.Text = "Selección:";
@@ -175,16 +167,16 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            tableLayoutPanel2.Size = new Size(285, 200);
+            tableLayoutPanel2.Size = new Size(285, 235);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // lbSdpf
             // 
             lbSdpf.AutoSize = true;
             lbSdpf.Dock = DockStyle.Fill;
-            lbSdpf.Location = new Point(145, 165);
+            lbSdpf.Location = new Point(145, 195);
             lbSdpf.Name = "lbSdpf";
-            lbSdpf.Size = new Size(137, 35);
+            lbSdpf.Size = new Size(137, 40);
             lbSdpf.TabIndex = 11;
             lbSdpf.Text = "Dato Precio Final Valor";
             lbSdpf.TextAlign = ContentAlignment.MiddleCenter;
@@ -193,9 +185,9 @@
             // 
             lbSpf.AutoSize = true;
             lbSpf.Dock = DockStyle.Fill;
-            lbSpf.Location = new Point(3, 165);
+            lbSpf.Location = new Point(3, 195);
             lbSpf.Name = "lbSpf";
-            lbSpf.Size = new Size(136, 35);
+            lbSpf.Size = new Size(136, 40);
             lbSpf.TabIndex = 10;
             lbSpf.Text = "Precio final:";
             lbSpf.TextAlign = ContentAlignment.MiddleRight;
@@ -204,9 +196,9 @@
             // 
             lbSdpb.AutoSize = true;
             lbSdpb.Dock = DockStyle.Fill;
-            lbSdpb.Location = new Point(145, 132);
+            lbSdpb.Location = new Point(145, 156);
             lbSdpb.Name = "lbSdpb";
-            lbSdpb.Size = new Size(137, 33);
+            lbSdpb.Size = new Size(137, 39);
             lbSdpb.TabIndex = 9;
             lbSdpb.Text = "Dato Precio Base Valor";
             lbSdpb.TextAlign = ContentAlignment.MiddleCenter;
@@ -215,9 +207,9 @@
             // 
             lbSpb.AutoSize = true;
             lbSpb.Dock = DockStyle.Fill;
-            lbSpb.Location = new Point(3, 132);
+            lbSpb.Location = new Point(3, 156);
             lbSpb.Name = "lbSpb";
-            lbSpb.Size = new Size(136, 33);
+            lbSpb.Size = new Size(136, 39);
             lbSpb.TabIndex = 8;
             lbSpb.Text = "Precio base:";
             lbSpb.TextAlign = ContentAlignment.MiddleRight;
@@ -226,9 +218,9 @@
             // 
             lbSdest.AutoSize = true;
             lbSdest.Dock = DockStyle.Fill;
-            lbSdest.Location = new Point(145, 99);
+            lbSdest.Location = new Point(145, 117);
             lbSdest.Name = "lbSdest";
-            lbSdest.Size = new Size(137, 33);
+            lbSdest.Size = new Size(137, 39);
             lbSdest.TabIndex = 7;
             lbSdest.Text = "Dato Estado Valor";
             lbSdest.TextAlign = ContentAlignment.MiddleCenter;
@@ -237,9 +229,9 @@
             // 
             lbSest.AutoSize = true;
             lbSest.Dock = DockStyle.Fill;
-            lbSest.Location = new Point(3, 99);
+            lbSest.Location = new Point(3, 117);
             lbSest.Name = "lbSest";
-            lbSest.Size = new Size(136, 33);
+            lbSest.Size = new Size(136, 39);
             lbSest.TabIndex = 6;
             lbSest.Text = "Estado:";
             lbSest.TextAlign = ContentAlignment.MiddleRight;
@@ -248,9 +240,9 @@
             // 
             lbSdtipo.AutoSize = true;
             lbSdtipo.Dock = DockStyle.Fill;
-            lbSdtipo.Location = new Point(145, 66);
+            lbSdtipo.Location = new Point(145, 78);
             lbSdtipo.Name = "lbSdtipo";
-            lbSdtipo.Size = new Size(137, 33);
+            lbSdtipo.Size = new Size(137, 39);
             lbSdtipo.TabIndex = 5;
             lbSdtipo.Text = "Dato Tipo";
             lbSdtipo.TextAlign = ContentAlignment.MiddleCenter;
@@ -259,9 +251,9 @@
             // 
             lbStipo.AutoSize = true;
             lbStipo.Dock = DockStyle.Fill;
-            lbStipo.Location = new Point(3, 66);
+            lbStipo.Location = new Point(3, 78);
             lbStipo.Name = "lbStipo";
-            lbStipo.Size = new Size(136, 33);
+            lbStipo.Size = new Size(136, 39);
             lbStipo.TabIndex = 4;
             lbStipo.Text = "Tipo:";
             lbStipo.TextAlign = ContentAlignment.MiddleRight;
@@ -270,9 +262,9 @@
             // 
             lbSdbu.AutoSize = true;
             lbSdbu.Dock = DockStyle.Fill;
-            lbSdbu.Location = new Point(145, 33);
+            lbSdbu.Location = new Point(145, 39);
             lbSdbu.Name = "lbSdbu";
-            lbSdbu.Size = new Size(137, 33);
+            lbSdbu.Size = new Size(137, 39);
             lbSdbu.TabIndex = 3;
             lbSdbu.Text = "Dato Numero";
             lbSdbu.TextAlign = ContentAlignment.MiddleCenter;
@@ -281,9 +273,9 @@
             // 
             lbSbu.AutoSize = true;
             lbSbu.Dock = DockStyle.Fill;
-            lbSbu.Location = new Point(3, 33);
+            lbSbu.Location = new Point(3, 39);
             lbSbu.Name = "lbSbu";
-            lbSbu.Size = new Size(136, 33);
+            lbSbu.Size = new Size(136, 39);
             lbSbu.TabIndex = 2;
             lbSbu.Text = "Butaca:";
             lbSbu.TextAlign = ContentAlignment.MiddleRight;
@@ -294,7 +286,7 @@
             lbSdfila.Dock = DockStyle.Fill;
             lbSdfila.Location = new Point(145, 0);
             lbSdfila.Name = "lbSdfila";
-            lbSdfila.Size = new Size(137, 33);
+            lbSdfila.Size = new Size(137, 39);
             lbSdfila.TabIndex = 1;
             lbSdfila.Text = "Dato Fila";
             lbSdfila.TextAlign = ContentAlignment.MiddleCenter;
@@ -305,7 +297,7 @@
             lbSfila.Dock = DockStyle.Fill;
             lbSfila.Location = new Point(3, 0);
             lbSfila.Name = "lbSfila";
-            lbSfila.Size = new Size(136, 33);
+            lbSfila.Size = new Size(136, 39);
             lbSfila.TabIndex = 0;
             lbSfila.Text = "Fila:";
             lbSfila.TextAlign = ContentAlignment.MiddleRight;
@@ -363,7 +355,7 @@
             label8.Name = "label8";
             label8.Size = new Size(92, 53);
             label8.TabIndex = 15;
-            label8.Text = "Seleccionada";
+            label8.Text = "No-Accesible";
             label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
@@ -374,7 +366,7 @@
             label7.Name = "label7";
             label7.Size = new Size(78, 53);
             label7.TabIndex = 14;
-            label7.Text = "Seleccionada";
+            label7.Text = "No-Accesible";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label6
@@ -529,7 +521,7 @@
             pnButacas.Dock = DockStyle.Left;
             pnButacas.Location = new Point(0, 32);
             pnButacas.Name = "pnButacas";
-            pnButacas.Size = new Size(576, 450);
+            pnButacas.Size = new Size(576, 485);
             pnButacas.TabIndex = 1;
             // 
             // tlpButacas
@@ -543,7 +535,7 @@
             tlpButacas.RowCount = 2;
             tlpButacas.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tlpButacas.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tlpButacas.Size = new Size(576, 450);
+            tlpButacas.Size = new Size(576, 485);
             tlpButacas.TabIndex = 0;
             // 
             // pnInfoButacas
@@ -598,7 +590,7 @@
             pnOpciones.Controls.Add(btnCancelar);
             pnOpciones.Controls.Add(btnConfirmarReserva);
             pnOpciones.Dock = DockStyle.Bottom;
-            pnOpciones.Location = new Point(0, 517);
+            pnOpciones.Location = new Point(0, 552);
             pnOpciones.Name = "pnOpciones";
             pnOpciones.Size = new Size(867, 37);
             pnOpciones.TabIndex = 2;
@@ -620,45 +612,6 @@
             btnConfirmarReserva.TabIndex = 0;
             btnConfirmarReserva.Text = "Reserva";
             btnConfirmarReserva.UseVisualStyleBackColor = true;
-            // 
-            // pnBot
-            // 
-            pnBot.Controls.Add(ssInfo);
-            pnBot.Dock = DockStyle.Bottom;
-            pnBot.Location = new Point(0, 554);
-            pnBot.Name = "pnBot";
-            pnBot.Size = new Size(867, 35);
-            pnBot.TabIndex = 1;
-            // 
-            // ssInfo
-            // 
-            ssInfo.Dock = DockStyle.Fill;
-            ssInfo.Items.AddRange(new ToolStripItem[] { tslUsuario, tslRol, tslEstado });
-            ssInfo.Location = new Point(0, 0);
-            ssInfo.Name = "ssInfo";
-            ssInfo.Size = new Size(867, 35);
-            ssInfo.TabIndex = 0;
-            ssInfo.Text = "statusStrip1";
-            // 
-            // tslUsuario
-            // 
-            tslUsuario.Margin = new Padding(20, 3, 10, 2);
-            tslUsuario.Name = "tslUsuario";
-            tslUsuario.Size = new Size(47, 30);
-            tslUsuario.Text = "Usuario";
-            // 
-            // tslRol
-            // 
-            tslRol.Margin = new Padding(0, 3, 10, 2);
-            tslRol.Name = "tslRol";
-            tslRol.Size = new Size(24, 30);
-            tslRol.Text = "Rol";
-            // 
-            // tslEstado
-            // 
-            tslEstado.Name = "tslEstado";
-            tslEstado.Size = new Size(42, 30);
-            tslEstado.Text = "Estado";
             // 
             // pnTop
             // 
@@ -711,10 +664,6 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             pnOpciones.ResumeLayout(false);
-            pnBot.ResumeLayout(false);
-            pnBot.PerformLayout();
-            ssInfo.ResumeLayout(false);
-            ssInfo.PerformLayout();
             pnTop.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -727,7 +676,6 @@
         private Panel pnButacas;
         private Panel pnInfoButacas;
         private Panel pnOpciones;
-        private Panel pnBot;
         private Panel pnTop;
         private GroupBox grpSeleccion;
         private GroupBox grpLeyenda;
@@ -768,9 +716,5 @@
         private Label lbSbu;
         private Label lbSdfila;
         private Label lbSfila;
-        private StatusStrip ssInfo;
-        private ToolStripStatusLabel tslUsuario;
-        private ToolStripStatusLabel tslRol;
-        private ToolStripStatusLabel tslEstado;
     }
 }

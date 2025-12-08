@@ -69,10 +69,69 @@ namespace AplicacionCine.DAO
 
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
-            using var reader = cmd.ExecuteReader();
 
+            using var reader = cmd.ExecuteReader();
             while (reader.Read())
+            {
                 lista.Add(MapUsuario(reader));
+            }
+
+            return lista;
+        }
+
+        public List<Usuario> Buscar(string? login, string? email, bool? activo, bool? bloqueado)
+        {
+            var lista = new List<Usuario>();
+
+            var sql = @"
+                SELECT  id_usuario, login, password_hash,
+                        email, telefono, rol,
+                        activo, bloqueado, intentos_fallidos,
+                        fecha_alta, fecha_ultimo_acceso,
+                        ultima_ip, notas_admin
+                FROM usuarios
+                WHERE 1=1
+            ";
+
+            var parametros = new List<NpgsqlParameter>();
+
+            if (!string.IsNullOrWhiteSpace(login))
+            {
+                sql += " AND UPPER(login) LIKE UPPER(@Login)";
+                parametros.Add(new NpgsqlParameter("Login", $"%{login}%"));
+            }
+
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                sql += " AND UPPER(email) LIKE UPPER(@Email)";
+                parametros.Add(new NpgsqlParameter("Email", $"%{email}%"));
+            }
+
+            if (activo.HasValue)
+            {
+                sql += " AND activo = @Activo";
+                parametros.Add(new NpgsqlParameter("Activo", activo.Value));
+            }
+
+            if (bloqueado.HasValue)
+            {
+                sql += " AND bloqueado = @Bloqueado";
+                parametros.Add(new NpgsqlParameter("Bloqueado", bloqueado.Value));
+            }
+
+            sql += " ORDER BY login;";
+
+            using var conn = DbConnectionFactory.CreateOpenConnection();
+            using var cmd = new NpgsqlCommand(sql, conn);
+
+            foreach (var p in parametros)
+                cmd.Parameters.Add(p);
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                lista.Add(MapUsuario(reader));
+            }
 
             return lista;
         }
@@ -96,20 +155,39 @@ namespace AplicacionCine.DAO
             using var conn = DbConnectionFactory.CreateOpenConnection();
             using var cmd = new NpgsqlCommand(sql, conn);
 
+            // login / pass obligatorios
             cmd.Parameters.AddWithValue("Login", u.Login);
             cmd.Parameters.AddWithValue("PasswordHash", u.PasswordHash);
+
+            // opcionales
             cmd.Parameters.AddWithValue("Email", (object?)u.Email ?? DBNull.Value);
             cmd.Parameters.AddWithValue("Telefono", (object?)u.Telefono ?? DBNull.Value);
+
             cmd.Parameters.AddWithValue("Rol", u.Rol.ToString().ToUpperInvariant());
             cmd.Parameters.AddWithValue("Activo", u.Activo);
             cmd.Parameters.AddWithValue("Bloqueado", u.Bloqueado);
             cmd.Parameters.AddWithValue("Intentos", u.IntentosFallidos);
-            cmd.Parameters.AddWithValue("FechaAlta", u.FechaAlta);
-            cmd.Parameters.AddWithValue("FechaUltimoAcceso", (object?)u.FechaUltimoAcceso ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("UltimaIp", (object?)u.UltimaIP ?? string.Empty);
+
+            // Si FechaAlta viene sin inicializar (default), ponemos ahora mismo.
+            var fechaAlta = u.FechaAlta == default(DateTime)
+                ? DateTime.Now
+                : u.FechaAlta;
+
+            cmd.Parameters.AddWithValue("FechaAlta", fechaAlta);
+            cmd.Parameters.AddWithValue("FechaUltimoAcceso",
+                (object?)u.FechaUltimoAcceso ?? DBNull.Value);
+
+            cmd.Parameters.AddWithValue(
+                "UltimaIp",
+                string.IsNullOrWhiteSpace(u.UltimaIP)
+                    ? (object)DBNull.Value
+                    : u.UltimaIP
+            );
             cmd.Parameters.AddWithValue("NotasAdmin", (object?)u.NotasAdmin ?? DBNull.Value);
 
-            u.IdUsuario = Convert.ToInt32(cmd.ExecuteScalar());
+            u.IdUsuario = Convert.ToInt32(
+                cmd.ExecuteScalar()
+                ?? throw new InvalidOperationException("No se devolvió id_usuario tras el INSERT."));
         }
 
         public void Update(Usuario u)
@@ -143,12 +221,55 @@ namespace AplicacionCine.DAO
             cmd.Parameters.AddWithValue("Activo", u.Activo);
             cmd.Parameters.AddWithValue("Bloqueado", u.Bloqueado);
             cmd.Parameters.AddWithValue("Intentos", u.IntentosFallidos);
-            cmd.Parameters.AddWithValue("FechaAlta", u.FechaAlta);
-            cmd.Parameters.AddWithValue("FechaUltimoAcceso", (object?)u.FechaUltimoAcceso ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("UltimaIp", (object?)u.UltimaIP ?? string.Empty);
+
+            var fechaAlta = u.FechaAlta == default(DateTime)
+                ? DateTime.Now
+                : u.FechaAlta;
+
+            cmd.Parameters.AddWithValue("FechaAlta", fechaAlta);
+            cmd.Parameters.AddWithValue("FechaUltimoAcceso",
+                (object?)u.FechaUltimoAcceso ?? DBNull.Value);
+
+            cmd.Parameters.AddWithValue(
+                "UltimaIp",
+                string.IsNullOrWhiteSpace(u.UltimaIP)
+                    ? (object)DBNull.Value
+                    : u.UltimaIP
+            );
             cmd.Parameters.AddWithValue("NotasAdmin", (object?)u.NotasAdmin ?? DBNull.Value);
 
             cmd.ExecuteNonQuery();
+        }
+
+        public bool ExisteLogin(string login, int? idExcluir = null)
+        {
+            using var conn = DbConnectionFactory.CreateOpenConnection();
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+
+            if (idExcluir.HasValue)
+            {
+                cmd.CommandText = @"
+                    SELECT COUNT(1)
+                    FROM usuarios
+                    WHERE UPPER(login) = UPPER(@Login)
+                      AND id_usuario <> @IdExcluir;
+                ";
+                cmd.Parameters.AddWithValue("Login", login);
+                cmd.Parameters.AddWithValue("IdExcluir", idExcluir.Value);
+            }
+            else
+            {
+                cmd.CommandText = @"
+                    SELECT COUNT(1)
+                    FROM usuarios
+                    WHERE UPPER(login) = UPPER(@Login);
+                ";
+                cmd.Parameters.AddWithValue("Login", login);
+            }
+
+            var count = (long)cmd.ExecuteScalar();
+            return count > 0;
         }
 
         public void Delete(int idUsuario)
@@ -163,63 +284,94 @@ namespace AplicacionCine.DAO
 
         private static Usuario MapUsuario(NpgsqlDataReader reader)
         {
-            var rolStr = reader.GetString(reader.GetOrdinal("rol"));
+            // Ordinales
+            int ordId = reader.GetOrdinal("id_usuario");
+            int ordLogin = reader.GetOrdinal("login");
+            int ordPwd = reader.GetOrdinal("password_hash");
+            int ordEmail = reader.GetOrdinal("email");
+            int ordTelefono = reader.GetOrdinal("telefono");
+            int ordRol = reader.GetOrdinal("rol");
+            int ordActivo = reader.GetOrdinal("activo");
+            int ordBloqueado = reader.GetOrdinal("bloqueado");
+            int ordIntentos = reader.GetOrdinal("intentos_fallidos");
+            int ordFechaAlta = reader.GetOrdinal("fecha_alta");
+            int ordUltAcceso = reader.GetOrdinal("fecha_ultimo_acceso");
+            int ordUltIp = reader.GetOrdinal("ultima_ip");
+            int ordNotasAdmin = reader.GetOrdinal("notas_admin");
 
+            // --- ROL (ahora string -> enum) ---
             RolUsuario rol;
-            if (!Enum.TryParse<RolUsuario>(rolStr, true, out rol))
+            if (!reader.IsDBNull(ordRol))
             {
-                switch (rolStr.ToUpperInvariant())
+                var rolStr = reader.GetString(ordRol).Trim();
+
+                // Intentamos casar con el enum ignorando mayúsculas/minúsculas
+                if (!Enum.TryParse<RolUsuario>(rolStr, true, out rol))
                 {
-                    case "TAQUILLA":
-                    case "SEGURIDAD":
-                    case "ENCARGADO":
-                        rol = RolUsuario.Empleado;
-                        break;
-
-                    case "GERENTE":
-                        rol = RolUsuario.Gerente;
-                        break;
-
-                    default:
-                        rol = RolUsuario.Empleado;
-                        break;
+                    // Si no cuadra, le damos un valor por defecto razonable
+                    rol = RolUsuario.Empleado;
                 }
             }
+            else
+            {
+                // Si viniera a NULL, también damos un valor por defecto
+                rol = RolUsuario.Empleado;
+            }
 
+            // --- Campos NULL-safe como vimos antes ---
+            string? email = reader.IsDBNull(ordEmail)
+                ? null
+                : reader.GetString(ordEmail);
+
+            string? telefono = reader.IsDBNull(ordTelefono)
+                ? null
+                : reader.GetString(ordTelefono);
+
+            bool activo = !reader.IsDBNull(ordActivo) &&
+                          reader.GetBoolean(ordActivo);
+
+            bool bloqueado = !reader.IsDBNull(ordBloqueado) &&
+                             reader.GetBoolean(ordBloqueado);
+
+            int intentosFallidos = reader.IsDBNull(ordIntentos)
+                ? 0
+                : reader.GetInt32(ordIntentos);
+
+            DateTime fechaAlta = reader.IsDBNull(ordFechaAlta)
+                ? DateTime.Now
+                : reader.GetDateTime(ordFechaAlta);
+
+            DateTime? fechaUltimoAcceso = reader.IsDBNull(ordUltAcceso)
+                ? (DateTime?)null
+                : reader.GetDateTime(ordUltAcceso);
+
+            string ultimaIp = reader.IsDBNull(ordUltIp)
+                ? string.Empty
+                : reader.GetString(ordUltIp);
+
+            string? notasAdmin = reader.IsDBNull(ordNotasAdmin)
+                ? null
+                : reader.GetString(ordNotasAdmin);
+
+            // --- Construcción del objeto ---
             return new Usuario
             {
-                IdUsuario = reader.GetInt32(reader.GetOrdinal("id_usuario")),
-                Login = reader.GetString(reader.GetOrdinal("login")),
-                PasswordHash = reader.GetString(reader.GetOrdinal("password_hash")),
-
-                Email = reader.IsDBNull(reader.GetOrdinal("email"))
-                    ? null
-                    : reader.GetString(reader.GetOrdinal("email")),
-
-                Telefono = reader.IsDBNull(reader.GetOrdinal("telefono"))
-                    ? null
-                    : reader.GetString(reader.GetOrdinal("telefono")),
-
+                IdUsuario = reader.GetInt32(ordId),
+                Login = reader.GetString(ordLogin),
+                PasswordHash = reader.GetString(ordPwd),
+                Email = email,
+                Telefono = telefono,
                 Rol = rol,
-
-                Activo = reader.GetBoolean(reader.GetOrdinal("activo")),
-                Bloqueado = reader.GetBoolean(reader.GetOrdinal("bloqueado")),
-                IntentosFallidos = reader.GetInt32(reader.GetOrdinal("intentos_fallidos")),
-
-                FechaAlta = reader.GetDateTime(reader.GetOrdinal("fecha_alta")),
-
-                FechaUltimoAcceso = reader.IsDBNull(reader.GetOrdinal("fecha_ultimo_acceso"))
-                    ? (DateTime?)null
-                    : reader.GetDateTime(reader.GetOrdinal("fecha_ultimo_acceso")),
-
-                UltimaIP = reader.IsDBNull(reader.GetOrdinal("ultima_ip"))
-                    ? string.Empty
-                    : reader.GetString(reader.GetOrdinal("ultima_ip")),
-
-                NotasAdmin = reader.IsDBNull(reader.GetOrdinal("notas_admin"))
-                    ? null
-                    : reader.GetString(reader.GetOrdinal("notas_admin"))
+                Activo = activo,
+                Bloqueado = bloqueado,
+                IntentosFallidos = intentosFallidos,
+                FechaAlta = fechaAlta,
+                FechaUltimoAcceso = fechaUltimoAcceso,
+                UltimaIP = ultimaIp,
+                NotasAdmin = notasAdmin
             };
         }
+
+
     }
 }

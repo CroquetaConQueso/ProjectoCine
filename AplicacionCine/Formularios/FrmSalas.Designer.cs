@@ -60,12 +60,8 @@
             tslUsuario = new ToolStripStatusLabel();
             tslRol = new ToolStripStatusLabel();
             tslEstado = new ToolStripStatusLabel();
-            pnTopBar = new Panel();
-            menuPrincipal = new MenuStrip();
-            archivoToolStripMenuItem = new ToolStripMenuItem();
-            pasesToolStripMenuItem = new ToolStripMenuItem();
-            gestiónToolStripMenuItem = new ToolStripMenuItem();
-            ayudaToolStripMenuItem = new ToolStripMenuItem();
+            lbEstado = new Label();
+            chkActiva = new CheckBox();
             pnTotal.SuspendLayout();
             pnMain.SuspendLayout();
             pnInfo.SuspendLayout();
@@ -79,8 +75,6 @@
             pnBotones.SuspendLayout();
             pnBotBar.SuspendLayout();
             ssInfo.SuspendLayout();
-            pnTopBar.SuspendLayout();
-            menuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
             // pnTotal
@@ -89,7 +83,6 @@
             pnTotal.Controls.Add(pnTop);
             pnTotal.Controls.Add(pnBot);
             pnTotal.Controls.Add(pnBotBar);
-            pnTotal.Controls.Add(pnTopBar);
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
             pnTotal.Name = "pnTotal";
@@ -101,13 +94,15 @@
             pnMain.Controls.Add(pnInfo);
             pnMain.Controls.Add(pnGrid);
             pnMain.Dock = DockStyle.Fill;
-            pnMain.Location = new Point(0, 66);
+            pnMain.Location = new Point(0, 34);
             pnMain.Name = "pnMain";
-            pnMain.Size = new Size(1054, 400);
+            pnMain.Size = new Size(1054, 432);
             pnMain.TabIndex = 4;
             // 
             // pnInfo
             // 
+            pnInfo.Controls.Add(lbEstado);
+            pnInfo.Controls.Add(chkActiva);
             pnInfo.Controls.Add(tbDescripcion);
             pnInfo.Controls.Add(lbDescripcion);
             pnInfo.Controls.Add(nudColumnas);
@@ -121,13 +116,12 @@
             pnInfo.Dock = DockStyle.Fill;
             pnInfo.Location = new Point(762, 0);
             pnInfo.Name = "pnInfo";
-            pnInfo.Size = new Size(292, 400);
+            pnInfo.Size = new Size(292, 432);
             pnInfo.TabIndex = 1;
             // 
             // tbDescripcion
             // 
-            tbDescripcion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tbDescripcion.Location = new Point(13, 173);
+            tbDescripcion.Location = new Point(13, 204);
             tbDescripcion.Multiline = true;
             tbDescripcion.Name = "tbDescripcion";
             tbDescripcion.Size = new Size(267, 202);
@@ -136,7 +130,7 @@
             // lbDescripcion
             // 
             lbDescripcion.AutoSize = true;
-            lbDescripcion.Location = new Point(5, 155);
+            lbDescripcion.Location = new Point(5, 186);
             lbDescripcion.Name = "lbDescripcion";
             lbDescripcion.Size = new Size(72, 15);
             lbDescripcion.TabIndex = 15;
@@ -144,10 +138,9 @@
             // 
             // nudColumnas
             // 
-            nudColumnas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             nudColumnas.Location = new Point(83, 115);
             nudColumnas.Name = "nudColumnas";
-            nudColumnas.Size = new Size(197, 23);
+            nudColumnas.Size = new Size(44, 23);
             nudColumnas.TabIndex = 14;
             // 
             // label2
@@ -161,10 +154,9 @@
             // 
             // nudFilas
             // 
-            nudFilas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             nudFilas.Location = new Point(83, 81);
             nudFilas.Name = "nudFilas";
-            nudFilas.Size = new Size(197, 23);
+            nudFilas.Size = new Size(44, 23);
             nudFilas.TabIndex = 12;
             // 
             // label1
@@ -178,18 +170,16 @@
             // 
             // nudCapacidad
             // 
-            nudCapacidad.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             nudCapacidad.Location = new Point(83, 46);
             nudCapacidad.Name = "nudCapacidad";
-            nudCapacidad.Size = new Size(197, 23);
+            nudCapacidad.Size = new Size(73, 23);
             nudCapacidad.TabIndex = 10;
             // 
             // tbTitulo
             // 
-            tbTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbTitulo.Location = new Point(66, 12);
             tbTitulo.Name = "tbTitulo";
-            tbTitulo.Size = new Size(214, 23);
+            tbTitulo.Size = new Size(199, 23);
             tbTitulo.TabIndex = 9;
             // 
             // lbIcapacidad
@@ -216,7 +206,7 @@
             pnGrid.Dock = DockStyle.Left;
             pnGrid.Location = new Point(0, 0);
             pnGrid.Name = "pnGrid";
-            pnGrid.Size = new Size(762, 400);
+            pnGrid.Size = new Size(762, 432);
             pnGrid.TabIndex = 0;
             // 
             // dvgSalas
@@ -225,7 +215,7 @@
             dvgSalas.Dock = DockStyle.Fill;
             dvgSalas.Location = new Point(0, 0);
             dvgSalas.Name = "dvgSalas";
-            dvgSalas.Size = new Size(762, 400);
+            dvgSalas.Size = new Size(762, 432);
             dvgSalas.TabIndex = 1;
             // 
             // pnTop
@@ -235,7 +225,7 @@
             pnTop.Controls.Add(btnLimpiar);
             pnTop.Controls.Add(btnBuscar);
             pnTop.Dock = DockStyle.Top;
-            pnTop.Location = new Point(0, 32);
+            pnTop.Location = new Point(0, 0);
             pnTop.Name = "pnTop";
             pnTop.Size = new Size(1054, 34);
             pnTop.TabIndex = 3;
@@ -371,48 +361,24 @@
             tslEstado.Size = new Size(42, 28);
             tslEstado.Text = "Estado";
             // 
-            // pnTopBar
+            // lbEstado
             // 
-            pnTopBar.Controls.Add(menuPrincipal);
-            pnTopBar.Dock = DockStyle.Top;
-            pnTopBar.Location = new Point(0, 0);
-            pnTopBar.Name = "pnTopBar";
-            pnTopBar.Size = new Size(1054, 32);
-            pnTopBar.TabIndex = 0;
+            lbEstado.AutoSize = true;
+            lbEstado.Location = new Point(32, 156);
+            lbEstado.Name = "lbEstado";
+            lbEstado.Size = new Size(45, 15);
+            lbEstado.TabIndex = 18;
+            lbEstado.Text = "Estado:";
             // 
-            // menuPrincipal
+            // chkActiva
             // 
-            menuPrincipal.Dock = DockStyle.Fill;
-            menuPrincipal.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, pasesToolStripMenuItem, gestiónToolStripMenuItem, ayudaToolStripMenuItem });
-            menuPrincipal.Location = new Point(0, 0);
-            menuPrincipal.Name = "menuPrincipal";
-            menuPrincipal.Size = new Size(1054, 32);
-            menuPrincipal.TabIndex = 2;
-            menuPrincipal.Text = "menuStrip1";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            archivoToolStripMenuItem.Size = new Size(60, 28);
-            archivoToolStripMenuItem.Text = "&Archivo";
-            // 
-            // pasesToolStripMenuItem
-            // 
-            pasesToolStripMenuItem.Name = "pasesToolStripMenuItem";
-            pasesToolStripMenuItem.Size = new Size(48, 28);
-            pasesToolStripMenuItem.Text = "&Pases";
-            // 
-            // gestiónToolStripMenuItem
-            // 
-            gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
-            gestiónToolStripMenuItem.Size = new Size(59, 28);
-            gestiónToolStripMenuItem.Text = "&Gestión";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(53, 28);
-            ayudaToolStripMenuItem.Text = "A&yuda";
+            chkActiva.AutoSize = true;
+            chkActiva.Location = new Point(83, 156);
+            chkActiva.Name = "chkActiva";
+            chkActiva.Size = new Size(59, 19);
+            chkActiva.TabIndex = 17;
+            chkActiva.Text = "Activa";
+            chkActiva.UseVisualStyleBackColor = true;
             // 
             // FrmSalas
             // 
@@ -440,28 +406,18 @@
             pnBotBar.PerformLayout();
             ssInfo.ResumeLayout(false);
             ssInfo.PerformLayout();
-            pnTopBar.ResumeLayout(false);
-            pnTopBar.PerformLayout();
-            menuPrincipal.ResumeLayout(false);
-            menuPrincipal.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel pnTotal;
-        private Panel pnTopBar;
         private Panel pnMain;
         private Panel pnInfo;
         private Panel pnGrid;
         private Panel pnTop;
         private Panel pnBot;
         private Panel pnBotBar;
-        private MenuStrip menuPrincipal;
-        private ToolStripMenuItem archivoToolStripMenuItem;
-        private ToolStripMenuItem pasesToolStripMenuItem;
-        private ToolStripMenuItem gestiónToolStripMenuItem;
-        private ToolStripMenuItem ayudaToolStripMenuItem;
         private StatusStrip ssInfo;
         private ToolStripStatusLabel tslUsuario;
         private ToolStripStatusLabel tslRol;
@@ -486,5 +442,7 @@
         private TextBox tbNomSal;
         private Button btnLimpiar;
         private Button btnBuscar;
+        private Label lbEstado;
+        private CheckBox chkActiva;
     }
 }

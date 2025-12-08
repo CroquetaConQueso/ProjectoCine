@@ -11,9 +11,8 @@ namespace AplicacionCine
         {
             InitializeComponent();
 
-            // Enganchamos los eventos necesarios
-            this.Load += FrmLogin_Load;
-            this.FormClosed += FrmLogin_FormClosed;
+            Load += FrmLogin_Load;
+            FormClosed += FrmLogin_FormClosed;
             btnEntrar.Click += btnEntrar_Click;
         }
 
@@ -35,7 +34,7 @@ namespace AplicacionCine
                 return;
             }
 
-            // Obtenemos el usuario por login
+            // Logueamos SIEMPRE contra la tabla USUARIOS
             var usuario = AppContext.Usuarios.GetByLogin(login);
 
             if (usuario == null)
@@ -45,7 +44,7 @@ namespace AplicacionCine
                 return;
             }
 
-            // Comparamos el texto con PasswordHash (de momento sin hash real)
+            // De momento password en texto plano
             if (!string.Equals(usuario.PasswordHash, pass))
             {
                 MessageBox.Show("Usuario no encontrado o credenciales incorrectas.",
@@ -60,21 +59,19 @@ namespace AplicacionCine
                 return;
             }
 
-            // Login correcto
+            // Login correcto: guardamos el usuario REAL con su IdUsuario
             AppContext.UsuarioActual = usuario;
 
             var frm = new FrmPrincipal();
             frm.Show();
 
-            this.Hide();
+            Hide();
         }
 
         private void FrmLogin_FormClosed(object? sender, FormClosedEventArgs e)
         {
             if (Application.OpenForms.Count == 0)
-            {
                 Application.Exit();
-            }
         }
     }
 }

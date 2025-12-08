@@ -10,12 +10,13 @@ namespace AplicacionCine.DAO
         public Pase? GetById(int idPase)
         {
             const string sql = @"
-                SELECT p.id_pase, p.id_pelicula, p.id_sala,
-                       p.fecha_hora, p.precio_base,
-                       p.id_empleado_encargado, p.id_empleado_seguridad,
-                       p.activo,
-                       pel.titulo       AS titulo_pelicula,
-                       s.nombre         AS nombre_sala
+                SELECT p.id_pase,
+                       p.id_pelicula,
+                       p.id_sala,
+                       p.fecha_hora,
+                       p.precio_base,
+                       pel.titulo AS titulo_pelicula,
+                       s.nombre   AS nombre_sala
                 FROM pases p
                 JOIN peliculas pel ON pel.id_pelicula = p.id_pelicula
                 JOIN salas     s   ON s.id_sala       = p.id_sala
@@ -38,12 +39,13 @@ namespace AplicacionCine.DAO
             var result = new List<Pase>();
 
             const string sql = @"
-                SELECT p.id_pase, p.id_pelicula, p.id_sala,
-                       p.fecha_hora, p.precio_base,
-                       p.id_empleado_encargado, p.id_empleado_seguridad,
-                       p.activo,
-                       pel.titulo       AS titulo_pelicula,
-                       s.nombre         AS nombre_sala
+                SELECT p.id_pase,
+                       p.id_pelicula,
+                       p.id_sala,
+                       p.fecha_hora,
+                       p.precio_base,
+                       pel.titulo AS titulo_pelicula,
+                       s.nombre   AS nombre_sala
                 FROM pases p
                 JOIN peliculas pel ON pel.id_pelicula = p.id_pelicula
                 JOIN salas     s   ON s.id_sala       = p.id_sala
@@ -68,12 +70,13 @@ namespace AplicacionCine.DAO
             var result = new List<Pase>();
 
             var sql = @"
-                SELECT p.id_pase, p.id_pelicula, p.id_sala,
-                       p.fecha_hora, p.precio_base,
-                       p.id_empleado_encargado, p.id_empleado_seguridad,
-                       p.activo,
-                       pel.titulo       AS titulo_pelicula,
-                       s.nombre         AS nombre_sala
+                SELECT p.id_pase,
+                       p.id_pelicula,
+                       p.id_sala,
+                       p.fecha_hora,
+                       p.precio_base,
+                       pel.titulo AS titulo_pelicula,
+                       s.nombre   AS nombre_sala
                 FROM pases p
                 JOIN peliculas pel ON pel.id_pelicula = p.id_pelicula
                 JOIN salas     s   ON s.id_sala       = p.id_sala
@@ -109,11 +112,9 @@ namespace AplicacionCine.DAO
         {
             const string sql = @"
                 INSERT INTO pases
-                    (id_pelicula, id_sala, fecha_hora, precio_base,
-                     id_empleado_encargado, id_empleado_seguridad, activo)
+                    (id_pelicula, id_sala, fecha_hora, precio_base)
                 VALUES
-                    (@IdPelicula, @IdSala, @FechaHora, @PrecioBase,
-                     @IdEncargado, @IdSeguridad, @Activo)
+                    (@IdPelicula, @IdSala, @FechaHora, @PrecioBase)
                 RETURNING id_pase;
             ";
 
@@ -124,9 +125,6 @@ namespace AplicacionCine.DAO
             cmd.Parameters.AddWithValue("IdSala", pase.IdSala);
             cmd.Parameters.AddWithValue("FechaHora", pase.FechaHora);
             cmd.Parameters.AddWithValue("PrecioBase", pase.PrecioBase);
-            cmd.Parameters.AddWithValue("IdEncargado", (object?)pase.IdEmpleadoEncargado ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("IdSeguridad", (object?)pase.IdEmpleadoSeguridad ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Activo", pase.Activo);
 
             pase.IdPase = Convert.ToInt32(cmd.ExecuteScalar());
         }
@@ -135,14 +133,11 @@ namespace AplicacionCine.DAO
         {
             const string sql = @"
                 UPDATE pases
-                SET id_pelicula           = @IdPelicula,
-                    id_sala               = @IdSala,
-                    fecha_hora            = @FechaHora,
-                    precio_base           = @PrecioBase,
-                    id_empleado_encargado = @IdEncargado,
-                    id_empleado_seguridad = @IdSeguridad,
-                    activo                = @Activo
-                WHERE id_pase             = @IdPase;
+                SET id_pelicula = @IdPelicula,
+                    id_sala     = @IdSala,
+                    fecha_hora  = @FechaHora,
+                    precio_base = @PrecioBase
+                WHERE id_pase   = @IdPase;
             ";
 
             using var conn = DbConnectionFactory.CreateOpenConnection();
@@ -152,9 +147,6 @@ namespace AplicacionCine.DAO
             cmd.Parameters.AddWithValue("IdSala", pase.IdSala);
             cmd.Parameters.AddWithValue("FechaHora", pase.FechaHora);
             cmd.Parameters.AddWithValue("PrecioBase", pase.PrecioBase);
-            cmd.Parameters.AddWithValue("IdEncargado", (object?)pase.IdEmpleadoEncargado ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("IdSeguridad", (object?)pase.IdEmpleadoSeguridad ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("Activo", pase.Activo);
             cmd.Parameters.AddWithValue("IdPase", pase.IdPase);
 
             cmd.ExecuteNonQuery();
@@ -179,13 +171,12 @@ namespace AplicacionCine.DAO
                 IdSala = reader.GetInt32(reader.GetOrdinal("id_sala")),
                 FechaHora = reader.GetDateTime(reader.GetOrdinal("fecha_hora")),
                 PrecioBase = reader.GetDecimal(reader.GetOrdinal("precio_base")),
-                IdEmpleadoEncargado = reader.IsDBNull(reader.GetOrdinal("id_empleado_encargado"))
-                    ? null
-                    : reader.GetInt32(reader.GetOrdinal("id_empleado_encargado")),
-                IdEmpleadoSeguridad = reader.IsDBNull(reader.GetOrdinal("id_empleado_seguridad"))
-                    ? null
-                    : reader.GetInt32(reader.GetOrdinal("id_empleado_seguridad")),
-                Activo = reader.GetBoolean(reader.GetOrdinal("activo")),
+
+                // Estos campos ya no existen en la BD simplificada; se dejan con valores por defecto.
+                IdEmpleadoEncargado = null,
+                IdEmpleadoSeguridad = null,
+                Activo = true,
+
                 TituloPelicula = reader.IsDBNull(reader.GetOrdinal("titulo_pelicula"))
                     ? null
                     : reader.GetString(reader.GetOrdinal("titulo_pelicula")),

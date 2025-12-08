@@ -43,21 +43,15 @@
             txtFiltroNombre = new ToolStripTextBox();
             lblFiltroTipo = new ToolStripLabel();
             tscbFiltroTipo = new ToolStripComboBox();
+            toolStripSeparator1 = new ToolStripSeparator();
             tsbtBuscar = new ToolStripButton();
             tsbtLimpiar = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripSeparator2 = new ToolStripSeparator();
             tsbtNuevo = new ToolStripButton();
             tsbtModificar = new ToolStripButton();
             tsbtEliminar = new ToolStripButton();
             tsbtResetPass = new ToolStripButton();
             tsbtRefrescar = new ToolStripButton();
-            pnTopBar = new Panel();
-            menuPrincipal = new MenuStrip();
-            archivoToolStripMenuItem = new ToolStripMenuItem();
-            pasesToolStripMenuItem = new ToolStripMenuItem();
-            gestiónToolStripMenuItem = new ToolStripMenuItem();
-            ayudaToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator2 = new ToolStripSeparator();
             pnTotal.SuspendLayout();
             pnInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dvgEmpleados).BeginInit();
@@ -65,8 +59,6 @@
             ssInfo.SuspendLayout();
             pnTop.SuspendLayout();
             toolStrip1.SuspendLayout();
-            pnTopBar.SuspendLayout();
-            menuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
             // pnTotal
@@ -74,7 +66,6 @@
             pnTotal.Controls.Add(pnInfo);
             pnTotal.Controls.Add(pnStatus);
             pnTotal.Controls.Add(pnTop);
-            pnTotal.Controls.Add(pnTopBar);
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
             pnTotal.Name = "pnTotal";
@@ -85,9 +76,9 @@
             // 
             pnInfo.Controls.Add(dvgEmpleados);
             pnInfo.Dock = DockStyle.Fill;
-            pnInfo.Location = new Point(0, 65);
+            pnInfo.Location = new Point(0, 34);
             pnInfo.Name = "pnInfo";
-            pnInfo.Size = new Size(868, 459);
+            pnInfo.Size = new Size(868, 490);
             pnInfo.TabIndex = 3;
             // 
             // dvgEmpleados
@@ -96,7 +87,7 @@
             dvgEmpleados.Dock = DockStyle.Fill;
             dvgEmpleados.Location = new Point(0, 0);
             dvgEmpleados.Name = "dvgEmpleados";
-            dvgEmpleados.Size = new Size(868, 459);
+            dvgEmpleados.Size = new Size(868, 490);
             dvgEmpleados.TabIndex = 2;
             // 
             // pnStatus
@@ -142,7 +133,7 @@
             // 
             pnTop.Controls.Add(toolStrip1);
             pnTop.Dock = DockStyle.Top;
-            pnTop.Location = new Point(0, 31);
+            pnTop.Location = new Point(0, 0);
             pnTop.Name = "pnTop";
             pnTop.Size = new Size(868, 34);
             pnTop.TabIndex = 1;
@@ -179,6 +170,12 @@
             tscbFiltroTipo.Name = "tscbFiltroTipo";
             tscbFiltroTipo.Size = new Size(121, 34);
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Margin = new Padding(10, 0, 10, 0);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 34);
+            // 
             // tsbtBuscar
             // 
             tsbtBuscar.AutoSize = false;
@@ -199,11 +196,11 @@
             tsbtLimpiar.Size = new Size(31, 31);
             tsbtLimpiar.Text = "toolStripButton2";
             // 
-            // toolStripSeparator1
+            // toolStripSeparator2
             // 
-            toolStripSeparator1.Margin = new Padding(10, 0, 10, 0);
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 34);
+            toolStripSeparator2.Margin = new Padding(10, 0, 10, 0);
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 34);
             // 
             // tsbtNuevo
             // 
@@ -255,55 +252,6 @@
             tsbtRefrescar.Size = new Size(31, 31);
             tsbtRefrescar.Text = "toolStripButton7";
             // 
-            // pnTopBar
-            // 
-            pnTopBar.Controls.Add(menuPrincipal);
-            pnTopBar.Dock = DockStyle.Top;
-            pnTopBar.Location = new Point(0, 0);
-            pnTopBar.Name = "pnTopBar";
-            pnTopBar.Size = new Size(868, 31);
-            pnTopBar.TabIndex = 0;
-            // 
-            // menuPrincipal
-            // 
-            menuPrincipal.Dock = DockStyle.Fill;
-            menuPrincipal.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, pasesToolStripMenuItem, gestiónToolStripMenuItem, ayudaToolStripMenuItem });
-            menuPrincipal.Location = new Point(0, 0);
-            menuPrincipal.Name = "menuPrincipal";
-            menuPrincipal.Size = new Size(868, 31);
-            menuPrincipal.TabIndex = 2;
-            menuPrincipal.Text = "menuStrip1";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            archivoToolStripMenuItem.Size = new Size(60, 27);
-            archivoToolStripMenuItem.Text = "&Archivo";
-            // 
-            // pasesToolStripMenuItem
-            // 
-            pasesToolStripMenuItem.Name = "pasesToolStripMenuItem";
-            pasesToolStripMenuItem.Size = new Size(48, 27);
-            pasesToolStripMenuItem.Text = "&Pases";
-            // 
-            // gestiónToolStripMenuItem
-            // 
-            gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
-            gestiónToolStripMenuItem.Size = new Size(59, 27);
-            gestiónToolStripMenuItem.Text = "&Gestión";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(53, 27);
-            ayudaToolStripMenuItem.Text = "A&yuda";
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Margin = new Padding(10, 0, 10, 0);
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 34);
-            // 
             // FrmBrowEmpleados
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -324,10 +272,6 @@
             pnTop.PerformLayout();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
-            pnTopBar.ResumeLayout(false);
-            pnTopBar.PerformLayout();
-            menuPrincipal.ResumeLayout(false);
-            menuPrincipal.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -335,14 +279,8 @@
 
         private Panel pnTotal;
         private Panel pnTop;
-        private Panel pnTopBar;
         private Panel pnStatus;
         private Panel pnInfo;
-        private MenuStrip menuPrincipal;
-        private ToolStripMenuItem archivoToolStripMenuItem;
-        private ToolStripMenuItem pasesToolStripMenuItem;
-        private ToolStripMenuItem gestiónToolStripMenuItem;
-        private ToolStripMenuItem ayudaToolStripMenuItem;
         private StatusStrip ssInfo;
         private ToolStripStatusLabel tslUsuario;
         private ToolStripStatusLabel tslRol;

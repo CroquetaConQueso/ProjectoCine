@@ -54,9 +54,10 @@ namespace AplicacionCine.DAO
         {
             const string sql = @"
                 INSERT INTO peliculas
-                    (titulo, duracion_min, clasificacion, genero, sinopsis, activa)
+                    (id_pelicula, titulo, duracion_min, clasificacion, genero, sinopsis, activa)
                 VALUES
-                    (@Titulo, @Duracion, @Clasificacion, @Genero, @Sinopsis, @Activa)
+                    ((SELECT COALESCE(MAX(id_pelicula), 0) + 1 FROM peliculas),
+                     @Titulo, @Duracion, @Clasificacion, @Genero, @Sinopsis, @Activa)
                 RETURNING id_pelicula;
             ";
 

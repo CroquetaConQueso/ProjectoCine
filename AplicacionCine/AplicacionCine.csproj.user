@@ -4,6 +4,9 @@
     <Compile Update="Formularios\FrmBrowEmpleados.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Formularios\FrmBrowReservas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Formularios\FrmEmpleado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -20,9 +23,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Formularios\FrmPrincipal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Formularios\FrmBrowReservas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Formularios\FrmReserva.cs">

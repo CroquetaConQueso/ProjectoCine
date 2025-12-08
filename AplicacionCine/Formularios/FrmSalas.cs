@@ -26,13 +26,82 @@ namespace AplicacionCine.Formularios
             btnEliminar.Click += BtnEliminar_Click;
             btnCerrar.Click += BtnCerrar_Click;
 
-            dvgSalas.AutoGenerateColumns = true;
+            dvgSalas.AutoGenerateColumns = false;
             dvgSalas.DataSource = _bsSalas;
             dvgSalas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgSalas.MultiSelect = false;
             dvgSalas.ReadOnly = true;
+            dvgSalas.AllowUserToAddRows = false;
+            dvgSalas.AllowUserToDeleteRows = false;
             dvgSalas.SelectionChanged += DvgSalas_SelectionChanged;
+
+            ConfigurarGrid();
         }
+
+        #region Configurar grid
+
+        private void ConfigurarGrid()
+        {
+            dvgSalas.Columns.Clear();
+
+            // IdSala
+            dvgSalas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Sala.IdSala),
+                HeaderText = "Id",
+                Width = 50,
+                ReadOnly = true
+            });
+
+            // Nombre
+            dvgSalas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Sala.Nombre),
+                HeaderText = "Nombre",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                ReadOnly = true
+            });
+
+            // Filas
+            dvgSalas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Sala.Filas),
+                HeaderText = "Filas",
+                Width = 60,
+                ReadOnly = true
+            });
+
+            // Columnas
+            dvgSalas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Sala.Columnas),
+                HeaderText = "Columnas",
+                Width = 80,
+                ReadOnly = true
+            });
+
+            // Capacidad
+            dvgSalas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Sala.Capacidad),
+                HeaderText = "Capacidad",
+                Width = 80,
+                ReadOnly = true
+            });
+
+            // Activa (solo lectura en el grid)
+            dvgSalas.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = nameof(Sala.Activa),
+                HeaderText = "Activa",
+                Width = 60,
+                ReadOnly = true
+            });
+        }
+
+        #endregion
+
+        #region Carga inicial / estado usuario
 
         private void FrmSalas_Load(object? sender, EventArgs e)
         {
@@ -63,6 +132,10 @@ namespace AplicacionCine.Formularios
             AplicarFiltro();
         }
 
+        #endregion
+
+        #region Filtro / selección
+
         private void AplicarFiltro()
         {
             IEnumerable<Sala> query = _listaCompleta;
@@ -73,6 +146,7 @@ namespace AplicacionCine.Formularios
 
             var lista = query.ToList();
             _bsSalas.DataSource = new BindingList<Sala>(lista);
+            dvgSalas.ClearSelection();
         }
 
         private Sala? GetSalaActual()
@@ -86,6 +160,10 @@ namespace AplicacionCine.Formularios
             RellenarDetalle();
         }
 
+        #endregion
+
+        #region Detalle
+
         private void RellenarDetalle()
         {
             if (_salaActual == null)
@@ -95,6 +173,9 @@ namespace AplicacionCine.Formularios
                 nudFilas.Value = 0;
                 nudColumnas.Value = 0;
                 nudCapacidad.Value = 0;
+                // por defecto marcamos activa para nuevas
+                if (chkActiva != null)
+                    chkActiva.Checked = true;
                 return;
             }
 
@@ -115,7 +196,15 @@ namespace AplicacionCine.Formularios
                                  _salaActual.Capacidad <= nudCapacidad.Maximum
                 ? _salaActual.Capacidad
                 : nudCapacidad.Minimum;
+
+            // nuevo: estado activa en el panel derecho
+            if (chkActiva != null)
+                chkActiva.Checked = _salaActual.Activa;
         }
+
+        #endregion
+
+        #region Botones
 
         private void BtnBuscar_Click(object? sender, EventArgs e)
         {
@@ -130,8 +219,15 @@ namespace AplicacionCine.Formularios
 
         private void BtnNuevo_Click(object? sender, EventArgs e)
         {
-            _salaActual = new Sala { Activa = true };
+            _salaActual = new Sala
+            {
+                Activa = true
+            };
+
             RellenarDetalle();
+            if (chkActiva != null)
+                chkActiva.Checked = true;
+
             tbTitulo.Focus();
         }
 
@@ -150,11 +246,18 @@ namespace AplicacionCine.Formularios
 
             _salaActual.Nombre = nombre;
             _salaActual.Descripcion = string.IsNullOrWhiteSpace(tbDescripcion.Text)
-                ? null : tbDescripcion.Text;
+                ? null
+                : tbDescripcion.Text;
 
             _salaActual.Filas = (int)nudFilas.Value;
             _salaActual.Columnas = (int)nudColumnas.Value;
             _salaActual.Capacidad = (int)nudCapacidad.Value;
+
+            // leer el checkbox de detalle
+            if (chkActiva != null)
+                _salaActual.Activa = chkActiva.Checked;
+            else if (_salaActual.IdSala == 0)
+                _salaActual.Activa = true; // por si acaso
 
             if (_salaActual.IdSala == 0)
                 AppContext.Salas.Insert(_salaActual);
@@ -190,5 +293,7 @@ namespace AplicacionCine.Formularios
         {
             Close();
         }
+
+        #endregion
     }
 }

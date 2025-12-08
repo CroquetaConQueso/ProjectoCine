@@ -133,11 +133,13 @@ namespace AplicacionCine.DAO
 
         public int InsertReserva(Reserva reserva)
         {
+            // Generamos nosotros el siguiente id_reserva: MAX(id) + 1
             const string sql = @"
                 INSERT INTO reservas
-                    (id_pase, id_usuario, fecha_reserva, estado, total, observaciones)
+                    (id_reserva, id_pase, id_usuario, fecha_reserva, estado, total, observaciones)
                 VALUES
-                    (@IdPase, @IdUsuario, @FechaReserva, @Estado, @Total, @Observaciones)
+                    ((SELECT COALESCE(MAX(id_reserva), 0) + 1 FROM reservas),
+                     @IdPase, @IdUsuario, @FechaReserva, @Estado, @Total, @Observaciones)
                 RETURNING id_reserva;
             ";
 
@@ -219,11 +221,13 @@ namespace AplicacionCine.DAO
 
         public int InsertLinea(LineaReserva linea)
         {
+            // Igual: generamos nosotros el id_linea_reserva
             const string sql = @"
                 INSERT INTO lineas_reserva
-                    (id_reserva, id_asiento, id_pase, precio, estado_linea)
+                    (id_linea_reserva, id_reserva, id_asiento, id_pase, precio, estado_linea)
                 VALUES
-                    (@IdReserva, @IdAsiento, @IdPase, @Precio, @EstadoLinea)
+                    ((SELECT COALESCE(MAX(id_linea_reserva), 0) + 1 FROM lineas_reserva),
+                     @IdReserva, @IdAsiento, @IdPase, @Precio, @EstadoLinea)
                 RETURNING id_linea_reserva;
             ";
 

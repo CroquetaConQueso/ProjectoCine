@@ -47,8 +47,8 @@ namespace AplicacionCine.Modelos
     public enum EstadoButaca
     {
         Libre = 0,
-        Seleccionada = 1,
-        Reservada = 2,
-        Ocupada = 3
+        Reservada = 1,
+        Ocupada = 2,
+        NoAccesible = 3
     }
 }

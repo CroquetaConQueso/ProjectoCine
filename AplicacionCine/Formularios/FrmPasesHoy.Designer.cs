@@ -48,12 +48,6 @@
             lbPelicula = new Label();
             dtpFecha = new DateTimePicker();
             lbFecha = new Label();
-            panel1 = new Panel();
-            menuPrincipal = new MenuStrip();
-            archivoToolStripMenuItem = new ToolStripMenuItem();
-            pasesToolStripMenuItem = new ToolStripMenuItem();
-            gestiónToolStripMenuItem = new ToolStripMenuItem();
-            ayudaToolStripMenuItem = new ToolStripMenuItem();
             pnTotal.SuspendLayout();
             pnGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPases).BeginInit();
@@ -61,8 +55,6 @@
             pnEstado.SuspendLayout();
             ssEstado.SuspendLayout();
             pnFiltro.SuspendLayout();
-            panel1.SuspendLayout();
-            menuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
             // pnTotal
@@ -71,7 +63,6 @@
             pnTotal.Controls.Add(pnOpciones);
             pnTotal.Controls.Add(pnEstado);
             pnTotal.Controls.Add(pnFiltro);
-            pnTotal.Controls.Add(panel1);
             pnTotal.Dock = DockStyle.Fill;
             pnTotal.Location = new Point(0, 0);
             pnTotal.Name = "pnTotal";
@@ -82,9 +73,9 @@
             // 
             pnGrid.Controls.Add(dgvPases);
             pnGrid.Dock = DockStyle.Fill;
-            pnGrid.Location = new Point(0, 84);
+            pnGrid.Location = new Point(0, 49);
             pnGrid.Name = "pnGrid";
-            pnGrid.Size = new Size(953, 303);
+            pnGrid.Size = new Size(953, 338);
             pnGrid.TabIndex = 4;
             // 
             // dgvPases
@@ -93,7 +84,7 @@
             dgvPases.Dock = DockStyle.Fill;
             dgvPases.Location = new Point(0, 0);
             dgvPases.Name = "dgvPases";
-            dgvPases.Size = new Size(953, 303);
+            dgvPases.Size = new Size(953, 338);
             dgvPases.TabIndex = 0;
             // 
             // pnOpciones
@@ -179,9 +170,9 @@
             pnFiltro.Controls.Add(dtpFecha);
             pnFiltro.Controls.Add(lbFecha);
             pnFiltro.Dock = DockStyle.Top;
-            pnFiltro.Location = new Point(0, 29);
+            pnFiltro.Location = new Point(0, 0);
             pnFiltro.Name = "pnFiltro";
-            pnFiltro.Size = new Size(953, 55);
+            pnFiltro.Size = new Size(953, 49);
             pnFiltro.TabIndex = 1;
             // 
             // btnHoy
@@ -236,49 +227,6 @@
             lbFecha.TabIndex = 0;
             lbFecha.Text = "Fecha:";
             // 
-            // panel1
-            // 
-            panel1.Controls.Add(menuPrincipal);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(953, 29);
-            panel1.TabIndex = 0;
-            // 
-            // menuPrincipal
-            // 
-            menuPrincipal.Dock = DockStyle.Fill;
-            menuPrincipal.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, pasesToolStripMenuItem, gestiónToolStripMenuItem, ayudaToolStripMenuItem });
-            menuPrincipal.Location = new Point(0, 0);
-            menuPrincipal.Name = "menuPrincipal";
-            menuPrincipal.Size = new Size(953, 29);
-            menuPrincipal.TabIndex = 1;
-            menuPrincipal.Text = "menuStrip1";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            archivoToolStripMenuItem.Size = new Size(60, 25);
-            archivoToolStripMenuItem.Text = "&Archivo";
-            // 
-            // pasesToolStripMenuItem
-            // 
-            pasesToolStripMenuItem.Name = "pasesToolStripMenuItem";
-            pasesToolStripMenuItem.Size = new Size(48, 25);
-            pasesToolStripMenuItem.Text = "&Pases";
-            // 
-            // gestiónToolStripMenuItem
-            // 
-            gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
-            gestiónToolStripMenuItem.Size = new Size(59, 25);
-            gestiónToolStripMenuItem.Text = "&Gestión";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(53, 25);
-            ayudaToolStripMenuItem.Text = "A&yuda";
-            // 
             // FrmPasesHoy
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -298,22 +246,12 @@
             ssEstado.PerformLayout();
             pnFiltro.ResumeLayout(false);
             pnFiltro.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            menuPrincipal.ResumeLayout(false);
-            menuPrincipal.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel pnTotal;
-        private Panel panel1;
-        private MenuStrip menuPrincipal;
-        private ToolStripMenuItem archivoToolStripMenuItem;
-        private ToolStripMenuItem pasesToolStripMenuItem;
-        private ToolStripMenuItem gestiónToolStripMenuItem;
-        private ToolStripMenuItem ayudaToolStripMenuItem;
         private Panel pnFiltro;
         private Label lbPelicula;
         private DateTimePicker dtpFecha;

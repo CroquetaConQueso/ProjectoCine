@@ -26,13 +26,97 @@ namespace AplicacionCine.Formularios
             tsbtResetPass.Click += TsbtResetPass_Click;
             tsbtRefrescar.Click += TsbtRefrescar_Click;
 
-            dvgUsuarios.AutoGenerateColumns = true;
+            // Enlazamos el grid a la BindingSource
+            dvgUsuarios.AutoGenerateColumns = false;
             dvgUsuarios.DataSource = _bsUsuarios;
+
             dvgUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgUsuarios.MultiSelect = false;
             dvgUsuarios.ReadOnly = true;
+            dvgUsuarios.AllowUserToAddRows = false;
+            dvgUsuarios.AllowUserToDeleteRows = false;
             dvgUsuarios.DoubleClick += DvgUsuarios_DoubleClick;
+
+            ConfigurarGrid();
         }
+
+        #region Configuración grid
+
+        private void ConfigurarGrid()
+        {
+            dvgUsuarios.Columns.Clear();
+
+            // Id
+            dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Usuario.IdUsuario),
+                HeaderText = "Id",
+                Width = 50,
+                ReadOnly = true
+            });
+
+            // Login
+            dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Usuario.Login),
+                HeaderText = "Usuario",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                ReadOnly = true
+            });
+
+            // Rol
+            dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Usuario.Rol),
+                HeaderText = "Rol",
+                Width = 90,
+                ReadOnly = true
+            });
+
+            // Activo
+            dvgUsuarios.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = nameof(Usuario.Activo),
+                HeaderText = "Activo",
+                Width = 60,
+                ReadOnly = true
+            });
+
+            // Bloqueado
+            dvgUsuarios.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = nameof(Usuario.Bloqueado),
+                HeaderText = "Bloq.",
+                Width = 60,
+                ReadOnly = true
+            });
+
+            // Intentos fallidos
+            dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Usuario.IntentosFallidos),
+                HeaderText = "Intentos",
+                Width = 70,
+                ReadOnly = true
+            });
+
+            // Fecha alta
+            dvgUsuarios.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(Usuario.FechaAlta),
+                HeaderText = "Fecha alta",
+                Width = 120,
+                ReadOnly = true,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "dd/MM/yyyy"
+                }
+            });
+        }
+
+        #endregion
+
+        #region Carga inicial
 
         private void FrmBrowUsuarios_Load(object? sender, EventArgs e)
         {
@@ -43,35 +127,23 @@ namespace AplicacionCine.Formularios
 
         private void CargarCombos()
         {
+            // Combo de roles
             tscbRol.Items.Clear();
             tscbRol.Items.Add("(Todos)");
             foreach (RolUsuario rol in Enum.GetValues(typeof(RolUsuario)))
+            {
                 tscbRol.Items.Add(rol);
+            }
             tscbRol.SelectedIndex = 0;
 
+            // Combo de estado (mapea a Activo / Bloqueado)
             tscbEstado.Items.Clear();
-            tscbEstado.Items.Add("(Todos)");
-            tscbEstado.Items.Add("Activos");
-            tscbEstado.Items.Add("Inactivos");
-            tscbEstado.Items.Add("Bloqueados");
+            tscbEstado.Items.Add("(Todos)");        // 0
+            tscbEstado.Items.Add("Activos");        // 1 -> Activo = true
+            tscbEstado.Items.Add("Inactivos");      // 2 -> Activo = false
+            tscbEstado.Items.Add("Bloqueados");     // 3 -> Bloqueado = true
+            tscbEstado.Items.Add("No bloqueados");  // 4 -> Bloqueado = false
             tscbEstado.SelectedIndex = 0;
-        }
-
-        private void ActualizarEstadoUsuario()
-        {
-            var u = AppContext.UsuarioActual;
-            if (u == null)
-            {
-                tslUsuario.Text = "(sin sesión)";
-                tslRol.Text = "";
-                tslEstado.Text = "Desconectado";
-            }
-            else
-            {
-                tslUsuario.Text = u.NombreUsuario;
-                tslRol.Text = u.Rol.ToString();
-                tslEstado.Text = "Listo";
-            }
         }
 
         private void CargarUsuarios()
@@ -80,38 +152,75 @@ namespace AplicacionCine.Formularios
             AplicarFiltro();
         }
 
+        #endregion
+
+        #region Filtro
+
         private void AplicarFiltro()
         {
             IEnumerable<Usuario> query = _listaCompleta;
 
-            var filtroUsuario = tstbUsuario.Text.Trim();
-            if (!string.IsNullOrEmpty(filtroUsuario))
+            // Texto de usuario (login)
+            var textoUsuario = tstbUsuario.Text?.Trim();
+            if (!string.IsNullOrWhiteSpace(textoUsuario))
             {
-                var f = filtroUsuario.ToLowerInvariant();
                 query = query.Where(u =>
-                    (u.Login ?? "").ToLowerInvariant().Contains(f) ||
-                    (u.Email ?? "").ToLowerInvariant().Contains(f));
+                    u.Login.Contains(textoUsuario, StringComparison.OrdinalIgnoreCase));
             }
 
-            if (tscbRol.SelectedItem is RolUsuario rolSel)
-                query = query.Where(u => u.Rol == rolSel);
+            // Rol
+            if (tscbRol.SelectedIndex > 0)
+            {
+                var rolSeleccionado = (RolUsuario)tscbRol.SelectedItem!;
+                query = query.Where(u => u.Rol == rolSeleccionado);
+            }
 
-            var estado = tscbEstado.SelectedItem as string;
-            if (estado == "Activos")
-                query = query.Where(u => u.Activo);
-            else if (estado == "Inactivos")
-                query = query.Where(u => !u.Activo);
-            else if (estado == "Bloqueados")
-                query = query.Where(u => u.Bloqueado);
+            // Estado (activo / bloqueado)
+            bool? activo = null;
+            bool? bloqueado = null;
 
-            var lista = query.ToList();
+            switch (tscbEstado.SelectedIndex)
+            {
+                case 1: // Activos
+                    activo = true;
+                    break;
+                case 2: // Inactivos
+                    activo = false;
+                    break;
+                case 3: // Bloqueados
+                    bloqueado = true;
+                    break;
+                case 4: // No bloqueados
+                    bloqueado = false;
+                    break;
+            }
+
+            if (activo.HasValue)
+            {
+                query = query.Where(u => u.Activo == activo.Value);
+            }
+
+            if (bloqueado.HasValue)
+            {
+                query = query.Where(u => u.Bloqueado == bloqueado.Value);
+            }
+
+            var lista = query
+                .OrderBy(u => u.Login, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
             _bsUsuarios.DataSource = new BindingList<Usuario>(lista);
+            dvgUsuarios.ClearSelection();
         }
 
-        private Usuario? GetUsuarioActual()
+        private Usuario? GetUsuarioSeleccionado()
         {
             return _bsUsuarios.Current as Usuario;
         }
+
+        #endregion
+
+        #region Botones ToolStrip
 
         private void TsbtBuscar_Click(object? sender, EventArgs e)
         {
@@ -120,15 +229,10 @@ namespace AplicacionCine.Formularios
 
         private void TsbtLimpiar_Click(object? sender, EventArgs e)
         {
-            tstbUsuario.Text = "";
+            tstbUsuario.Text = string.Empty;
             tscbRol.SelectedIndex = 0;
             tscbEstado.SelectedIndex = 0;
             AplicarFiltro();
-        }
-
-        private void TsbtRefrescar_Click(object? sender, EventArgs e)
-        {
-            CargarUsuarios();
         }
 
         private void TsbtNuevo_Click(object? sender, EventArgs e)
@@ -137,14 +241,26 @@ namespace AplicacionCine.Formularios
             {
                 Activo = true,
                 Bloqueado = false,
-                FechaAlta = DateTime.Now,
                 Rol = RolUsuario.Empleado,
-                PasswordHash = "1234"
+                FechaAlta = DateTime.Now,
+                IntentosFallidos = 0
             };
 
             using var frm = new FrmUsuario(u);
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
+                // Validar login duplicado (alta)
+                if (AppContext.Usuarios.ExisteLogin(u.Login, null))
+                {
+                    MessageBox.Show(
+                        "Ya existe otro usuario con ese login.",
+                        "Usuarios",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    CargarUsuarios();
+                    return;
+                }
+
                 AppContext.Usuarios.Insert(u);
                 CargarUsuarios();
             }
@@ -152,7 +268,7 @@ namespace AplicacionCine.Formularios
 
         private void TsbtModificar_Click(object? sender, EventArgs e)
         {
-            var u = GetUsuarioActual();
+            var u = GetUsuarioSeleccionado();
             if (u == null)
             {
                 MessageBox.Show("Selecciona un usuario.", "Usuarios",
@@ -163,6 +279,18 @@ namespace AplicacionCine.Formularios
             using var frm = new FrmUsuario(u);
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
+                // Validar login duplicado (modificación)
+                if (AppContext.Usuarios.ExisteLogin(u.Login, u.IdUsuario))
+                {
+                    MessageBox.Show(
+                        "Ya existe otro usuario con ese login.",
+                        "Usuarios",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    CargarUsuarios();
+                    return;
+                }
+
                 AppContext.Usuarios.Update(u);
                 CargarUsuarios();
             }
@@ -174,7 +302,7 @@ namespace AplicacionCine.Formularios
 
         private void TsbtEliminar_Click(object? sender, EventArgs e)
         {
-            var u = GetUsuarioActual();
+            var u = GetUsuarioSeleccionado();
             if (u == null)
             {
                 MessageBox.Show("Selecciona un usuario.", "Usuarios",
@@ -182,22 +310,34 @@ namespace AplicacionCine.Formularios
                 return;
             }
 
-            var res = MessageBox.Show(
-                $"¿Marcar como inactivo al usuario '{u.Login}'?",
+            // Evitar que el usuario actual se elimine a sí mismo
+            if (AppContext.UsuarioActual != null &&
+                AppContext.UsuarioActual.IdUsuario == u.IdUsuario)
+            {
+                MessageBox.Show(
+                    "No puedes eliminar tu propio usuario mientras estás conectado.\n" +
+                    "Inicia sesión con otra cuenta de administrador si realmente quieres borrarlo.",
+                    "Usuarios",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            var resp = MessageBox.Show(
+                $"¿Eliminar el usuario '{u.Login}'?",
                 "Usuarios",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
-            if (res != DialogResult.Yes) return;
+            if (resp != DialogResult.Yes) return;
 
-            u.Activo = false;
-            AppContext.Usuarios.Update(u);
+            AppContext.Usuarios.Delete(u.IdUsuario);
             CargarUsuarios();
         }
 
         private void TsbtResetPass_Click(object? sender, EventArgs e)
         {
-            var u = GetUsuarioActual();
+            var u = GetUsuarioSeleccionado();
             if (u == null)
             {
                 MessageBox.Show("Selecciona un usuario.", "Usuarios",
@@ -206,7 +346,7 @@ namespace AplicacionCine.Formularios
             }
 
             var res = MessageBox.Show(
-                $"¿Reiniciar la contraseña de '{u.Login}' a '1234'?",
+                $"¿Reiniciar la contraseña del usuario '{u.Login}' a '1234'?",
                 "Usuarios",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -215,13 +355,52 @@ namespace AplicacionCine.Formularios
 
             u.PasswordHash = "1234";
             AppContext.Usuarios.Update(u);
+
             MessageBox.Show("Contraseña reiniciada a '1234'.",
                 "Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void TsbtRefrescar_Click(object? sender, EventArgs e)
+        {
+            CargarUsuarios();
         }
 
         private void DvgUsuarios_DoubleClick(object? sender, EventArgs e)
         {
             TsbtModificar_Click(sender, e);
         }
+
+        #endregion
+
+        #region StatusStrip
+
+        private void ActualizarEstadoUsuario()
+        {
+            if (AppContext.UsuarioActual != null)
+            {
+                var u = AppContext.UsuarioActual;
+
+                tslUsuario.Text = $"Usuario: {u.Login}";
+                tslRol.Text = $"Rol: {u.Rol}";
+
+                string estado;
+                if (u.Bloqueado)
+                    estado = "Bloqueado";
+                else if (u.Activo)
+                    estado = "Activo";
+                else
+                    estado = "Inactivo";
+
+                tslEstado.Text = $"Estado: {estado}";
+            }
+            else
+            {
+                tslUsuario.Text = "Usuario: (ninguno)";
+                tslRol.Text = "Rol: -";
+                tslEstado.Text = "Estado: -";
+            }
+        }
+
+        #endregion
     }
 }
