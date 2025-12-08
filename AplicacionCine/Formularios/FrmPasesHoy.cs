@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using AplicacionCine.Modelos;
+using AplicacionCine.Utilidades;
 
 namespace AplicacionCine.Formularios
 {
@@ -16,6 +17,7 @@ namespace AplicacionCine.Formularios
         {
             InitializeComponent();
 
+            TemaCine.Aplicar(this);
             // Bloquear maximizar y tamaño variable
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;

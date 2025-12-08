@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using AplicacionCine.DAO;
 using AplicacionCine.Modelos;
+using AplicacionCine.Utilidades;
 
 namespace AplicacionCine.Formularios
 {
@@ -15,7 +16,7 @@ namespace AplicacionCine.Formularios
         public FrmBrowReservas()
         {
             InitializeComponent();
-
+            TemaCine.Aplicar(this);
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;   // <-- añadido
 

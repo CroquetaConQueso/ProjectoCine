@@ -5,19 +5,40 @@ using System.Windows.Forms;
 using AplicacionCine.Modelos;
 using AplicacionCine.DAO;
 using AplicacionCine;
+using AplicacionCine.Utilidades;
 
 namespace AplicacionCine.Formularios
 {
+    /// <summary>
+    /// Formulario de detalle de una reserva:
+    /// muestra datos de pase, usuario, líneas y permite editar estado/observaciones.
+    /// </summary>
     public partial class FrmReserva : Form
     {
+        /// <summary>
+        /// Reserva que se está creando o editando.
+        /// </summary>
         private Reserva _reserva;
+
+        /// <summary>
+        /// Indica si la reserva es nueva (true) o se está editando una existente (false).
+        /// </summary>
         private bool _esNueva;
+
+        /// <summary>
+        /// Líneas asociadas a la reserva (butacas/entradas).
+        /// </summary>
         private List<LineaReserva> _lineas = new List<LineaReserva>();
 
+        /// <summary>
+        /// Constructor por defecto: pensado para altas directas o uso del diseñador.
+        /// Inicializa una reserva nueva en estado Pendiente y fecha actual.
+        /// </summary>
         public FrmReserva()
         {
+            
             InitializeComponent();
-
+            TemaCine.Aplicar(this);
             _reserva = new Reserva
             {
                 FechaReserva = DateTime.Now,
@@ -28,16 +49,25 @@ namespace AplicacionCine.Formularios
             InicializarEventos();
         }
 
+        /// <summary>
+        /// Constructor principal: recibe la reserva a editar o visualizar.
+        /// Considera la reserva como nueva si IdReserva == 0.
+        /// </summary>
+        /// <param name="reserva">Reserva sobre la que se trabajará.</param>
+        /// <exception cref="ArgumentNullException">Si la reserva es null.</exception>
         public FrmReserva(Reserva reserva)
         {
             InitializeComponent();
-
+            TemaCine.Aplicar(this);
             _reserva = reserva ?? throw new ArgumentNullException(nameof(reserva));
             _esNueva = reserva.IdReserva == 0;
 
             InicializarEventos();
         }
 
+        /// <summary>
+        /// Registra los manejadores de eventos del formulario.
+        /// </summary>
         private void InicializarEventos()
         {
             Load += FrmReserva_Load;
@@ -45,6 +75,10 @@ namespace AplicacionCine.Formularios
             btnCancelar.Click += BtnCancelar_Click;
         }
 
+        /// <summary>
+        /// Carga inicial del formulario: estados, fecha, observaciones,
+        /// información de pase/usuario y líneas de reserva si aplica.
+        /// </summary>
         private void FrmReserva_Load(object? sender, EventArgs e)
         {
             cbEstado.Items.Clear();
@@ -73,12 +107,20 @@ namespace AplicacionCine.Formularios
                 CargarLineasReserva();
         }
 
+        /// <summary>
+        /// Asigna texto a una etiqueta si la referencia no es null.
+        /// Útil para evitar comprobaciones repetitivas.
+        /// </summary>
         private void SafeSet(Label? lbl, string texto)
         {
             if (lbl != null)
                 lbl.Text = texto;
         }
 
+        /// <summary>
+        /// Carga y muestra la información del pase (película, sala, fecha)
+        /// y del usuario asociado a la reserva.
+        /// </summary>
         private void CargarInfoPaseYUsuario()
         {
             // -------- Info Pase / Película / Sala ----------
@@ -124,6 +166,10 @@ namespace AplicacionCine.Formularios
             }
         }
 
+        /// <summary>
+        /// Carga las líneas de la reserva desde base de datos y actualiza
+        /// el grid y los totales de entradas e importes.
+        /// </summary>
         private void CargarLineasReserva()
         {
             // Cargar líneas desde la BD
@@ -152,7 +198,10 @@ namespace AplicacionCine.Formularios
             lbCantidadTotalReservas.Text = totalReserva.ToString("0.00 €");
         }
 
-
+        /// <summary>
+        /// Valida y vuelca los datos del formulario sobre la reserva,
+        /// guarda en base de datos (insert/update) y cierra con DialogResult.OK.
+        /// </summary>
         private void BtnAceptar_Click(object? sender, EventArgs e)
         {
             _reserva.FechaReserva = dateTimePicker1.Value;
@@ -192,16 +241,28 @@ namespace AplicacionCine.Formularios
             Close();
         }
 
+        /// <summary>
+        /// Cancela la edición de la reserva y cierra el formulario
+        /// usando DialogResult.Cancel.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
 
+        /// <summary>
+        /// Mantenido solo porque el diseñador lo tiene asignado.
+        /// No realiza ninguna acción al cambiar el checkbox.
+        /// </summary>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
         }
 
+        /// <summary>
+        /// Mantenido solo porque el diseñador lo tiene asignado.
+        /// No realiza ninguna acción al pulsar sobre la etiqueta de precio.
+        /// </summary>
         private void lbCantidadPrecio_Click(object sender, EventArgs e)
         {
         }

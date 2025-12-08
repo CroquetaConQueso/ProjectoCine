@@ -5,8 +5,15 @@ using AplicacionCine.Modelos;
 
 namespace AplicacionCine.DAO
 {
+    /// <summary>
+    /// Acceso a datos de usuarios: CRUD, búsquedas y control de unicidad de login.
+    /// </summary>
     public class UsuarioDAO
     {
+        /// <summary>
+        /// Devuelve un usuario por Id o null si no existe.
+        /// </summary>
+        /// <param name="idUsuario">Identificador del usuario.</param>
         public Usuario? GetById(int idUsuario)
         {
             const string sql = @"
@@ -30,6 +37,10 @@ namespace AplicacionCine.DAO
             return MapUsuario(reader);
         }
 
+        /// <summary>
+        /// Devuelve un usuario por su login o null si no existe.
+        /// </summary>
+        /// <param name="login">Nombre de login.</param>
         public Usuario? GetByLogin(string login)
         {
             const string sql = @"
@@ -53,6 +64,9 @@ namespace AplicacionCine.DAO
             return MapUsuario(reader);
         }
 
+        /// <summary>
+        /// Devuelve todos los usuarios ordenados por login.
+        /// </summary>
         public List<Usuario> GetAll()
         {
             var lista = new List<Usuario>();
@@ -79,6 +93,13 @@ namespace AplicacionCine.DAO
             return lista;
         }
 
+        /// <summary>
+        /// Búsqueda flexible de usuarios por login, email y estado lógico.
+        /// </summary>
+        /// <param name="login">Fragmento de login (LIKE), o null.</param>
+        /// <param name="email">Fragmento de email (LIKE), o null.</param>
+        /// <param name="activo">Filtrar por activo/inactivo, o null para ignorar.</param>
+        /// <param name="bloqueado">Filtrar por bloqueado/no, o null para ignorar.</param>
         public List<Usuario> Buscar(string? login, string? email, bool? activo, bool? bloqueado)
         {
             var lista = new List<Usuario>();
@@ -136,6 +157,10 @@ namespace AplicacionCine.DAO
             return lista;
         }
 
+        /// <summary>
+        /// Inserta un nuevo usuario y actualiza u.IdUsuario con el Id generado.
+        /// </summary>
+        /// <param name="u">Usuario a insertar.</param>
         public void Insert(Usuario u)
         {
             const string sql = @"
@@ -168,7 +193,6 @@ namespace AplicacionCine.DAO
             cmd.Parameters.AddWithValue("Bloqueado", u.Bloqueado);
             cmd.Parameters.AddWithValue("Intentos", u.IntentosFallidos);
 
-            // Si FechaAlta viene sin inicializar (default), ponemos ahora mismo.
             var fechaAlta = u.FechaAlta == default(DateTime)
                 ? DateTime.Now
                 : u.FechaAlta;
@@ -190,6 +214,10 @@ namespace AplicacionCine.DAO
                 ?? throw new InvalidOperationException("No se devolvió id_usuario tras el INSERT."));
         }
 
+        /// <summary>
+        /// Actualiza los datos de un usuario existente, identificado por IdUsuario.
+        /// </summary>
+        /// <param name="u">Usuario con campos ya modificados.</param>
         public void Update(Usuario u)
         {
             const string sql = @"
@@ -241,6 +269,14 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Indica si existe ya un usuario con ese login.
+        /// Permite excluir un Id concreto (para actualizaciones).
+        /// </summary>
+        /// <param name="login">Login a comprobar.</param>
+        /// <param name="idExcluir">
+        /// Id a excluir de la comprobación, o null si no se excluye ninguno.
+        /// </param>
         public bool ExisteLogin(string login, int? idExcluir = null)
         {
             using var conn = DbConnectionFactory.CreateOpenConnection();
@@ -272,6 +308,10 @@ namespace AplicacionCine.DAO
             return count > 0;
         }
 
+        /// <summary>
+        /// Elimina un usuario por Id.
+        /// </summary>
+        /// <param name="idUsuario">Identificador del usuario a borrar.</param>
         public void Delete(int idUsuario)
         {
             const string sql = @"DELETE FROM usuarios WHERE id_usuario = @Id;";
@@ -282,9 +322,12 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Proyecta la fila actual del reader en un objeto Usuario.
+        /// Incluye parseo defensivo del rol y campos null-safe.
+        /// </summary>
         private static Usuario MapUsuario(NpgsqlDataReader reader)
         {
-            // Ordinales
             int ordId = reader.GetOrdinal("id_usuario");
             int ordLogin = reader.GetOrdinal("login");
             int ordPwd = reader.GetOrdinal("password_hash");
@@ -299,26 +342,21 @@ namespace AplicacionCine.DAO
             int ordUltIp = reader.GetOrdinal("ultima_ip");
             int ordNotasAdmin = reader.GetOrdinal("notas_admin");
 
-            // --- ROL (ahora string -> enum) ---
             RolUsuario rol;
             if (!reader.IsDBNull(ordRol))
             {
                 var rolStr = reader.GetString(ordRol).Trim();
 
-                // Intentamos casar con el enum ignorando mayúsculas/minúsculas
                 if (!Enum.TryParse<RolUsuario>(rolStr, true, out rol))
                 {
-                    // Si no cuadra, le damos un valor por defecto razonable
                     rol = RolUsuario.Empleado;
                 }
             }
             else
             {
-                // Si viniera a NULL, también damos un valor por defecto
                 rol = RolUsuario.Empleado;
             }
 
-            // --- Campos NULL-safe como vimos antes ---
             string? email = reader.IsDBNull(ordEmail)
                 ? null
                 : reader.GetString(ordEmail);
@@ -353,7 +391,6 @@ namespace AplicacionCine.DAO
                 ? null
                 : reader.GetString(ordNotasAdmin);
 
-            // --- Construcción del objeto ---
             return new Usuario
             {
                 IdUsuario = reader.GetInt32(ordId),
@@ -371,7 +408,5 @@ namespace AplicacionCine.DAO
                 NotasAdmin = notasAdmin
             };
         }
-
-
     }
 }

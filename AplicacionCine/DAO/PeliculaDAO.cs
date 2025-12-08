@@ -5,8 +5,14 @@ using AplicacionCine.Modelos;
 
 namespace AplicacionCine.DAO
 {
+    /// <summary>
+    /// Acceso a datos de películas: CRUD sobre la tabla peliculas.
+    /// </summary>
     public class PeliculaDAO
     {
+        /// <summary>
+        /// Devuelve todas las películas ordenadas por título.
+        /// </summary>
         public List<Pelicula> GetAll()
         {
             const string sql = @"
@@ -30,6 +36,11 @@ namespace AplicacionCine.DAO
             return result;
         }
 
+        /// <summary>
+        /// Busca una película por Id.
+        /// Devuelve null si no existe.
+        /// </summary>
+        /// <param name="idPelicula">Identificador de la película.</param>
         public Pelicula? GetById(int idPelicula)
         {
             const string sql = @"
@@ -50,6 +61,11 @@ namespace AplicacionCine.DAO
             return Map(reader);
         }
 
+        /// <summary>
+        /// Inserta una nueva película y actualiza peli.IdPelicula
+        /// con el Id generado (se calcula como MAX + 1).
+        /// </summary>
+        /// <param name="peli">Película a insertar.</param>
         public void Insert(Pelicula peli)
         {
             const string sql = @"
@@ -74,6 +90,11 @@ namespace AplicacionCine.DAO
             peli.IdPelicula = Convert.ToInt32(cmd.ExecuteScalar());
         }
 
+        /// <summary>
+        /// Actualiza los datos de una película existente,
+        /// identificada por IdPelicula.
+        /// </summary>
+        /// <param name="peli">Película con los campos ya modificados.</param>
         public void Update(Pelicula peli)
         {
             const string sql = @"
@@ -101,6 +122,10 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina una película por Id.
+        /// </summary>
+        /// <param name="idPelicula">Identificador de la película a borrar.</param>
         public void Delete(int idPelicula)
         {
             const string sql = @"DELETE FROM peliculas WHERE id_pelicula = @Id;";
@@ -111,6 +136,9 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Proyecta la fila actual del reader en un objeto Pelicula.
+        /// </summary>
         private static Pelicula Map(NpgsqlDataReader reader)
         {
             return new Pelicula

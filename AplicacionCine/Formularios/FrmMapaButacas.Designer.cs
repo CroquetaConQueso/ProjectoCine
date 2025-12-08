@@ -138,7 +138,6 @@
             grpSeleccion.Size = new Size(291, 257);
             grpSeleccion.TabIndex = 1;
             grpSeleccion.TabStop = false;
-            grpSeleccion.Text = "Selección:";
             // 
             // tableLayoutPanel2
             // 
@@ -311,7 +310,6 @@
             grpLeyenda.Size = new Size(291, 228);
             grpLeyenda.TabIndex = 0;
             grpLeyenda.TabStop = false;
-            grpLeyenda.Text = "Leyenda:";
             // 
             // tlpLeyenda
             // 
@@ -606,12 +604,13 @@
             // 
             // btnConfirmarReserva
             // 
+            btnConfirmarReserva.BackColor = Color.White;
             btnConfirmarReserva.Location = new Point(235, 8);
             btnConfirmarReserva.Name = "btnConfirmarReserva";
             btnConfirmarReserva.Size = new Size(75, 23);
             btnConfirmarReserva.TabIndex = 0;
-            btnConfirmarReserva.Text = "Reserva";
-            btnConfirmarReserva.UseVisualStyleBackColor = true;
+            btnConfirmarReserva.Text = "Guardar";
+            btnConfirmarReserva.UseVisualStyleBackColor = false;
             // 
             // pnTop
             // 

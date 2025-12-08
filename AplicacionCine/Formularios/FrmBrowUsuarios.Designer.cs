@@ -89,7 +89,7 @@
             dvgUsuarios.Location = new Point(0, 0);
             dvgUsuarios.Name = "dvgUsuarios";
             dvgUsuarios.Size = new Size(868, 490);
-            dvgUsuarios.TabIndex = 2;
+            dvgUsuarios.TabIndex = 0;
             // 
             // pnStatus
             // 
@@ -107,7 +107,7 @@
             ssInfo.Location = new Point(0, 0);
             ssInfo.Name = "ssInfo";
             ssInfo.Size = new Size(868, 30);
-            ssInfo.TabIndex = 3;
+            ssInfo.TabIndex = 0;
             ssInfo.Text = "statusStrip1";
             // 
             // tslUsuariosResumen
@@ -191,7 +191,7 @@
             tsbtBuscar.ImageTransparentColor = Color.Magenta;
             tsbtBuscar.Name = "tsbtBuscar";
             tsbtBuscar.Size = new Size(31, 31);
-            tsbtBuscar.Text = "toolStripButton1";
+            tsbtBuscar.Text = "Buscar";
             // 
             // tsbtLimpiar
             // 
@@ -201,7 +201,7 @@
             tsbtLimpiar.ImageTransparentColor = Color.Magenta;
             tsbtLimpiar.Name = "tsbtLimpiar";
             tsbtLimpiar.Size = new Size(31, 31);
-            tsbtLimpiar.Text = "toolStripButton2";
+            tsbtLimpiar.Text = "Limpiar";
             // 
             // toolStripSeparator1
             // 
@@ -217,7 +217,7 @@
             tsbtNuevo.ImageTransparentColor = Color.Magenta;
             tsbtNuevo.Name = "tsbtNuevo";
             tsbtNuevo.Size = new Size(31, 31);
-            tsbtNuevo.Text = "toolStripButton3";
+            tsbtNuevo.Text = "Nuevo";
             // 
             // tsbtModificar
             // 
@@ -227,7 +227,7 @@
             tsbtModificar.ImageTransparentColor = Color.Magenta;
             tsbtModificar.Name = "tsbtModificar";
             tsbtModificar.Size = new Size(31, 31);
-            tsbtModificar.Text = "toolStripButton4";
+            tsbtModificar.Text = "Modificar";
             // 
             // tsbtEliminar
             // 
@@ -237,7 +237,7 @@
             tsbtEliminar.ImageTransparentColor = Color.Magenta;
             tsbtEliminar.Name = "tsbtEliminar";
             tsbtEliminar.Size = new Size(31, 31);
-            tsbtEliminar.Text = "toolStripButton5";
+            tsbtEliminar.Text = "Eliminar";
             // 
             // tsbtResetPass
             // 
@@ -247,7 +247,7 @@
             tsbtResetPass.ImageTransparentColor = Color.Magenta;
             tsbtResetPass.Name = "tsbtResetPass";
             tsbtResetPass.Size = new Size(31, 31);
-            tsbtResetPass.Text = "toolStripButton6";
+            tsbtResetPass.Text = "Reset Pass";
             // 
             // tsbtRefrescar
             // 
@@ -257,7 +257,7 @@
             tsbtRefrescar.ImageTransparentColor = Color.Magenta;
             tsbtRefrescar.Name = "tsbtRefrescar";
             tsbtRefrescar.Size = new Size(31, 31);
-            tsbtRefrescar.Text = "toolStripButton7";
+            tsbtRefrescar.Text = "Refrescar";
             // 
             // FrmBrowUsuarios
             // 

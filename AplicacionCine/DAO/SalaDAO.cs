@@ -5,8 +5,14 @@ using AplicacionCine.Modelos;
 
 namespace AplicacionCine.DAO
 {
+    /// <summary>
+    /// Acceso a datos de salas: CRUD sobre la tabla salas.
+    /// </summary>
     public class SalaDAO
     {
+        /// <summary>
+        /// Devuelve todas las salas ordenadas por nombre.
+        /// </summary>
         public List<Sala> GetAll()
         {
             const string sql = @"
@@ -30,6 +36,11 @@ namespace AplicacionCine.DAO
             return result;
         }
 
+        /// <summary>
+        /// Busca una sala por Id.
+        /// Devuelve null si no existe.
+        /// </summary>
+        /// <param name="idSala">Identificador de la sala.</param>
         public Sala? GetById(int idSala)
         {
             const string sql = @"
@@ -50,6 +61,10 @@ namespace AplicacionCine.DAO
             return Map(reader);
         }
 
+        /// <summary>
+        /// Inserta una nueva sala y actualiza sala.IdSala con el Id generado.
+        /// </summary>
+        /// <param name="sala">Sala a insertar.</param>
         public void Insert(Sala sala)
         {
             const string sql = @"
@@ -73,6 +88,10 @@ namespace AplicacionCine.DAO
             sala.IdSala = Convert.ToInt32(cmd.ExecuteScalar());
         }
 
+        /// <summary>
+        /// Actualiza los datos de una sala existente, identificada por IdSala.
+        /// </summary>
+        /// <param name="sala">Sala con los campos ya modificados.</param>
         public void Update(Sala sala)
         {
             const string sql = @"
@@ -100,6 +119,10 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina una sala por Id.
+        /// </summary>
+        /// <param name="idSala">Identificador de la sala a borrar.</param>
         public void Delete(int idSala)
         {
             const string sql = @"DELETE FROM salas WHERE id_sala = @Id;";
@@ -110,6 +133,9 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Proyecta la fila actual del reader en un objeto Sala.
+        /// </summary>
         private static Sala Map(NpgsqlDataReader reader)
         {
             return new Sala

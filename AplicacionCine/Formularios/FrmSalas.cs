@@ -4,18 +4,40 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using AplicacionCine.Modelos;
+using AplicacionCine.Utilidades;
 
 namespace AplicacionCine.Formularios
 {
+    /// <summary>
+    /// Formulario de mantenimiento de salas:
+    /// búsqueda, alta/edición básica y resumen de capacidad.
+    /// </summary>
     public partial class FrmSalas : Form
     {
+        /// <summary>
+        /// Origen de datos principal del grid de salas.
+        /// </summary>
         private readonly BindingSource _bsSalas = new BindingSource();
+
+        /// <summary>
+        /// Lista completa de salas cargadas desde la base de datos
+        /// sobre la que se aplican los filtros de búsqueda.
+        /// </summary>
         private List<Sala> _listaCompleta = new List<Sala>();
+
+        /// <summary>
+        /// Sala actualmente seleccionada o en edición en el panel de detalle.
+        /// </summary>
         private Sala? _salaActual;
 
+        /// <summary>
+        /// Constructor por defecto: inicializa el formulario,
+        /// aplica el tema y configura eventos y grid.
+        /// </summary>
         public FrmSalas()
         {
             InitializeComponent();
+            TemaCine.Aplicar(this);
 
             // Bloquear maximizar y tamaño variable
             MaximizeBox = false;
@@ -49,6 +71,10 @@ namespace AplicacionCine.Formularios
 
         #region Configurar grid
 
+        /// <summary>
+        /// Configura las columnas del DataGridView de salas,
+        /// incluyendo el checkbox editable de "Activa".
+        /// </summary>
         private void ConfigurarGrid()
         {
             dvgSalas.Columns.Clear();
@@ -112,11 +138,19 @@ namespace AplicacionCine.Formularios
 
         #region Carga inicial
 
+        /// <summary>
+        /// Carga inicial del formulario: obtiene las salas
+        /// desde la capa de datos y aplica el filtro actual.
+        /// </summary>
         private void FrmSalas_Load(object? sender, EventArgs e)
         {
             CargarSalas();
         }
 
+        /// <summary>
+        /// Recupera todas las salas de la base de datos
+        /// y refresca el grid aplicando el filtro de búsqueda.
+        /// </summary>
         private void CargarSalas()
         {
             _listaCompleta = AppContext.Salas.GetAll();
@@ -127,6 +161,10 @@ namespace AplicacionCine.Formularios
 
         #region Filtro / selección
 
+        /// <summary>
+        /// Aplica el filtro por nombre sobre la lista completa
+        /// y actualiza el BindingSource, el detalle y el status strip.
+        /// </summary>
         private void AplicarFiltro()
         {
             IEnumerable<Sala> query = _listaCompleta;
@@ -147,6 +185,10 @@ namespace AplicacionCine.Formularios
             ActualizarResumenYSeleccion(lista);
         }
 
+        /// <summary>
+        /// Devuelve la sala asociada a la fila seleccionada en el grid,
+        /// o null si no hay ninguna fila seleccionada.
+        /// </summary>
         private Sala? GetSalaActual()
         {
             if (dvgSalas.SelectedRows.Count > 0)
@@ -155,6 +197,10 @@ namespace AplicacionCine.Formularios
             return null;
         }
 
+        /// <summary>
+        /// Maneja el cambio de selección en el grid:
+        /// actualiza la sala actual, el detalle y el texto de selección.
+        /// </summary>
         private void DvgSalas_SelectionChanged(object? sender, EventArgs e)
         {
             _salaActual = GetSalaActual();
@@ -166,6 +212,10 @@ namespace AplicacionCine.Formularios
 
         #region Detalle
 
+        /// <summary>
+        /// Rellena el panel de detalle con los datos de la sala actual.
+        /// Si no hay sala seleccionada, limpia los controles.
+        /// </summary>
         private void RellenarDetalle()
         {
             if (_salaActual == null)
@@ -214,6 +264,7 @@ namespace AplicacionCine.Formularios
         /// - tslCantidadCapacidad: capacidad total / filtrada.
         /// - tslResultadoSeleccion: se delega en ActualizarSeleccion().
         /// </summary>
+        /// <param name="listaActual">Lista de salas actualmente mostradas en el grid.</param>
         private void ActualizarResumenYSeleccion(IList<Sala> listaActual)
         {
             int total = _listaCompleta?.Count ?? 0;
@@ -255,7 +306,8 @@ namespace AplicacionCine.Formularios
         }
 
         /// <summary>
-        /// Actualiza tslResultadoSeleccion con la sala seleccionada.
+        /// Muestra en tslResultadoSeleccion un resumen de la sala seleccionada,
+        /// o indica que no hay selección.
         /// </summary>
         private void ActualizarSeleccion()
         {
@@ -274,17 +326,27 @@ namespace AplicacionCine.Formularios
 
         #region Botones
 
+        /// <summary>
+        /// Aplica el filtro actual de búsqueda por nombre.
+        /// </summary>
         private void BtnBuscar_Click(object? sender, EventArgs e)
         {
             AplicarFiltro();
         }
 
+        /// <summary>
+        /// Limpia el filtro de nombre y recarga la lista completa.
+        /// </summary>
         private void BtnLimpiar_Click(object? sender, EventArgs e)
         {
             tbNomSal.Text = "";
             AplicarFiltro();
         }
 
+        /// <summary>
+        /// Prepara el formulario para dar de alta una nueva sala
+        /// iniciando una Sala en memoria sin guardar.
+        /// </summary>
         private void BtnNuevo_Click(object? sender, EventArgs e)
         {
             _salaActual = new Sala
@@ -300,27 +362,104 @@ namespace AplicacionCine.Formularios
             tbTitulo.Focus();
         }
 
+        /// <summary>
+        /// Valida y guarda la sala actual en la base de datos,
+        /// insertando o actualizando según el IdSala.
+        /// </summary>
         private void BtnGuardar_Click(object? sender, EventArgs e)
         {
             if (_salaActual == null)
                 _salaActual = new Sala { Activa = true };
 
+            // --- Validaciones suaves ---
             var nombre = tbTitulo.Text.Trim();
             if (string.IsNullOrEmpty(nombre))
             {
-                MessageBox.Show("El nombre es obligatorio.",
-                    "Salas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    "El nombre de la sala es obligatorio.",
+                    "Salas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                tbTitulo.Focus();
                 return;
             }
 
+            if (nombre.Length < 2)
+            {
+                MessageBox.Show(
+                    "El nombre de la sala debe tener al menos 2 caracteres.",
+                    "Salas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                tbTitulo.Focus();
+                tbTitulo.SelectAll();
+                return;
+            }
+
+            int filas = (int)nudFilas.Value;
+            int columnas = (int)nudColumnas.Value;
+            int capacidad = (int)nudCapacidad.Value;
+
+            if (filas <= 0)
+            {
+                MessageBox.Show(
+                    "Las filas deben ser mayores que 0.",
+                    "Salas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                nudFilas.Focus();
+                return;
+            }
+
+            if (columnas <= 0)
+            {
+                MessageBox.Show(
+                    "Las columnas deben ser mayores que 0.",
+                    "Salas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                nudColumnas.Focus();
+                return;
+            }
+
+            if (capacidad <= 0)
+            {
+                MessageBox.Show(
+                    "La capacidad debe ser mayor que 0.",
+                    "Salas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                nudCapacidad.Focus();
+                return;
+            }
+
+            // (Opcional, solo aviso, no bloqueo)
+            int capacidadTeorica = filas * columnas;
+            if (capacidad != capacidadTeorica)
+            {
+                var res = MessageBox.Show(
+                    $"Capacidad distinta a filas x columnas ({filas} x {columnas} = {capacidadTeorica}).\n\n" +
+                    "¿Quieres ajustar automáticamente la capacidad a ese valor?",
+                    "Salas",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (res == DialogResult.Yes)
+                {
+                    capacidad = capacidadTeorica;
+                    nudCapacidad.Value = capacidad;
+                }
+            }
+
+            // --- Volcar datos a la entidad ---
             _salaActual.Nombre = nombre;
             _salaActual.Descripcion = string.IsNullOrWhiteSpace(tbDescripcion.Text)
                 ? null
                 : tbDescripcion.Text;
 
-            _salaActual.Filas = (int)nudFilas.Value;
-            _salaActual.Columnas = (int)nudColumnas.Value;
-            _salaActual.Capacidad = (int)nudCapacidad.Value;
+            _salaActual.Filas = filas;
+            _salaActual.Columnas = columnas;
+            _salaActual.Capacidad = capacidad;
 
             if (chkActiva != null)
                 _salaActual.Activa = chkActiva.Checked;
@@ -335,6 +474,9 @@ namespace AplicacionCine.Formularios
             CargarSalas();
         }
 
+        /// <summary>
+        /// Elimina la sala seleccionada previa confirmación del usuario.
+        /// </summary>
         private void BtnEliminar_Click(object? sender, EventArgs e)
         {
             var s = GetSalaActual();
@@ -357,6 +499,9 @@ namespace AplicacionCine.Formularios
             CargarSalas();
         }
 
+        /// <summary>
+        /// Cierra el formulario sin realizar más acciones.
+        /// </summary>
         private void BtnCerrar_Click(object? sender, EventArgs e)
         {
             Close();
@@ -366,6 +511,10 @@ namespace AplicacionCine.Formularios
 
         #region Edición rápida de 'Activa' en el grid
 
+        /// <summary>
+        /// Permite cambiar el estado "Activa" directamente desde el checkbox del grid
+        /// y persiste el cambio en la base de datos.
+        /// </summary>
         private void DvgSalas_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)

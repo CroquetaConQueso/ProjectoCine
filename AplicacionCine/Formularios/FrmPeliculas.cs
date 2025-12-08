@@ -4,23 +4,44 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using AplicacionCine.Modelos;
+using AplicacionCine.Utilidades;
 
 namespace AplicacionCine.Formularios
 {
+    /// <summary>
+    /// Formulario de mantenimiento de películas:
+    /// búsqueda, alta/edición básica y gestión del estado "Activa".
+    /// </summary>
     public partial class FrmPeliculas : Form
     {
+        /// <summary>
+        /// Origen de datos principal para el grid de películas.
+        /// </summary>
         private readonly BindingSource _bsPelis = new BindingSource();
+
+        /// <summary>
+        /// Lista completa de películas cargada desde base de datos
+        /// sobre la que se aplican los filtros del formulario.
+        /// </summary>
         private List<Pelicula> _listaCompleta = new List<Pelicula>();
+
+        /// <summary>
+        /// Película actualmente seleccionada o en edición en el panel de detalle.
+        /// </summary>
         private Pelicula? _peliculaActual;
 
+        /// <summary>
+        /// Constructor por defecto: inicializa el formulario,
+        /// aplica el tema, configura el grid y los eventos.
+        /// </summary>
         public FrmPeliculas()
         {
             InitializeComponent();
+            TemaCine.Aplicar(this);
 
-            // >>> NUEVO: bloquear maximizar y el tamaño de la ventana
+            // Bloquear maximizar y el tamaño de la ventana
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            // <<<
 
             Load += FrmPeliculas_Load;
 
@@ -50,6 +71,10 @@ namespace AplicacionCine.Formularios
 
         #region Configurar grid
 
+        /// <summary>
+        /// Configura las columnas del DataGridView de películas,
+        /// incluyendo el checkbox editable de "Activa".
+        /// </summary>
         private void ConfigurarGrid()
         {
             dvgPelis.Columns.Clear();
@@ -122,15 +147,22 @@ namespace AplicacionCine.Formularios
 
         #region Carga inicial
 
+        /// <summary>
+        /// Carga inicial del formulario:
+        /// ajusta controles, carga combos, trae películas y actualiza el StatusStrip.
+        /// </summary>
         private void FrmPeliculas_Load(object? sender, EventArgs e)
         {
             nudDuracion.Maximum = 600; // pelis largas
 
             CargarCombos();
             CargarPeliculas();
-            ActualizarEstadoUsuario();   // ahora actualiza el StatusStrip de pelis
+            ActualizarEstadoUsuario();
         }
 
+        /// <summary>
+        /// Rellena los combos de clasificación y género usados en filtro y detalle.
+        /// </summary>
         private void CargarCombos()
         {
             var clasifs = new[] { "", "TP", "7", "12", "16", "18" };
@@ -145,7 +177,8 @@ namespace AplicacionCine.Formularios
         }
 
         /// <summary>
-        /// ACTUALIZAR STATUSSTRIP (ya no muestra usuario/rol).
+        /// Actualiza el StatusStrip de películas con:
+        /// totales, filtro aplicado y selección actual.
         /// </summary>
         private void ActualizarEstadoUsuario()
         {
@@ -184,6 +217,10 @@ namespace AplicacionCine.Formularios
                 tslResultadoSeleccion.Text = "(ninguna)";
         }
 
+        /// <summary>
+        /// Carga todas las películas desde la capa de datos
+        /// y aplica el filtro actual.
+        /// </summary>
         private void CargarPeliculas()
         {
             _listaCompleta = AppContext.Peliculas.GetAll();
@@ -194,6 +231,10 @@ namespace AplicacionCine.Formularios
 
         #region Filtro
 
+        /// <summary>
+        /// Aplica el filtro por título y clasificación sobre la lista completa
+        /// y refresca el BindingSource y el StatusStrip.
+        /// </summary>
         private void AplicarFiltro()
         {
             IEnumerable<Pelicula> query = _listaCompleta;
@@ -215,6 +256,10 @@ namespace AplicacionCine.Formularios
             ActualizarEstadoUsuario();
         }
 
+        /// <summary>
+        /// Devuelve la película actualmente seleccionada en el BindingSource,
+        /// o null si no hay selección.
+        /// </summary>
         private Pelicula? GetPeliculaActual()
         {
             return _bsPelis.Current as Pelicula;
@@ -224,6 +269,10 @@ namespace AplicacionCine.Formularios
 
         #region Detalle
 
+        /// <summary>
+        /// Maneja el cambio de selección del grid:
+        /// actualiza la película actual, el detalle y el StatusStrip.
+        /// </summary>
         private void DvgPelis_SelectionChanged(object? sender, EventArgs e)
         {
             _peliculaActual = GetPeliculaActual();
@@ -231,6 +280,10 @@ namespace AplicacionCine.Formularios
             ActualizarEstadoUsuario();
         }
 
+        /// <summary>
+        /// Rellena el panel de detalle con los datos de la película actual
+        /// o limpia los controles si no hay ninguna seleccionada.
+        /// </summary>
         private void RellenarDetalle()
         {
             if (_peliculaActual == null)
@@ -274,11 +327,17 @@ namespace AplicacionCine.Formularios
 
         #region Botones
 
+        /// <summary>
+        /// Reaplica el filtro actual de búsqueda.
+        /// </summary>
         private void BtnBuscar_Click(object? sender, EventArgs e)
         {
             AplicarFiltro();
         }
 
+        /// <summary>
+        /// Limpia los filtros y vuelve a mostrar todas las películas.
+        /// </summary>
         private void BtnLimpiar_Click(object? sender, EventArgs e)
         {
             tbNombre.Text = "";
@@ -286,6 +345,10 @@ namespace AplicacionCine.Formularios
             AplicarFiltro();
         }
 
+        /// <summary>
+        /// Prepara el formulario para dar de alta una nueva película
+        /// inicializando una instancia en memoria sin guardar.
+        /// </summary>
         private void BtnNuevo_Click(object? sender, EventArgs e)
         {
             _peliculaActual = new Pelicula
@@ -301,21 +364,55 @@ namespace AplicacionCine.Formularios
             // no es necesario actualizar status aquí: todavía no está en la lista
         }
 
+        /// <summary>
+        /// Valida y guarda la película actual en base de datos (insert/update)
+        /// y recarga la lista de películas.
+        /// </summary>
         private void BtnGuardar_Click(object? sender, EventArgs e)
         {
             if (_peliculaActual == null)
                 _peliculaActual = new Pelicula { Activa = true };
 
+            // --- Validaciones suaves ---
             var titulo = tbTitulo.Text.Trim();
             if (string.IsNullOrEmpty(titulo))
             {
-                MessageBox.Show("El título es obligatorio.",
-                    "Películas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    "El título es obligatorio.",
+                    "Películas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                tbTitulo.Focus();
                 return;
             }
 
+            if (titulo.Length < 2)
+            {
+                MessageBox.Show(
+                    "El título debe tener al menos 2 caracteres.",
+                    "Películas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                tbTitulo.Focus();
+                tbTitulo.SelectAll();
+                return;
+            }
+
+            int duracion = (int)nudDuracion.Value;
+            if (duracion <= 0)
+            {
+                MessageBox.Show(
+                    "La duración debe ser mayor que 0 minutos.",
+                    "Películas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                nudDuracion.Focus();
+                return;
+            }
+
+            // --- Volcado de datos al objeto ---
             _peliculaActual.Titulo = titulo;
-            _peliculaActual.DuracionMin = (int)nudDuracion.Value;
+            _peliculaActual.DuracionMin = duracion;
             _peliculaActual.Clasificacion = cbCalif.SelectedItem as string;
             _peliculaActual.Genero = cbGenero.SelectedItem as string;
             _peliculaActual.Sinopsis = string.IsNullOrWhiteSpace(tbSinopsis.Text)
@@ -335,6 +432,9 @@ namespace AplicacionCine.Formularios
             CargarPeliculas(); // AplicarFiltro + ActualizarEstadoUsuario()
         }
 
+        /// <summary>
+        /// Elimina la película seleccionada previa confirmación.
+        /// </summary>
         private void BtnEliminar_Click(object? sender, EventArgs e)
         {
             var p = GetPeliculaActual();
@@ -357,6 +457,9 @@ namespace AplicacionCine.Formularios
             CargarPeliculas();
         }
 
+        /// <summary>
+        /// Cierra el formulario de películas.
+        /// </summary>
         private void BtnCerrar_Click(object? sender, EventArgs e)
         {
             Close();
@@ -366,6 +469,10 @@ namespace AplicacionCine.Formularios
 
         #region Edición rápida de 'Activa' en el grid
 
+        /// <summary>
+        /// Permite cambiar el estado "Activa" desde el checkbox del grid
+        /// y persiste el cambio en base de datos, refrescando también el StatusStrip.
+        /// </summary>
         private void DvgPelis_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)

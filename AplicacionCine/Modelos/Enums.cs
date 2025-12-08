@@ -43,7 +43,7 @@ namespace AplicacionCine.Modelos
         MovilidadReducida = 1,
         Bloqueado = 2
     }
-
+    // Tipo de estado de una butaca, si se cancela vuelve a libre
     public enum EstadoButaca
     {
         Libre = 0,

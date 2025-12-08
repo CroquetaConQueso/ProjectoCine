@@ -13,8 +13,6 @@ namespace AplicacionCine.Modelos
         public int? IdEmpleadoEncargado { get; set; }
         public int? IdEmpleadoSeguridad { get; set; }
         public bool Activo { get; set; } = true;
-
-        // Para mostrar en grids (JOINs)
         public string? TituloPelicula { get; set; }
         public string? NombreSala { get; set; }
     }

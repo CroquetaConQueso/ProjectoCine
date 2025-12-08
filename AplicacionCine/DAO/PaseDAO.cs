@@ -5,8 +5,16 @@ using AplicacionCine.Modelos;
 
 namespace AplicacionCine.DAO
 {
+    /// <summary>
+    /// Acceso a datos de pases: CRUD y consultas por fecha.
+    /// </summary>
     public class PaseDAO
     {
+        /// <summary>
+        /// Devuelve un pase por Id o null si no existe.
+        /// Incluye título de película y nombre de sala.
+        /// </summary>
+        /// <param name="idPase">Identificador del pase.</param>
         public Pase? GetById(int idPase)
         {
             const string sql = @"
@@ -34,6 +42,10 @@ namespace AplicacionCine.DAO
             return Map(reader);
         }
 
+        /// <summary>
+        /// Devuelve todos los pases, ordenados por fecha y hora.
+        /// Incluye título de película y nombre de sala.
+        /// </summary>
         public List<Pase> GetAll()
         {
             var result = new List<Pase>();
@@ -63,8 +75,12 @@ namespace AplicacionCine.DAO
         }
 
         /// <summary>
-        /// Devuelve los pases de una fecha concreta, opcionalmente filtrados por película o sala.
+        /// Devuelve los pases de una fecha concreta,
+        /// opcionalmente filtrados por película y/o sala.
         /// </summary>
+        /// <param name="fecha">Fecha del pase (solo parte de fecha).</param>
+        /// <param name="idPelicula">Id de película para filtrar, o null para no filtrar.</param>
+        /// <param name="idSala">Id de sala para filtrar, o null para no filtrar.</param>
         public List<Pase> GetPasesDeFecha(DateTime fecha, int? idPelicula = null, int? idSala = null)
         {
             var result = new List<Pase>();
@@ -108,6 +124,10 @@ namespace AplicacionCine.DAO
             return result;
         }
 
+        /// <summary>
+        /// Inserta un nuevo pase y actualiza pase.IdPase con el Id generado.
+        /// </summary>
+        /// <param name="pase">Pase a insertar.</param>
         public void Insert(Pase pase)
         {
             const string sql = @"
@@ -129,6 +149,10 @@ namespace AplicacionCine.DAO
             pase.IdPase = Convert.ToInt32(cmd.ExecuteScalar());
         }
 
+        /// <summary>
+        /// Actualiza los datos de un pase existente, identificado por IdPase.
+        /// </summary>
+        /// <param name="pase">Pase con los valores modificados.</param>
         public void Update(Pase pase)
         {
             const string sql = @"
@@ -152,6 +176,10 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina un pase por Id.
+        /// </summary>
+        /// <param name="idPase">Identificador del pase a borrar.</param>
         public void Delete(int idPase)
         {
             const string sql = @"DELETE FROM pases WHERE id_pase = @Id;";
@@ -162,6 +190,9 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Proyecta la fila actual del reader en un objeto Pase.
+        /// </summary>
         private static Pase Map(NpgsqlDataReader reader)
         {
             return new Pase
@@ -172,7 +203,7 @@ namespace AplicacionCine.DAO
                 FechaHora = reader.GetDateTime(reader.GetOrdinal("fecha_hora")),
                 PrecioBase = reader.GetDecimal(reader.GetOrdinal("precio_base")),
 
-                // Estos campos ya no existen en la BD simplificada; se dejan con valores por defecto.
+                // Campos lógicos mantenidos en el modelo aunque no existan ya en la tabla.
                 IdEmpleadoEncargado = null,
                 IdEmpleadoSeguridad = null,
                 Activo = true,

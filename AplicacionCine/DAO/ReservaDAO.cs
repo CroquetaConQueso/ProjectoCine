@@ -6,10 +6,18 @@ using EstadoReserva = AplicacionCine.Modelos.EEstadoReserva;
 
 namespace AplicacionCine.DAO
 {
+    /// <summary>
+    /// Acceso a datos de reservas y sus líneas (CRUD + búsquedas).
+    /// </summary>
     public class ReservaDAO
     {
         // --------- CONSULTAS BÁSICAS ---------
 
+        /// <summary>
+        /// Devuelve las reservas asociadas a un pase concreto,
+        /// ordenadas por fecha de reserva (más recientes primero).
+        /// </summary>
+        /// <param name="idPase">Identificador del pase.</param>
         public List<Reserva> GetReservasDePase(int idPase)
         {
             const string sql = @"
@@ -33,6 +41,9 @@ namespace AplicacionCine.DAO
             return result;
         }
 
+        /// <summary>
+        /// Devuelve todas las reservas, ordenadas de más reciente a más antigua.
+        /// </summary>
         public List<Reserva> GetAll()
         {
             const string sql = @"
@@ -53,6 +64,10 @@ namespace AplicacionCine.DAO
             return result;
         }
 
+        /// <summary>
+        /// Devuelve una reserva por Id o null si no existe.
+        /// </summary>
+        /// <param name="idReserva">Identificador de la reserva.</param>
         public Reserva? GetById(int idReserva)
         {
             const string sql = @"
@@ -74,6 +89,16 @@ namespace AplicacionCine.DAO
 
         // --------- BÚSQUEDA PARA FrmBrowReservas ---------
 
+        /// <summary>
+        /// Búsqueda flexible de reservas para el explorador:
+        /// permite filtrar por fecha, película, estado y texto de usuario/título.
+        /// </summary>
+        /// <param name="fecha">Fecha exacta de reserva, o null para no filtrar por fecha.</param>
+        /// <param name="idPelicula">Id de película, o null para no filtrar por película.</param>
+        /// <param name="estado">Estado lógico (texto en BD), o null/empty para ignorarlo.</param>
+        /// <param name="usuario">
+        /// Texto a buscar en login de usuario o título de película (ILIKE).
+        /// </param>
         public List<Reserva> Buscar(
             DateTime? fecha = null,
             int? idPelicula = null,
@@ -131,9 +156,14 @@ namespace AplicacionCine.DAO
 
         // --------- CRUD RESERVA ---------
 
+        /// <summary>
+        /// Inserta una nueva reserva y devuelve el Id generado.
+        /// Calcula id_reserva como MAX(id) + 1.
+        /// Actualiza también reserva.IdReserva.
+        /// </summary>
+        /// <param name="reserva">Reserva a insertar.</param>
         public int InsertReserva(Reserva reserva)
         {
-            // Generamos nosotros el siguiente id_reserva: MAX(id) + 1
             const string sql = @"
                 INSERT INTO reservas
                     (id_reserva, id_pase, id_usuario, fecha_reserva, estado, total, observaciones)
@@ -157,6 +187,10 @@ namespace AplicacionCine.DAO
             return reserva.IdReserva;
         }
 
+        /// <summary>
+        /// Actualiza una reserva existente, identificada por IdReserva.
+        /// </summary>
+        /// <param name="reserva">Reserva con los datos ya modificados.</param>
         public void UpdateReserva(Reserva reserva)
         {
             const string sql = @"
@@ -184,6 +218,10 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina una reserva por Id.
+        /// </summary>
+        /// <param name="idReserva">Identificador de la reserva a borrar.</param>
         public void DeleteReserva(int idReserva)
         {
             const string sql = @"DELETE FROM reservas WHERE id_reserva = @IdReserva;";
@@ -196,6 +234,11 @@ namespace AplicacionCine.DAO
 
         // --------- CRUD LÍNEAS ---------
 
+        /// <summary>
+        /// Devuelve todas las líneas asociadas a una reserva,
+        /// ordenadas por id_linea_reserva.
+        /// </summary>
+        /// <param name="idReserva">Identificador de la reserva.</param>
         public List<LineaReserva> GetLineasDeReserva(int idReserva)
         {
             const string sql = @"
@@ -219,9 +262,13 @@ namespace AplicacionCine.DAO
             return result;
         }
 
+        /// <summary>
+        /// Inserta una nueva línea de reserva y devuelve el Id generado.
+        /// Calcula id_linea_reserva como MAX(id) + 1.
+        /// </summary>
+        /// <param name="linea">Línea de reserva a insertar.</param>
         public int InsertLinea(LineaReserva linea)
         {
-            // Igual: generamos nosotros el id_linea_reserva
             const string sql = @"
                 INSERT INTO lineas_reserva
                     (id_linea_reserva, id_reserva, id_asiento, id_pase, precio, estado_linea)
@@ -244,6 +291,10 @@ namespace AplicacionCine.DAO
             return linea.IdLineaReserva;
         }
 
+        /// <summary>
+        /// Actualiza una línea de reserva existente, identificada por IdLineaReserva.
+        /// </summary>
+        /// <param name="linea">Línea con los datos ya modificados.</param>
         public void UpdateLinea(LineaReserva linea)
         {
             const string sql = @"
@@ -269,6 +320,10 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina una línea de reserva por Id.
+        /// </summary>
+        /// <param name="idLineaReserva">Identificador de la línea a borrar.</param>
         public void DeleteLinea(int idLineaReserva)
         {
             const string sql = @"DELETE FROM lineas_reserva WHERE id_linea_reserva = @IdLinea;";
@@ -281,6 +336,10 @@ namespace AplicacionCine.DAO
 
         // --------- MAPEO ---------
 
+        /// <summary>
+        /// Proyecta la fila actual del reader en un objeto Reserva.
+        /// Respeta campos opcionales usados en búsquedas (título, usuario).
+        /// </summary>
         private static Reserva MapReserva(NpgsqlDataReader reader)
         {
             var estadoStr = reader.GetString(reader.GetOrdinal("estado"));
@@ -315,6 +374,9 @@ namespace AplicacionCine.DAO
             return reserva;
         }
 
+        /// <summary>
+        /// Proyecta la fila actual del reader en un objeto LineaReserva.
+        /// </summary>
         private static LineaReserva MapLinea(NpgsqlDataReader reader)
         {
             return new LineaReserva
@@ -328,6 +390,10 @@ namespace AplicacionCine.DAO
             };
         }
 
+        /// <summary>
+        /// Indica si el reader contiene una columna con el nombre dado
+        /// (útil para columnas opcionales en consultas distintas).
+        /// </summary>
         private static bool HasColumn(NpgsqlDataReader reader, string columnName)
         {
             for (int i = 0; i < reader.FieldCount; i++)

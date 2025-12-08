@@ -5,8 +5,15 @@ using AplicacionCine.Modelos;
 
 namespace AplicacionCine.DAO
 {
+    /// <summary>
+    /// Acceso a datos de empleados: CRUD sobre la tabla empleados.
+    /// </summary>
     public class EmpleadoDAO
     {
+        /// <summary>
+        /// Devuelve la lista completa de empleados,
+        /// ordenados por nombre y apellidos.
+        /// </summary>
         public List<Empleado> GetAll()
         {
             const string sql = @"
@@ -33,6 +40,11 @@ namespace AplicacionCine.DAO
             return result;
         }
 
+        /// <summary>
+        /// Busca un empleado por su Id.
+        /// Devuelve null si no existe.
+        /// </summary>
+        /// <param name="idEmpleado">Identificador del empleado.</param>
         public Empleado? GetById(int idEmpleado)
         {
             const string sql = @"
@@ -58,6 +70,11 @@ namespace AplicacionCine.DAO
             return null;
         }
 
+        /// <summary>
+        /// Inserta un nuevo empleado y devuelve el Id generado.
+        /// Actualiza también empleado.IdEmpleado con ese valor.
+        /// </summary>
+        /// <param name="empleado">Empleado a insertar.</param>
         public int Insert(Empleado empleado)
         {
             const string sql = @"
@@ -98,6 +115,11 @@ namespace AplicacionCine.DAO
             return empleado.IdEmpleado;
         }
 
+        /// <summary>
+        /// Actualiza en base de datos los datos del empleado indicado,
+        /// usando su IdEmpleado como clave.
+        /// </summary>
+        /// <param name="empleado">Empleado con los datos ya modificados.</param>
         public void Update(Empleado empleado)
         {
             const string sql = @"
@@ -141,6 +163,10 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina físicamente un empleado por Id.
+        /// </summary>
+        /// <param name="idEmpleado">Identificador del empleado a borrar.</param>
         public void Delete(int idEmpleado)
         {
             const string sql = @"DELETE FROM empleados WHERE id_empleado = @Id;";
@@ -151,6 +177,10 @@ namespace AplicacionCine.DAO
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Proyecta la fila actual del data reader en un objeto Empleado.
+        /// </summary>
+        /// <param name="reader">Reader posicionado en la fila a mapear.</param>
         private static Empleado Map(NpgsqlDataReader reader)
         {
             return new Empleado

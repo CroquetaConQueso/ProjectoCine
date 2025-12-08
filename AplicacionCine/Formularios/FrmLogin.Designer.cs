@@ -64,7 +64,7 @@
             pnBot.Location = new Point(233, 107);
             pnBot.Name = "pnBot";
             pnBot.Size = new Size(295, 212);
-            pnBot.TabIndex = 1;
+            pnBot.TabIndex = 0;
             // 
             // cbUsuario
             // 
@@ -72,7 +72,7 @@
             cbUsuario.Location = new Point(79, 84);
             cbUsuario.Name = "cbUsuario";
             cbUsuario.Size = new Size(130, 19);
-            cbUsuario.TabIndex = 7;
+            cbUsuario.TabIndex = 2;
             cbUsuario.Text = "Recuerda el Usuario";
             cbUsuario.UseVisualStyleBackColor = true;
             // 
@@ -81,7 +81,7 @@
             btnEntrar.Location = new Point(110, 167);
             btnEntrar.Name = "btnEntrar";
             btnEntrar.Size = new Size(75, 23);
-            btnEntrar.TabIndex = 6;
+            btnEntrar.TabIndex = 5;
             btnEntrar.Text = "Enviar";
             btnEntrar.UseVisualStyleBackColor = true;
             // 
@@ -89,15 +89,16 @@
             // 
             txtContrasena.Location = new Point(95, 114);
             txtContrasena.Name = "txtContrasena";
+            txtContrasena.PasswordChar = '*';
             txtContrasena.Size = new Size(151, 23);
-            txtContrasena.TabIndex = 8;
+            txtContrasena.TabIndex = 4;
             // 
             // lbContrasena
             // 
             lbContrasena.Location = new Point(6, 112);
             lbContrasena.Name = "lbContrasena";
             lbContrasena.Size = new Size(100, 23);
-            lbContrasena.TabIndex = 9;
+            lbContrasena.TabIndex = 3;
             lbContrasena.Text = "Contraseña:";
             lbContrasena.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -106,7 +107,7 @@
             txtUsuario.Location = new Point(95, 53);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(151, 23);
-            txtUsuario.TabIndex = 10;
+            txtUsuario.TabIndex = 1;
             // 
             // lbUsuario
             // 
@@ -114,7 +115,7 @@
             lbUsuario.Location = new Point(32, 60);
             lbUsuario.Name = "lbUsuario";
             lbUsuario.Size = new Size(50, 15);
-            lbUsuario.TabIndex = 2;
+            lbUsuario.TabIndex = 0;
             lbUsuario.Text = "Usuario:";
             lbUsuario.Click += lbUsuario_Click;
             // 

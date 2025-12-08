@@ -90,7 +90,7 @@
             tbControl.Name = "tbControl";
             tbControl.SelectedIndex = 0;
             tbControl.Size = new Size(828, 517);
-            tbControl.TabIndex = 1;
+            tbControl.TabIndex = 0;
             // 
             // tbDatos
             // 
@@ -130,7 +130,7 @@
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(814, 51);
-            groupBox1.TabIndex = 24;
+            groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
             // lbCantidadTotalReservas
@@ -139,7 +139,7 @@
             lbCantidadTotalReservas.Location = new Point(701, 22);
             lbCantidadTotalReservas.Name = "lbCantidadTotalReservas";
             lbCantidadTotalReservas.Size = new Size(86, 15);
-            lbCantidadTotalReservas.TabIndex = 28;
+            lbCantidadTotalReservas.TabIndex = 7;
             lbCantidadTotalReservas.Text = "CTotalReservas";
             // 
             // lbTotalReserva
@@ -148,7 +148,7 @@
             lbTotalReserva.Location = new Point(611, 22);
             lbTotalReserva.Name = "lbTotalReserva";
             lbTotalReserva.Size = new Size(84, 15);
-            lbTotalReserva.TabIndex = 27;
+            lbTotalReserva.TabIndex = 6;
             lbTotalReserva.Text = "Total Reservas:";
             // 
             // lbPrecio
@@ -157,7 +157,7 @@
             lbPrecio.Location = new Point(251, 22);
             lbPrecio.Name = "lbPrecio";
             lbPrecio.Size = new Size(70, 15);
-            lbPrecio.TabIndex = 26;
+            lbPrecio.TabIndex = 2;
             lbPrecio.Text = "Precio base:";
             // 
             // lbCantidadTotalEntradas
@@ -166,7 +166,7 @@
             lbCantidadTotalEntradas.Location = new Point(516, 22);
             lbCantidadTotalEntradas.Name = "lbCantidadTotalEntradas";
             lbCantidadTotalEntradas.Size = new Size(81, 15);
-            lbCantidadTotalEntradas.TabIndex = 25;
+            lbCantidadTotalEntradas.TabIndex = 5;
             lbCantidadTotalEntradas.Text = "CantidadTotal";
             // 
             // lbCantidadPrecio
@@ -175,7 +175,7 @@
             lbCantidadPrecio.Location = new Point(327, 22);
             lbCantidadPrecio.Name = "lbCantidadPrecio";
             lbCantidadPrecio.Size = new Size(88, 15);
-            lbCantidadPrecio.TabIndex = 24;
+            lbCantidadPrecio.TabIndex = 3;
             lbCantidadPrecio.Text = "CantidadPrecio";
             lbCantidadPrecio.Click += lbCantidadPrecio_Click;
             // 
@@ -185,7 +185,7 @@
             lbCantidadEntradas.Location = new Point(117, 22);
             lbCantidadEntradas.Name = "lbCantidadEntradas";
             lbCantidadEntradas.Size = new Size(100, 15);
-            lbCantidadEntradas.TabIndex = 23;
+            lbCantidadEntradas.TabIndex = 1;
             lbCantidadEntradas.Text = "CantidadEntradas";
             // 
             // lbTotalEntradas
@@ -194,7 +194,7 @@
             lbTotalEntradas.Location = new Point(426, 22);
             lbTotalEntradas.Name = "lbTotalEntradas";
             lbTotalEntradas.Size = new Size(84, 15);
-            lbTotalEntradas.TabIndex = 22;
+            lbTotalEntradas.TabIndex = 4;
             lbTotalEntradas.Text = "Total Entradas:";
             // 
             // lbNentradas
@@ -203,7 +203,7 @@
             lbNentradas.Location = new Point(39, 22);
             lbNentradas.Name = "lbNentradas";
             lbNentradas.Size = new Size(72, 15);
-            lbNentradas.TabIndex = 21;
+            lbNentradas.TabIndex = 0;
             lbNentradas.Text = "Nº Entradas:";
             // 
             // pnDatos
@@ -242,14 +242,14 @@
             pnBotones.Location = new Point(3, 429);
             pnBotones.Name = "pnBotones";
             pnBotones.Size = new Size(814, 57);
-            pnBotones.TabIndex = 3;
+            pnBotones.TabIndex = 2;
             // 
             // btnCancelar
             // 
             btnCancelar.Location = new Point(420, 17);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(75, 23);
-            btnCancelar.TabIndex = 3;
+            btnCancelar.TabIndex = 1;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -258,7 +258,7 @@
             btnAceptar.Location = new Point(292, 17);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(75, 23);
-            btnAceptar.TabIndex = 2;
+            btnAceptar.TabIndex = 0;
             btnAceptar.Text = "Aceptar";
             btnAceptar.UseVisualStyleBackColor = true;
             // 
@@ -291,7 +291,7 @@
             grb.Location = new Point(0, 0);
             grb.Name = "grb";
             grb.Size = new Size(814, 121);
-            grb.TabIndex = 25;
+            grb.TabIndex = 0;
             grb.TabStop = false;
             // 
             // lPase
@@ -300,7 +300,7 @@
             lPase.Location = new Point(452, 55);
             lPase.Name = "lPase";
             lPase.Size = new Size(34, 15);
-            lPase.TabIndex = 41;
+            lPase.TabIndex = 11;
             lPase.Text = "Pase:";
             // 
             // lFecha
@@ -309,7 +309,7 @@
             lFecha.Location = new Point(444, 27);
             lFecha.Name = "lFecha";
             lFecha.Size = new Size(41, 15);
-            lFecha.TabIndex = 40;
+            lFecha.TabIndex = 9;
             lFecha.Text = "Fecha:";
             // 
             // cbEstado
@@ -318,7 +318,7 @@
             cbEstado.Location = new Point(495, 79);
             cbEstado.Name = "cbEstado";
             cbEstado.Size = new Size(121, 23);
-            cbEstado.TabIndex = 39;
+            cbEstado.TabIndex = 0;
             // 
             // lblPase
             // 
@@ -326,7 +326,7 @@
             lblPase.Location = new Point(495, 55);
             lblPase.Name = "lblPase";
             lblPase.Size = new Size(52, 15);
-            lblPase.TabIndex = 38;
+            lblPase.TabIndex = 12;
             lblPase.Text = "InfoPase";
             // 
             // dateTimePicker1
@@ -335,7 +335,7 @@
             dateTimePicker1.Location = new Point(488, 23);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(95, 23);
-            dateTimePicker1.TabIndex = 37;
+            dateTimePicker1.TabIndex = 10;
             // 
             // lblUsuario
             // 
@@ -343,7 +343,7 @@
             lblUsuario.Location = new Point(269, 94);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(68, 15);
-            lblUsuario.TabIndex = 36;
+            lblUsuario.TabIndex = 8;
             lblUsuario.Text = "InfoUsuario";
             // 
             // lblSala
@@ -352,7 +352,7 @@
             lblSala.Location = new Point(264, 71);
             lblSala.Name = "lblSala";
             lblSala.Size = new Size(49, 15);
-            lblSala.TabIndex = 35;
+            lblSala.TabIndex = 6;
             lblSala.Text = "InfoSala";
             // 
             // lblPelicula
@@ -361,7 +361,7 @@
             lblPelicula.Location = new Point(280, 46);
             lblPelicula.Name = "lblPelicula";
             lblPelicula.Size = new Size(69, 15);
-            lblPelicula.TabIndex = 34;
+            lblPelicula.TabIndex = 4;
             lblPelicula.Text = "InfoPelicula";
             // 
             // lblIdReserva
@@ -370,7 +370,7 @@
             lblIdReserva.Location = new Point(280, 23);
             lblIdReserva.Name = "lblIdReserva";
             lblIdReserva.Size = new Size(68, 15);
-            lblIdReserva.TabIndex = 33;
+            lblIdReserva.TabIndex = 2;
             lblIdReserva.Text = "InfoReserva";
             // 
             // lbActivo
@@ -379,7 +379,7 @@
             lbActivo.Location = new Point(444, 84);
             lbActivo.Name = "lbActivo";
             lbActivo.Size = new Size(45, 15);
-            lbActivo.TabIndex = 15;
+            lbActivo.TabIndex = 13;
             lbActivo.Text = "Estado:";
             // 
             // lbUsuario
@@ -388,7 +388,7 @@
             lbUsuario.Location = new Point(213, 94);
             lbUsuario.Name = "lbUsuario";
             lbUsuario.Size = new Size(50, 15);
-            lbUsuario.TabIndex = 14;
+            lbUsuario.TabIndex = 7;
             lbUsuario.Text = "Usuario:";
             // 
             // lbSala
@@ -397,7 +397,7 @@
             lbSala.Location = new Point(218, 71);
             lbSala.Name = "lbSala";
             lbSala.Size = new Size(31, 15);
-            lbSala.TabIndex = 13;
+            lbSala.TabIndex = 5;
             lbSala.Text = "Sala:";
             // 
             // lbPelicula
@@ -406,7 +406,7 @@
             lbPelicula.Location = new Point(213, 46);
             lbPelicula.Name = "lbPelicula";
             lbPelicula.Size = new Size(51, 15);
-            lbPelicula.TabIndex = 12;
+            lbPelicula.TabIndex = 3;
             lbPelicula.Text = "Pelicula:";
             // 
             // lbReserva
@@ -415,7 +415,7 @@
             lbReserva.Location = new Point(213, 23);
             lbReserva.Name = "lbReserva";
             lbReserva.Size = new Size(50, 15);
-            lbReserva.TabIndex = 11;
+            lbReserva.TabIndex = 1;
             lbReserva.Text = "Reserva:";
             // 
             // pnTop
@@ -434,7 +434,7 @@
             lbTitulo.Location = new Point(0, 0);
             lbTitulo.Name = "lbTitulo";
             lbTitulo.Size = new Size(814, 41);
-            lbTitulo.TabIndex = 1;
+            lbTitulo.TabIndex = 0;
             lbTitulo.Text = "Reserva de..";
             lbTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 

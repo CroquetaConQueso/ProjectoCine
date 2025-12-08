@@ -1,23 +1,36 @@
 ﻿using System;
 using System.Windows.Forms;
 using AplicacionCine.Modelos;
+using AplicacionCine.Utilidades;
 
 namespace AplicacionCine.Formularios
 {
+    /// <summary>
+    /// Formulario de alta/edición de un usuario del sistema.
+    /// Trabaja sobre una instancia de Usuario recibida desde fuera.
+    /// </summary>
     public partial class FrmUsuario : Form
     {
+        /// <summary>
+        /// Usuario que se está creando o editando.
+        /// </summary>
         private Usuario _usuario;
+
+        /// <summary>
+        /// Indica si el formulario está en modo alta (true) o edición (false).
+        /// </summary>
         private bool _esNuevo;
 
         /// <summary>
         /// Constructor usado por el diseñador.
-        /// En tiempo de ejecución normalmente usaremos el constructor que recibe Usuario.
+        /// En ejecución normal se utiliza el constructor que recibe Usuario.
         /// </summary>
         public FrmUsuario()
         {
             InitializeComponent();
+            TemaCine.Aplicar(this);
 
-            // Usuario “por defecto” para diseño o alta directa
+            // Usuario base para diseño o alta directa desde este formulario.
             _usuario = new Usuario
             {
                 Activo = true,
@@ -32,15 +45,19 @@ namespace AplicacionCine.Formularios
         }
 
         /// <summary>
-        /// Constructor principal: recibe el usuario a editar / crear.
-        /// Si IdUsuario == 0 lo trata como alta; si no, como modificación.
+        /// Constructor principal: recibe el usuario a editar o crear.
+        /// Si IdUsuario == 0 se considera alta; en caso contrario, edición.
         /// </summary>
+        /// <param name="usuario">Instancia de Usuario sobre la que se trabajará.</param>
         public FrmUsuario(Usuario usuario) : this()
         {
             _usuario = usuario ?? throw new ArgumentNullException(nameof(usuario));
             _esNuevo = _usuario.IdUsuario == 0;
         }
 
+        /// <summary>
+        /// Asocia los manejadores de eventos básicos del formulario.
+        /// </summary>
         private void InicializarEventos()
         {
             Load += FrmUsuario_Load;
@@ -48,6 +65,10 @@ namespace AplicacionCine.Formularios
             btnCancelar.Click += BtnCancelar_Click;
         }
 
+        /// <summary>
+        /// Carga inicial del formulario: rellena controles desde el Usuario
+        /// y ajusta valores por defecto (fechas, roles, intentos, título).
+        /// </summary>
         private void FrmUsuario_Load(object? sender, EventArgs e)
         {
             // Aseguramos una FechaAlta razonable
@@ -89,10 +110,20 @@ namespace AplicacionCine.Formularios
             lbUltimaIPtxt.Text = string.IsNullOrEmpty(_usuario.UltimaIp) ? "-" : _usuario.UltimaIp;
 
             // Password:
-            // - Si es nuevo, pediremos que rellene contraseña.
-            // - Si es existente, dejar vacío significa “no cambiar”.
-            txtContrasena.Text = string.Empty;
-            txtConfirmar.Text = string.Empty;
+            // - Alta: campos vacíos, se obliga a introducir una nueva.
+            // - Edición: mostramos la contraseña actual (en este proyecto se guarda en claro),
+            //   para que el reset desde el brow sea coherente con este formulario.
+            if (_esNuevo)
+            {
+                txtContrasena.Text = string.Empty;
+                txtConfirmar.Text = string.Empty;
+            }
+            else
+            {
+                var actual = _usuario.PasswordHash ?? string.Empty;
+                txtContrasena.Text = actual;
+                txtConfirmar.Text = actual;
+            }
 
             // Título del formulario
             Text = _esNuevo
@@ -100,6 +131,10 @@ namespace AplicacionCine.Formularios
                 : $"Editar usuario: {_usuario.Login}";
         }
 
+        /// <summary>
+        /// Valida los datos del formulario, vuelca los valores en el Usuario
+        /// y, si todo es correcto, establece DialogResult.OK y cierra el formulario.
+        /// </summary>
         private void BtnAceptar_Click(object? sender, EventArgs e)
         {
             // --- Validaciones básicas ---
@@ -155,12 +190,12 @@ namespace AplicacionCine.Formularios
                     return;
                 }
 
-                // Aquí podrías aplicar un hash real
                 _usuario.PasswordHash = pass;
             }
             else
             {
-                // En modificación: solo cambiamos contraseña si hay algo escrito
+                // En modificación: solo cambiamos contraseña si hay algo escrito diferente
+                // (si quisieras exigir que escriba de nuevo para cambiar, mantén esta lógica simple).
                 if (!string.IsNullOrEmpty(pass) || !string.IsNullOrEmpty(conf))
                 {
                     if (pass != conf)
@@ -176,7 +211,6 @@ namespace AplicacionCine.Formularios
 
                     _usuario.PasswordHash = pass;
                 }
-                // Si ambos están vacíos, se mantiene la contraseña actual
             }
 
             // --- Volcar datos de los controles al objeto ---
@@ -200,12 +234,14 @@ namespace AplicacionCine.Formularios
                 ? null
                 : rtbDetalles.Text;
 
-            // FechaAlta la dejamos como estaba (la fijamos en el Load si venía por defecto).
-
             DialogResult = DialogResult.OK;
             Close();
         }
 
+        /// <summary>
+        /// Cancela la edición, no aplica cambios en el Usuario
+        /// y cierra el formulario con DialogResult.Cancel.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

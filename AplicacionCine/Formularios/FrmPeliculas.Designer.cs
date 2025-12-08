@@ -126,7 +126,7 @@
             lbEstado.Location = new Point(93, 183);
             lbEstado.Name = "lbEstado";
             lbEstado.Size = new Size(45, 15);
-            lbEstado.TabIndex = 11;
+            lbEstado.TabIndex = 8;
             lbEstado.Text = "Estado:";
             // 
             // chkActiva
@@ -135,7 +135,7 @@
             chkActiva.Location = new Point(144, 182);
             chkActiva.Name = "chkActiva";
             chkActiva.Size = new Size(59, 19);
-            chkActiva.TabIndex = 10;
+            chkActiva.TabIndex = 9;
             chkActiva.Text = "Activa";
             chkActiva.UseVisualStyleBackColor = true;
             // 
@@ -145,7 +145,7 @@
             tbSinopsis.Multiline = true;
             tbSinopsis.Name = "tbSinopsis";
             tbSinopsis.Size = new Size(280, 107);
-            tbSinopsis.TabIndex = 9;
+            tbSinopsis.TabIndex = 11;
             // 
             // cbGenero
             // 
@@ -153,7 +153,7 @@
             cbGenero.Location = new Point(60, 142);
             cbGenero.Name = "cbGenero";
             cbGenero.Size = new Size(202, 23);
-            cbGenero.TabIndex = 8;
+            cbGenero.TabIndex = 7;
             // 
             // cbCalif
             // 
@@ -161,21 +161,21 @@
             cbCalif.Location = new Point(78, 98);
             cbCalif.Name = "cbCalif";
             cbCalif.Size = new Size(189, 23);
-            cbCalif.TabIndex = 7;
+            cbCalif.TabIndex = 5;
             // 
             // nudDuracion
             // 
             nudDuracion.Location = new Point(70, 51);
             nudDuracion.Name = "nudDuracion";
             nudDuracion.Size = new Size(197, 23);
-            nudDuracion.TabIndex = 6;
+            nudDuracion.TabIndex = 3;
             // 
             // tbTitulo
             // 
             tbTitulo.Location = new Point(53, 11);
             tbTitulo.Name = "tbTitulo";
             tbTitulo.Size = new Size(214, 23);
-            tbTitulo.TabIndex = 5;
+            tbTitulo.TabIndex = 1;
             // 
             // lbIsin
             // 
@@ -183,7 +183,7 @@
             lbIsin.Location = new Point(6, 214);
             lbIsin.Name = "lbIsin";
             lbIsin.Size = new Size(56, 15);
-            lbIsin.TabIndex = 4;
+            lbIsin.TabIndex = 10;
             lbIsin.Text = "Sinopsis::";
             // 
             // lbIgen
@@ -192,7 +192,7 @@
             lbIgen.Location = new Point(6, 145);
             lbIgen.Name = "lbIgen";
             lbIgen.Size = new Size(48, 15);
-            lbIgen.TabIndex = 3;
+            lbIgen.TabIndex = 6;
             lbIgen.Text = "Género:";
             // 
             // lbIcal
@@ -201,7 +201,7 @@
             lbIcal.Location = new Point(0, 101);
             lbIcal.Name = "lbIcal";
             lbIcal.Size = new Size(72, 15);
-            lbIcal.TabIndex = 2;
+            lbIcal.TabIndex = 4;
             lbIcal.Text = "Calificación:";
             // 
             // lbIduracion
@@ -210,7 +210,7 @@
             lbIduracion.Location = new Point(6, 53);
             lbIduracion.Name = "lbIduracion";
             lbIduracion.Size = new Size(58, 15);
-            lbIduracion.TabIndex = 1;
+            lbIduracion.TabIndex = 2;
             lbIduracion.Text = "Duración:";
             // 
             // lbItitulo
@@ -252,7 +252,7 @@
             pnTop.Location = new Point(0, 0);
             pnTop.Name = "pnTop";
             pnTop.Size = new Size(1103, 35);
-            pnTop.TabIndex = 6;
+            pnTop.TabIndex = 0;
             // 
             // lbFNombre
             // 
@@ -260,7 +260,7 @@
             lbFNombre.Location = new Point(90, 10);
             lbFNombre.Name = "lbFNombre";
             lbFNombre.Size = new Size(54, 15);
-            lbFNombre.TabIndex = 6;
+            lbFNombre.TabIndex = 0;
             lbFNombre.Text = "Nombre:";
             // 
             // cbCalificacion
@@ -269,7 +269,7 @@
             cbCalificacion.Location = new Point(377, 6);
             cbCalificacion.Name = "cbCalificacion";
             cbCalificacion.Size = new Size(131, 23);
-            cbCalificacion.TabIndex = 11;
+            cbCalificacion.TabIndex = 3;
             // 
             // tbNombre
             // 
@@ -277,14 +277,14 @@
             tbNombre.Name = "tbNombre";
             tbNombre.PlaceholderText = "Nombre de la Película";
             tbNombre.Size = new Size(138, 23);
-            tbNombre.TabIndex = 10;
+            tbNombre.TabIndex = 1;
             // 
             // btnLimpiar
             // 
             btnLimpiar.Location = new Point(635, 6);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(75, 23);
-            btnLimpiar.TabIndex = 9;
+            btnLimpiar.TabIndex = 5;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = true;
             // 
@@ -293,7 +293,7 @@
             btnBuscar.Location = new Point(542, 6);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(75, 23);
-            btnBuscar.TabIndex = 8;
+            btnBuscar.TabIndex = 4;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
             // 
@@ -303,7 +303,7 @@
             lbFClasificacion.Location = new Point(294, 10);
             lbFClasificacion.Name = "lbFClasificacion";
             lbFClasificacion.Size = new Size(77, 15);
-            lbFClasificacion.TabIndex = 7;
+            lbFClasificacion.TabIndex = 2;
             lbFClasificacion.Text = "Clasificación:";
             // 
             // pnBotones
@@ -316,7 +316,7 @@
             pnBotones.Location = new Point(0, 407);
             pnBotones.Name = "pnBotones";
             pnBotones.Size = new Size(1103, 31);
-            pnBotones.TabIndex = 4;
+            pnBotones.TabIndex = 1;
             // 
             // btnCerrar
             // 
@@ -370,7 +370,7 @@
             ssInfo.Location = new Point(0, 0);
             ssInfo.Name = "ssInfo";
             ssInfo.Size = new Size(1103, 30);
-            ssInfo.TabIndex = 1;
+            ssInfo.TabIndex = 0;
             ssInfo.Text = "statusStrip1";
             // 
             // tslPeliculas

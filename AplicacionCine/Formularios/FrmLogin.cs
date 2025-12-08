@@ -1,5 +1,6 @@
 using AplicacionCine.Formularios;
 using AplicacionCine.Modelos;
+using AplicacionCine.Utilidades;
 using System;
 using System.Windows.Forms;
 
@@ -10,7 +11,7 @@ namespace AplicacionCine
         public FrmLogin()
         {
             InitializeComponent();
-
+            TemaCine.Aplicar(this);
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             StartPosition = FormStartPosition.CenterScreen;

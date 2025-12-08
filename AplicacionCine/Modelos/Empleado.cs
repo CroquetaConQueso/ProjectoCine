@@ -13,7 +13,6 @@ namespace AplicacionCine.Modelos
         public string? EmailLaboral { get; set; }
         public DateTime? FechaNacimiento { get; set; }
 
-        // AHORA: enum en lugar de string
         public TipoEmpleado TipoEmpleado { get; set; } = TipoEmpleado.Taquilla;
 
         public string? Turno { get; set; }

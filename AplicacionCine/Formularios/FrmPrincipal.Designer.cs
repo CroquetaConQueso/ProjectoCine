@@ -32,9 +32,21 @@
             pnMStrip = new Panel();
             menuPrincipal = new MenuStrip();
             archivoToolStripMenuItem = new ToolStripMenuItem();
+            configuracionDeConexionToolStripMenuItem = new ToolStripMenuItem();
+            salirToolStripMenuItem = new ToolStripMenuItem();
             pasesToolStripMenuItem = new ToolStripMenuItem();
+            pasesDeHoyToolStripMenuItem = new ToolStripMenuItem();
+            reservasToolStripMenuItem = new ToolStripMenuItem();
+            peliculasToolStripMenuItem = new ToolStripMenuItem();
+            salasToolStripMenuItem = new ToolStripMenuItem();
+            usuariosToolStripMenuItem = new ToolStripMenuItem();
             gestiónToolStripMenuItem = new ToolStripMenuItem();
+            cascadaToolStripMenuItem = new ToolStripMenuItem();
+            mosaicoHorizontalToolStripMenuItem = new ToolStripMenuItem();
+            mosaicoVerticalToolStripMenuItem = new ToolStripMenuItem();
+            cerrarTodasToolStripMenuItem = new ToolStripMenuItem();
             ayudaToolStripMenuItem = new ToolStripMenuItem();
+            acercaDeToolStripMenuItem = new ToolStripMenuItem();
             panelBotones = new Panel();
             toolStrip1 = new ToolStrip();
             btnNavPases = new ToolStripButton();
@@ -50,8 +62,8 @@
             sStrip = new StatusStrip();
             tsLnombreUsuario = new ToolStripStatusLabel();
             tsLusuario = new ToolStripStatusLabel();
-            tsLestado = new ToolStripStatusLabel();
             tsLsituacion = new ToolStripStatusLabel();
+            tsLestado = new ToolStripStatusLabel();
             pnMStrip.SuspendLayout();
             menuPrincipal.SuspendLayout();
             panelBotones.SuspendLayout();
@@ -81,27 +93,104 @@
             // 
             // archivoToolStripMenuItem
             // 
+            archivoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { configuracionDeConexionToolStripMenuItem, salirToolStripMenuItem });
             archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             archivoToolStripMenuItem.Size = new Size(60, 25);
             archivoToolStripMenuItem.Text = "&Archivo";
             // 
+            // configuracionDeConexionToolStripMenuItem
+            // 
+            configuracionDeConexionToolStripMenuItem.Name = "configuracionDeConexionToolStripMenuItem";
+            configuracionDeConexionToolStripMenuItem.Size = new Size(219, 22);
+            configuracionDeConexionToolStripMenuItem.Text = "&Configuración de Conexión";
+            // 
+            // salirToolStripMenuItem
+            // 
+            salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            salirToolStripMenuItem.Size = new Size(219, 22);
+            salirToolStripMenuItem.Text = "&Salir";
+            // 
             // pasesToolStripMenuItem
             // 
+            pasesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { pasesDeHoyToolStripMenuItem, reservasToolStripMenuItem, peliculasToolStripMenuItem, salasToolStripMenuItem, usuariosToolStripMenuItem });
             pasesToolStripMenuItem.Name = "pasesToolStripMenuItem";
-            pasesToolStripMenuItem.Size = new Size(48, 25);
-            pasesToolStripMenuItem.Text = "&Pases";
+            pasesToolStripMenuItem.Size = new Size(59, 25);
+            pasesToolStripMenuItem.Text = "&Gestión";
+            pasesToolStripMenuItem.Click += pasesToolStripMenuItem_Click;
+            // 
+            // pasesDeHoyToolStripMenuItem
+            // 
+            pasesDeHoyToolStripMenuItem.Name = "pasesDeHoyToolStripMenuItem";
+            pasesDeHoyToolStripMenuItem.Size = new Size(144, 22);
+            pasesDeHoyToolStripMenuItem.Text = "Pases de &Hoy";
+            // 
+            // reservasToolStripMenuItem
+            // 
+            reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
+            reservasToolStripMenuItem.Size = new Size(144, 22);
+            reservasToolStripMenuItem.Text = "&Reservas";
+            // 
+            // peliculasToolStripMenuItem
+            // 
+            peliculasToolStripMenuItem.Name = "peliculasToolStripMenuItem";
+            peliculasToolStripMenuItem.Size = new Size(144, 22);
+            peliculasToolStripMenuItem.Text = "P&eliculas";
+            // 
+            // salasToolStripMenuItem
+            // 
+            salasToolStripMenuItem.Name = "salasToolStripMenuItem";
+            salasToolStripMenuItem.Size = new Size(144, 22);
+            salasToolStripMenuItem.Text = "&Salas";
+            // 
+            // usuariosToolStripMenuItem
+            // 
+            usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
+            usuariosToolStripMenuItem.Size = new Size(144, 22);
+            usuariosToolStripMenuItem.Text = "&Usuarios";
             // 
             // gestiónToolStripMenuItem
             // 
+            gestiónToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cascadaToolStripMenuItem, mosaicoHorizontalToolStripMenuItem, mosaicoVerticalToolStripMenuItem, cerrarTodasToolStripMenuItem });
             gestiónToolStripMenuItem.Name = "gestiónToolStripMenuItem";
-            gestiónToolStripMenuItem.Size = new Size(59, 25);
-            gestiónToolStripMenuItem.Text = "&Gestión";
+            gestiónToolStripMenuItem.Size = new Size(61, 25);
+            gestiónToolStripMenuItem.Text = "&Ventana";
+            // 
+            // cascadaToolStripMenuItem
+            // 
+            cascadaToolStripMenuItem.Name = "cascadaToolStripMenuItem";
+            cascadaToolStripMenuItem.Size = new Size(175, 22);
+            cascadaToolStripMenuItem.Text = "&Cascada";
+            // 
+            // mosaicoHorizontalToolStripMenuItem
+            // 
+            mosaicoHorizontalToolStripMenuItem.Name = "mosaicoHorizontalToolStripMenuItem";
+            mosaicoHorizontalToolStripMenuItem.Size = new Size(175, 22);
+            mosaicoHorizontalToolStripMenuItem.Text = "&Mosaico horizontal";
+            // 
+            // mosaicoVerticalToolStripMenuItem
+            // 
+            mosaicoVerticalToolStripMenuItem.Name = "mosaicoVerticalToolStripMenuItem";
+            mosaicoVerticalToolStripMenuItem.Size = new Size(175, 22);
+            mosaicoVerticalToolStripMenuItem.Text = "M&osaico vertical";
+            // 
+            // cerrarTodasToolStripMenuItem
+            // 
+            cerrarTodasToolStripMenuItem.Name = "cerrarTodasToolStripMenuItem";
+            cerrarTodasToolStripMenuItem.Size = new Size(175, 22);
+            cerrarTodasToolStripMenuItem.Text = "Cerrar &Todas";
             // 
             // ayudaToolStripMenuItem
             // 
+            ayudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { acercaDeToolStripMenuItem });
             ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             ayudaToolStripMenuItem.Size = new Size(53, 25);
             ayudaToolStripMenuItem.Text = "A&yuda";
+            // 
+            // acercaDeToolStripMenuItem
+            // 
+            acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            acercaDeToolStripMenuItem.Size = new Size(135, 22);
+            acercaDeToolStripMenuItem.Text = "A&cerca de...";
             // 
             // panelBotones
             // 
@@ -129,7 +218,7 @@
             // btnNavPases
             // 
             btnNavPases.AutoSize = false;
-            btnNavPases.Image = (Image)resources.GetObject("btnNavPases.Image");
+            btnNavPases.Image = Properties.Resources.icons8_entradas_48;
             btnNavPases.ImageScaling = ToolStripItemImageScaling.None;
             btnNavPases.ImageTransparentColor = Color.Magenta;
             btnNavPases.Margin = new Padding(0);
@@ -237,7 +326,8 @@
             // 
             // tsLnombreUsuario
             // 
-            tsLnombreUsuario.BackColor = SystemColors.ButtonFace;
+            tsLnombreUsuario.BackColor = SystemColors.Control;
+            tsLnombreUsuario.BorderStyle = Border3DStyle.SunkenOuter;
             tsLnombreUsuario.Margin = new Padding(0, 3, 10, 2);
             tsLnombreUsuario.Name = "tsLnombreUsuario";
             tsLnombreUsuario.Size = new Size(50, 23);
@@ -245,26 +335,29 @@
             // 
             // tsLusuario
             // 
-            tsLusuario.BackColor = SystemColors.ButtonFace;
+            tsLusuario.BackColor = SystemColors.Control;
+            tsLusuario.BorderStyle = Border3DStyle.SunkenOuter;
             tsLusuario.Name = "tsLusuario";
             tsLusuario.Size = new Size(94, 23);
             tsLusuario.Text = "Nombre Usuario";
             // 
+            // tsLsituacion
+            // 
+            tsLsituacion.BackColor = SystemColors.Control;
+            tsLsituacion.BorderStyle = Border3DStyle.SunkenOuter;
+            tsLsituacion.Margin = new Padding(85, 3, 0, 2);
+            tsLsituacion.Name = "tsLsituacion";
+            tsLsituacion.Size = new Size(27, 23);
+            tsLsituacion.Text = "Rol:";
+            // 
             // tsLestado
             // 
-            tsLestado.BackColor = SystemColors.ButtonFace;
+            tsLestado.BackColor = SystemColors.Control;
+            tsLestado.BorderStyle = Border3DStyle.SunkenOuter;
             tsLestado.Margin = new Padding(0, 3, 10, 2);
             tsLestado.Name = "tsLestado";
             tsLestado.Size = new Size(32, 23);
             tsLestado.Text = "Listo";
-            // 
-            // tsLsituacion
-            // 
-            tsLsituacion.BackColor = SystemColors.ButtonFace;
-            tsLsituacion.Margin = new Padding(85, 3, 0, 2);
-            tsLsituacion.Name = "tsLsituacion";
-            tsLsituacion.Size = new Size(45, 23);
-            tsLsituacion.Text = "Estado:";
             // 
             // FrmPrincipal
             // 
@@ -319,5 +412,17 @@
         private ToolStripStatusLabel tsLusuario;
         private ToolStripStatusLabel tsLestado;
         private ToolStripStatusLabel tsLsituacion;
+        private ToolStripMenuItem configuracionDeConexionToolStripMenuItem;
+        private ToolStripMenuItem salirToolStripMenuItem;
+        private ToolStripMenuItem pasesDeHoyToolStripMenuItem;
+        private ToolStripMenuItem reservasToolStripMenuItem;
+        private ToolStripMenuItem peliculasToolStripMenuItem;
+        private ToolStripMenuItem salasToolStripMenuItem;
+        private ToolStripMenuItem usuariosToolStripMenuItem;
+        private ToolStripMenuItem cascadaToolStripMenuItem;
+        private ToolStripMenuItem mosaicoHorizontalToolStripMenuItem;
+        private ToolStripMenuItem mosaicoVerticalToolStripMenuItem;
+        private ToolStripMenuItem cerrarTodasToolStripMenuItem;
+        private ToolStripMenuItem acercaDeToolStripMenuItem;
     }
 }

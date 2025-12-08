@@ -4,16 +4,25 @@ using System.Drawing;
 using System.Windows.Forms;
 using AplicacionCine.DAO;
 using AplicacionCine.Modelos;
+using AplicacionCine.Utilidades;
 using Npgsql;
 
 namespace AplicacionCine.Formularios
 {
+    /// <summary>
+    /// Mapa visual de butacas para una sala + pase concreto.
+    /// Permite ver ocupación, marcar nuevas reservas y guardar
+    /// la configuración estructural de los asientos.
+    /// </summary>
     public partial class FrmMapaButacas : Form
     {
         private readonly Sala _sala;
         private readonly Pase _pase;
 
+        // Matriz de botones físicos en el TableLayoutPanel.
         private Button[,] _botones = new Button[1, 1];
+
+        // Menú contextual asociado a cada butaca.
         private readonly ContextMenuStrip _menuButaca = new ContextMenuStrip();
         private InfoButaca? _butacaContexto;
         private Button? _btnContexto;
@@ -21,6 +30,7 @@ namespace AplicacionCine.Formularios
         /// <summary>
         /// Estado visual / lógico dentro del mapa.
         /// NO es el mismo enum que el de Reservas.
+        /// Solo se usa para pintar y decidir qué se guarda.
         /// </summary>
         private enum EstadoButaca
         {
@@ -30,6 +40,10 @@ namespace AplicacionCine.Formularios
             NoAccesible = 3  // amarilla (config de sala)
         }
 
+        /// <summary>
+        /// Información asociada a cada botón del mapa:
+        /// posición (fila/columna), estado y tipo de asiento.
+        /// </summary>
         private class InfoButaca
         {
             public int Fila { get; set; }      // índice 0-based
@@ -38,8 +52,14 @@ namespace AplicacionCine.Formularios
             public TipoAsiento Tipo { get; set; }
         }
 
+        /// <summary>
+        /// Crea el mapa para una sala y un pase concretos.
+        /// </summary>
         public FrmMapaButacas(Sala sala, Pase pase)
         {
+            // Aplicamos tema antes de inicializar controles.
+            TemaCine.Aplicar(this);
+
             _sala = sala ?? throw new ArgumentNullException(nameof(sala));
             _pase = pase ?? throw new ArgumentNullException(nameof(pase));
 
@@ -51,11 +71,15 @@ namespace AplicacionCine.Formularios
             btnCancelar.Click += (s, e) => Close();
             btnConfirmarReserva.Click += BtnConfirmarReserva_Click;
 
-            // Evitar que el usuario deforme el layout
+            // Evitar que el usuario deforme el layout.
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
+        /// <summary>
+        /// Carga inicial: títulos, labels y construcción del grid
+        /// + lectura del estado real desde BD.
+        /// </summary>
         private void FrmMapaButacas_Load(object? sender, EventArgs e)
         {
             Text = $"Mapa de butacas - {_sala.Nombre}";
@@ -73,13 +97,17 @@ namespace AplicacionCine.Formularios
 
         #region Menú contextual
 
+        /// <summary>
+        /// Crea y configura las opciones del menú contextual
+        /// que se abre sobre una butaca.
+        /// </summary>
         private void InicializarMenuContexto()
         {
             var itemLibre = new ToolStripMenuItem("Libre", null, (s, e) =>
             {
                 if (_butacaContexto == null || _btnContexto == null) return;
 
-                // No dejamos liberar una butaca marcada como Ocupada (BD)
+                // No dejamos liberar una butaca marcada como Ocupada (BD).
                 if (_butacaContexto.Estado == EstadoButaca.Ocupada)
                 {
                     ActualizarLabelsSeleccion(_butacaContexto);
@@ -153,6 +181,10 @@ namespace AplicacionCine.Formularios
 
         #region Construcción del grid
 
+        /// <summary>
+        /// Genera dinámicamente el TableLayoutPanel de butacas
+        /// y crea un botón + InfoButaca por cada celda.
+        /// </summary>
         private void ConstruirGrid()
         {
             var filas = _sala.Filas <= 0 ? 4 : _sala.Filas;
@@ -214,6 +246,10 @@ namespace AplicacionCine.Formularios
 
         #region Eventos de butaca
 
+        /// <summary>
+        /// Click izquierdo: alterna Libre/Reservada
+        /// (respetando Ocupada y NoAccesible).
+        /// </summary>
         private void BotonButaca_Click(object? sender, EventArgs e)
         {
             if (sender is not Button btn) return;
@@ -234,6 +270,9 @@ namespace AplicacionCine.Formularios
             ActualizarLabelsSeleccion(info);
         }
 
+        /// <summary>
+        /// Click derecho: abre menú contextual para editar estado/tipo.
+        /// </summary>
         private void BotonButaca_MouseUp(object? sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Right) return;
@@ -259,6 +298,9 @@ namespace AplicacionCine.Formularios
             _menuButaca.Show(Cursor.Position);
         }
 
+        /// <summary>
+        /// Asigna el icono apropiado según estado + tipo.
+        /// </summary>
         private void ActualizarIcono(Button btn, InfoButaca info)
         {
             bool di = info.Tipo == TipoAsiento.MovilidadReducida;
@@ -291,6 +333,9 @@ namespace AplicacionCine.Formularios
             }
         }
 
+        /// <summary>
+        /// Refresca el panel de "Selección" con la butaca actual.
+        /// </summary>
         private void ActualizarLabelsSeleccion(InfoButaca info)
         {
             lbSdfila.Text = (info.Fila + 1).ToString();
@@ -303,11 +348,16 @@ namespace AplicacionCine.Formularios
 
         #region Cargar estado desde BD
 
+        /// <summary>
+        /// Lee de BD la configuración estructural de asientos
+        /// (movilidad reducida / no accesible) y las butacas ocupadas
+        /// para el pase actual, y las refleja en el mapa.
+        /// </summary>
         private void CargarEstadoDesdeBD()
         {
             using var conn = DbConnectionFactory.CreateOpenConnection();
 
-            // 1) Configuración de asientos (MR / NoAccesible)
+            // 1) Configuración de asientos (MR / NoAccesible).
             const string sqlAsientos = @"
                 SELECT fila, columna, movilidad_reducida, no_accesible
                 FROM asientos
@@ -345,7 +395,7 @@ namespace AplicacionCine.Formularios
                 }
             }
 
-            // 2) Butacas ocupadas para este pase (JOIN lineas_reserva + asientos)
+            // 2) Butacas ocupadas para este pase (JOIN lineas_reserva + asientos).
             const string sqlOcupadas = @"
                 SELECT a.fila, a.columna
                 FROM lineas_reserva lr
@@ -383,9 +433,13 @@ namespace AplicacionCine.Formularios
 
         #region Confirmar reserva + guardar configuración
 
+        /// <summary>
+        /// Confirma la reserva: crea Reserva + líneas para las butacas
+        /// marcadas como Reservada/Ocupada y guarda configuración MR/NoAcc.
+        /// </summary>
         private void BtnConfirmarReserva_Click(object? sender, EventArgs e)
         {
-            // 1) Butacas que implican reserva (Reservada u Ocupada)
+            // 1) Butacas que implican reserva (Reservada u Ocupada).
             var seleccionadas = ObtenerButacasReservadas();
 
             var usuario = AppContext.UsuarioActual;
@@ -398,7 +452,7 @@ namespace AplicacionCine.Formularios
 
             if (numButacasReserva > 0)
             {
-                // 2) Crear reserva
+                // 2) Crear reserva.
                 total = precioUnitario * numButacasReserva;
 
                 var reserva = new Reserva
@@ -413,7 +467,7 @@ namespace AplicacionCine.Formularios
 
                 idReserva = AppContext.Reservas.InsertReserva(reserva);
 
-                // 3) Insertar líneas para las butacas seleccionadas (evitando duplicados)
+                // 3) Insertar líneas para las butacas seleccionadas (evitando duplicados).
                 using var conn = DbConnectionFactory.CreateOpenConnection();
 
                 foreach (var info in seleccionadas)
@@ -431,13 +485,13 @@ namespace AplicacionCine.Formularios
                         IdAsiento = idAsiento.Value,
                         IdPase = _pase.IdPase,
                         Precio = precioUnitario,
-                        EstadoLinea = "RESERVADA" // o "OCUPADA" si quieres distinguir
+                        EstadoLinea = "RESERVADA" // o "OCUPADA" si quieres distinguir.
                     };
 
                     AppContext.Reservas.InsertLinea(linea);
                 }
 
-                // 4) Guardar configuración estructural (MR / NoAccesible)
+                // 4) Guardar configuración estructural (MR / NoAccesible).
                 using (var conn2 = DbConnectionFactory.CreateOpenConnection())
                 {
                     GuardarConfiguracionAsientos(conn2);
@@ -454,7 +508,7 @@ namespace AplicacionCine.Formularios
             }
             else
             {
-                // No hay reservas nuevas, pero sí queremos guardar la configuración de sala
+                // No hay reservas nuevas, pero sí queremos guardar la configuración de sala.
                 using var conn = DbConnectionFactory.CreateOpenConnection();
                 GuardarConfiguracionAsientos(conn);
 
@@ -469,6 +523,10 @@ namespace AplicacionCine.Formularios
             Close();
         }
 
+        /// <summary>
+        /// Devuelve todas las butacas marcadas como Reservada u Ocupada
+        /// en el grid actual.
+        /// </summary>
         private List<InfoButaca> ObtenerButacasReservadas()
         {
             var lista = new List<InfoButaca>();
@@ -486,6 +544,10 @@ namespace AplicacionCine.Formularios
             return lista;
         }
 
+        /// <summary>
+        /// Comprueba si ya existe una línea para (idPase, idAsiento)
+        /// para evitar duplicar reservas.
+        /// </summary>
         private bool ExisteLineaParaAsiento(NpgsqlConnection conn, int idPase, int idAsiento)
         {
             const string sql = @"
@@ -529,6 +591,10 @@ namespace AplicacionCine.Formularios
             return Convert.ToInt32(result);
         }
 
+        /// <summary>
+        /// Persiste en la tabla ASIENTOS las flags de
+        /// movilidad_reducida y no_accesible según el mapa actual.
+        /// </summary>
         private void GuardarConfiguracionAsientos(NpgsqlConnection conn)
         {
             const string sql = @"
@@ -564,6 +630,9 @@ namespace AplicacionCine.Formularios
 
         #endregion
 
+        /// <summary>
+        /// Resetea el panel de detalle de selección.
+        /// </summary>
         private void LimpiarSeleccion()
         {
             lbSdfila.Text = "-";

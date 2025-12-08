@@ -40,13 +40,13 @@
             tsslPasesEstado = new ToolStripStatusLabel();
             tsslPasesSeleccion = new ToolStripStatusLabel();
             pnFiltro = new Panel();
+            btnLimpiar = new Button();
             btnHoy = new Button();
             btnBuscar = new Button();
             cbPeliculas = new ComboBox();
             lbPelicula = new Label();
             dtpFecha = new DateTimePicker();
             lbFecha = new Label();
-            btnLimpiar = new Button();
             pnTotal.SuspendLayout();
             pnGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPases).BeginInit();
@@ -94,7 +94,7 @@
             pnOpciones.Location = new Point(0, 387);
             pnOpciones.Name = "pnOpciones";
             pnOpciones.Size = new Size(953, 31);
-            pnOpciones.TabIndex = 3;
+            pnOpciones.TabIndex = 2;
             // 
             // btnVerButacas
             // 
@@ -160,12 +160,21 @@
             pnFiltro.Size = new Size(953, 49);
             pnFiltro.TabIndex = 1;
             // 
+            // btnLimpiar
+            // 
+            btnLimpiar.Location = new Point(531, 16);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new Size(75, 23);
+            btnLimpiar.TabIndex = 5;
+            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.UseVisualStyleBackColor = true;
+            // 
             // btnHoy
             // 
             btnHoy.Location = new Point(713, 16);
             btnHoy.Name = "btnHoy";
             btnHoy.Size = new Size(75, 23);
-            btnHoy.TabIndex = 5;
+            btnHoy.TabIndex = 6;
             btnHoy.Text = "Hoy";
             btnHoy.UseVisualStyleBackColor = true;
             // 
@@ -211,15 +220,6 @@
             lbFecha.Size = new Size(41, 15);
             lbFecha.TabIndex = 0;
             lbFecha.Text = "Fecha:";
-            // 
-            // btnLimpiar
-            // 
-            btnLimpiar.Location = new Point(531, 16);
-            btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(75, 23);
-            btnLimpiar.TabIndex = 6;
-            btnLimpiar.Text = "Limpiar";
-            btnLimpiar.UseVisualStyleBackColor = true;
             // 
             // FrmPasesHoy
             // 
