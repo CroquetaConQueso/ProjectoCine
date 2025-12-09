@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             pnTotal = new Panel();
             pnBot = new Panel();
-            cbUsuario = new CheckBox();
             btnEntrar = new Button();
             txtContrasena = new TextBox();
             lbContrasena = new Label();
@@ -55,7 +54,6 @@
             // 
             // pnBot
             // 
-            pnBot.Controls.Add(cbUsuario);
             pnBot.Controls.Add(btnEntrar);
             pnBot.Controls.Add(txtContrasena);
             pnBot.Controls.Add(lbContrasena);
@@ -65,16 +63,6 @@
             pnBot.Name = "pnBot";
             pnBot.Size = new Size(295, 212);
             pnBot.TabIndex = 0;
-            // 
-            // cbUsuario
-            // 
-            cbUsuario.AutoSize = true;
-            cbUsuario.Location = new Point(79, 84);
-            cbUsuario.Name = "cbUsuario";
-            cbUsuario.Size = new Size(130, 19);
-            cbUsuario.TabIndex = 2;
-            cbUsuario.Text = "Recuerda el Usuario";
-            cbUsuario.UseVisualStyleBackColor = true;
             // 
             // btnEntrar
             // 
@@ -155,6 +143,5 @@
         private Label lbContrasena;
         private TextBox txtUsuario;
         private PictureBox pictureBox1;
-        private CheckBox cbUsuario;
     }
 }
