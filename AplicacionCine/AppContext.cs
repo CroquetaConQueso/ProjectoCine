@@ -20,5 +20,6 @@ namespace AplicacionCine
         public static SalaDAO Salas { get; } = new SalaDAO();
         public static PaseDAO Pases { get; } = new PaseDAO();
         public static ReservaDAO Reservas { get; } = new ReservaDAO();
+        public static AsientoDAO Asientos { get; } = new AsientoDAO();
     }
 }

@@ -154,6 +154,79 @@ namespace AplicacionCine.DAO
             return resultado;
         }
 
+        // --------- MÉTODOS EXTRA PARA MAPA DE BUTACAS ---------
+
+        /// <summary>
+        /// Devuelve las butacas ocupadas (fila, columna) para un pase,
+        /// ignorando reservas CANCELADAS.
+        /// </summary>
+        public List<(int fila, int columna)> GetButacasOcupadasDePase(int idPase)
+        {
+            const string sql = @"
+                SELECT a.fila, a.columna
+                FROM lineas_reserva lr
+                JOIN reservas r ON r.id_reserva = lr.id_reserva
+                JOIN asientos a ON a.id_asiento = lr.id_asiento
+                WHERE lr.id_pase = @IdPase
+                  AND UPPER(r.estado) <> @EstadoCancelada;
+            ";
+
+            var resultado = new List<(int fila, int columna)>();
+
+            using var conn = DbConnectionFactory.CreateOpenConnection();
+            using var cmd = new NpgsqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("IdPase", idPase);
+            cmd.Parameters.AddWithValue(
+                "EstadoCancelada",
+                EstadoReserva.Cancelada.ToString().ToUpperInvariant()
+            );
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int fila = reader.GetInt32(reader.GetOrdinal("fila"));
+                int columna = reader.GetInt32(reader.GetOrdinal("columna"));
+                resultado.Add((fila, columna));
+            }
+
+            return resultado;
+        }
+
+        /// <summary>
+        /// Indica si existe una línea "activa" (no cancelada) para un asiento en un pase.
+        /// Se ignoran:
+        ///  - Reservas con estado CANCELADA
+        ///  - Líneas con estado_linea = 'CANCELADA'
+        /// </summary>
+        public bool ExisteLineaParaAsiento(int idPase, int idAsiento)
+        {
+            const string sql = @"
+                SELECT COUNT(*)
+                FROM lineas_reserva lr
+                JOIN reservas r ON r.id_reserva = lr.id_reserva
+                WHERE lr.id_pase    = @IdPase
+                  AND lr.id_asiento = @IdAsiento
+                  AND UPPER(r.estado) <> @EstadoCancelada
+                  AND (
+                        lr.estado_linea IS NULL
+                        OR UPPER(lr.estado_linea) <> 'CANCELADA'
+                      );
+            ";
+
+            using var conn = DbConnectionFactory.CreateOpenConnection();
+            using var cmd = new NpgsqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("IdPase", idPase);
+            cmd.Parameters.AddWithValue("IdAsiento", idAsiento);
+            cmd.Parameters.AddWithValue(
+                "EstadoCancelada",
+                EEstadoReserva.Cancelada.ToString().ToUpperInvariant()
+            );
+
+            long count = Convert.ToInt64(cmd.ExecuteScalar());
+            return count > 0;
+        }
+
         // --------- CRUD RESERVA ---------
 
         /// <summary>

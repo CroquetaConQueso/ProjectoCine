@@ -18,7 +18,7 @@ namespace AplicacionCine.Formularios
             InitializeComponent();
             TemaCine.Aplicar(this);
             MaximizeBox = false;
-            FormBorderStyle = FormBorderStyle.FixedSingle;   // <-- añadido
+            FormBorderStyle = FormBorderStyle.FixedSingle;
 
             // Eventos de la ventana
             Load += FrmBrowReservas_Load;
@@ -26,8 +26,8 @@ namespace AplicacionCine.Formularios
             btnLimpiar.Click += BtnLimpiar_Click;
             btnEditar.Click += BtnEditar_Click;
             btnEliminar.Click += BtnEliminar_Click;
-            btnMapa.Click += BtnMapa_Click;
-            btnCerrar.Click += (s, e) => Close();
+            // btnMapa eliminado
+            // btnCerrar eliminado (el cierre será por la X del formulario)
 
             dvgUsuarios.CellDoubleClick += DgvUsuarios_CellDoubleClick;
             dvgUsuarios.SelectionChanged += DvgUsuarios_SelectionChanged;
@@ -152,39 +152,6 @@ namespace AplicacionCine.Formularios
 
             // Refrescar listado
             Buscar();
-        }
-
-        private void BtnMapa_Click(object? sender, EventArgs e)
-        {
-            var reserva = GetReservaActual();
-            if (reserva == null)
-            {
-                MessageBox.Show("Selecciona una reserva.", "Reservas",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            var pase = AppContext.Pases.GetById(reserva.IdPase);
-            if (pase == null)
-            {
-                MessageBox.Show("No se ha encontrado el pase asociado.", "Reservas",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var sala = AppContext.Salas.GetById(pase.IdSala);
-            if (sala == null)
-            {
-                MessageBox.Show("No se ha encontrado la sala del pase.", "Reservas",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var frm = new FrmMapaButacas(sala, pase)
-            {
-                MdiParent = MdiParent
-            };
-            frm.Show();
         }
 
         private void DgvUsuarios_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
@@ -337,4 +304,3 @@ namespace AplicacionCine.Formularios
         }
     }
 }
-

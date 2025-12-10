@@ -37,8 +37,6 @@
             tslReservasImporte = new ToolStripStatusLabel();
             tslReservasSeleccion = new ToolStripStatusLabel();
             pnBotones = new Panel();
-            btnCerrar = new Button();
-            btnMapa = new Button();
             btnEliminar = new Button();
             btnEditar = new Button();
             pnInfo = new Panel();
@@ -126,8 +124,6 @@
             // pnBotones
             // 
             pnBotones.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            pnBotones.Controls.Add(btnCerrar);
-            pnBotones.Controls.Add(btnMapa);
             pnBotones.Controls.Add(btnEliminar);
             pnBotones.Controls.Add(btnEditar);
             pnBotones.Location = new Point(0, 527);
@@ -135,27 +131,9 @@
             pnBotones.Size = new Size(781, 38);
             pnBotones.TabIndex = 4;
             // 
-            // btnCerrar
-            // 
-            btnCerrar.Location = new Point(502, 8);
-            btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(75, 23);
-            btnCerrar.TabIndex = 8;
-            btnCerrar.Text = "Cerrar";
-            btnCerrar.UseVisualStyleBackColor = true;
-            // 
-            // btnMapa
-            // 
-            btnMapa.Location = new Point(375, 8);
-            btnMapa.Name = "btnMapa";
-            btnMapa.Size = new Size(75, 23);
-            btnMapa.TabIndex = 7;
-            btnMapa.Text = "Ver Mapa";
-            btnMapa.UseVisualStyleBackColor = true;
-            // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(266, 8);
+            btnEliminar.Location = new Point(382, 8);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(75, 23);
             btnEliminar.TabIndex = 6;
@@ -164,7 +142,7 @@
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(154, 8);
+            btnEditar.Location = new Point(276, 8);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(75, 23);
             btnEditar.TabIndex = 5;
@@ -342,11 +320,9 @@
         private Label lblPelicula;
         private DateTimePicker dateTimePicker1;
         private Panel pnBotones;
-        private Button btnMapa;
         private Button btnEliminar;
         private Button btnEditar;
         private Button btnNuevo;
-        private Button btnCerrar;
         private Panel pnStatus;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel tslReservasResumen;
